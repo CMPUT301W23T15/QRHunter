@@ -27,6 +27,25 @@
     <li><a href=#US01.07.01>US 01.07.01</a></li>
 </ul>  
 
+<h2>Calculating Story Point Size</h2>
+<ul>
+    <li>Story point size is how long it will take to finish a piece of work in relation to other pieces of work. In other words, story points measure the estimated effort needed to complete a given user story 
+    </l1>
+    <li>Reference: (Ildar Akhmetov:https://eclass.srv.ualberta.ca/mod/forum/discuss.php?d=2192749).</li>
+    <li>We will measure Story Point Size using Relatively Low, Medium, and High</li>
+<li>Denoted as RL, RM, and RH respectively.</li>
+</ul>
+
+<h2>Calculating Risk Level</h2>
+<ul>
+    <li>Risk Level is a subjective rating of the relative uncertainty around the successful completion of a user story</li>
+    <li>Reference (Ildar Akhmetov:https://eclass.srv.ualberta.ca/mod/forum/discuss.php?d=2192749).</li>
+    <l1>We will measure it the same as Story point size, as RL, RM, And RH</li>
+
+
+</ul>
+
+
 
 <h2 >Player Info's</h2>
 <table>
