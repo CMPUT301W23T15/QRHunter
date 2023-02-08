@@ -33,7 +33,8 @@
     </l1>
     <li>Reference: (Ildar Akhmetov:https://eclass.srv.ualberta.ca/mod/forum/discuss.php?d=2192749).</li>
     <li>We will measure Story Point Size using Relatively Low, Medium, and High</li>
-<li>Denoted as RL, RM, and RH respectively.</li>
+    <li>Denoted as RL, RM, and RH respectively.</li>
+    <li>Use T-shirt sizes (S, M, L, XL)?</li>
 </ul>
 
 <h2>Calculating Risk Level</h2>
@@ -41,6 +42,7 @@
     <li>Risk Level is a subjective rating of the relative uncertainty around the successful completion of a user story</li>
     <li>Reference (Ildar Akhmetov:https://eclass.srv.ualberta.ca/mod/forum/discuss.php?d=2192749).</li>
     <li>We will measure it the same as Story point size, as RL, RM, And RH</li>
+    <li>Possibly use Low, Medium, High</li>
 
 
 </ul>
