@@ -80,22 +80,23 @@
     <li>Story point size is how long it will take to finish a piece of work in relation to other pieces of work. In other words, story points measure the estimated effort needed to complete a given user story 
     </l1>
     <li>Reference: (Ildar Akhmetov:https://eclass.srv.ualberta.ca/mod/forum/discuss.php?d=2192749).</li>
-    <li>We will measure Story Point Size using Small, Medium, Large, Extra Large</li>
-<li>Denoted as S,M,L,XL.</li>
+    <li>We will measure Story Point Size using Small, Medium, Large, Extra Large/li>
+<li>Denoted as S,M,L,XL respectively.</li>
 </ul>
 
 <h2>Calculating Risk Level</h2>
 <ul>
     <li>Risk Level is a subjective rating of the relative uncertainty around the successful completion of a user story</li>
     <li>Reference (Ildar Akhmetov:https://eclass.srv.ualberta.ca/mod/forum/discuss.php?d=2192749).</li>
-    <li>We will measure Risk Level using Low, Medium and High </li>
+    <li>We will measure the Risk Level with Low, Medium, and High</li>
+    <li>Denoted as L,M,H Respectively</li>
 
 
 </ul>
 
 
 
-<h2 >Player Info's</h2>
+<h2 >Player Info</h2>
 <table>
   <tr>
     <th>User Story ID</th>
@@ -213,7 +214,7 @@
 </tr>
 </table>
 
-<h2>Player Profile info</h2>
+<h2>Player Profile Info</h2>
 <table>
   <tr>
     <th>User Story ID</th>
@@ -241,7 +242,7 @@
 </tr>
 </table>
 
-<h2>Searching info</h2>
+<h2>Searching Info</h2>
 <table>
   <tr>
     <th>User Story ID</th>
@@ -268,7 +269,7 @@
 </table>
 
 
-<h2>Location Into</h2>
+<h2>Location Info</h2>
 <table>
   <tr>
     <th>User Story ID</th>
@@ -289,7 +290,7 @@
 </table>
 
 
-<h2>Scoring info</h2>
+<h2>Scoring Info</h2>
 <table>
   <tr>
     <th>User Story ID</th>
@@ -317,7 +318,7 @@
 </tr>
 </table>
 
-<h2>Privacy info</h2>
+<h2>Privacy Info</h2>
 <table>
   <tr>
     <th>User Story ID</th>
@@ -348,7 +349,7 @@
 </table>
 
 
-<h2>Privacy Into</h2>
+<h2>Privacy Info</h2>
 <table>
   <tr>
     <th>User Story ID</th>
