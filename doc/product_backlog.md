@@ -89,7 +89,6 @@
     <li>Risk Level is a subjective rating of the relative uncertainty around the successful completion of a user story</li>
     <li>Reference (Ildar Akhmetov:https://eclass.srv.ualberta.ca/mod/forum/discuss.php?d=2192749).</li>
     <li>We will measure the Risk Level with Low, Medium, and High</li>
-    <li>Denoted as L,M,H Respectively</li>
 
 
 </ul>
