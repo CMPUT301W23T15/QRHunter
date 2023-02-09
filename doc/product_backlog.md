@@ -89,8 +89,11 @@
     <li>Risk Level is a subjective rating of the relative uncertainty around the successful completion of a user story</li>
     <li>Reference (Ildar Akhmetov:https://eclass.srv.ualberta.ca/mod/forum/discuss.php?d=2192749).</li>
     <li>We will measure the Risk Level with Low, Medium, and High</li>
+</ul>
 
-
+<h2>Status</h2>
+<ul>
+    <li>Marked as Complete or Incomplete (C/I)</li>
 </ul>
 
 
@@ -102,6 +105,7 @@
     <th>Description</th>
     <th>Estimated Story Point Size</th>
     <th> Estimated Risk Level</th>
+    <th> Status (C/I)</th>
   </tr>
 
 <tr>
@@ -109,6 +113,7 @@
     <td>As a player, I want to add new QR codes to my account.</td>
     <td>WHAT DO WE WRITE HERE?</td>
     <td>we will score it somehow</td>
+    <td>I</td>
 </tr>
 
 <tr>
@@ -117,12 +122,14 @@
     </td>
     <td>WHAT DO WE WRITE HERE?</td>
     <td>we will score it somehow</td>
+      <td>I</td>
 <tr>
     <td id="US01.03.01">US 01.03.01</td>
     <td>As a player, I want to remove QR codes from my account.
 </td>
     <td>WHAT DO WE WRITE HERE?</td>
     <td>we will score it somehow</td>
+      <td>I</td>
 </tr>
 
 <tr>
@@ -131,6 +138,7 @@
 </td>
     <td>WHAT DO WE WRITE HERE?</td>
     <td>we will score it somehow</td>
+      <td>I</td>
 </tr>
 
 <tr>
@@ -138,6 +146,7 @@
     <td>As a player, I want to see the sum of scores of QR codes that I have scanned.</td>
     <td>WHAT DO WE WRITE HERE?</td>
     <td>we will score it somehow</td>
+      <td>I</td>
 </tr>
 
 <tr>
@@ -145,6 +154,7 @@
     <td>As a player, I want to see the total number of QR codes that I have scanned.</td>
     <td>WHAT DO WE WRITE HERE?</td>
     <td>we will score it somehow</td>
+      <td>I</td>
 </tr>
 
 <tr>
@@ -152,6 +162,7 @@
     <td>As a player, I want to see other player’s profiles</td>
     <td>WHAT DO WE WRITE HERE?</td>
     <td>we will score it somehow</td>
+      <td>I</td>
 </tr>
 </tr>
 </table>
@@ -163,6 +174,7 @@
     <th>Description</th>
     <th>Estimated Story Point Size</th>
     <th> Estimated Risk Level</th>
+    <th> Status (C/I)</th>
   </tr>
 
 <tr>
@@ -171,6 +183,7 @@
 </td>
     <td>WHAT DO WE WRITE HERE?</td>
     <td>we will score it somehow</td>
+      <td>I</td>
 </tr>
 
 <tr>
@@ -178,6 +191,7 @@
     <td>As a player, I want to be able to comment on QR codes.</td>
     <td>WHAT DO WE WRITE HERE?</td>
     <td>we will score it somehow</td>
+      <td>I</td>
 </tr>
 
 <tr>
@@ -186,6 +200,7 @@
 </td>
     <td>WHAT DO WE WRITE HERE?</td>
     <td>we will score it somehow</td>
+      <td>I</td>
 </tr>
 
 <tr>
@@ -194,6 +209,7 @@
 </td>
     <td>WHAT DO WE WRITE HERE?</td>
     <td>we will score it somehow</td>
+      <td>I</td>
 </tr>
 
 <tr>
@@ -202,6 +218,7 @@
 </td>
     <td>WHAT DO WE WRITE HERE?</td>
     <td>we will score it somehow</td>
+      <td>I</td>
 </tr>
 
 <tr>
@@ -210,6 +227,7 @@
 </td>
     <td>WHAT DO WE WRITE HERE?</td>
     <td>we will score it somehow</td>
+      <td>I</td>
 </tr>
 </table>
 
@@ -220,6 +238,7 @@
     <th>Description</th>
     <th>Estimated Story Point Size</th>
     <th> Estimated Risk Level</th>
+    <th> Status (C/I)</th>
   </tr>
 
 <tr>
@@ -228,16 +247,16 @@
 </td>
     <td>WHAT DO WE WRITE HERE?</td>
     <td>we will score it somehow</td>
+      <td>I</td>
 </tr>
 
 <tr>
     <td id="US04.02.01">US 04.02.01</td>
     <td>As a player, I do not want to log into my application using a username and password as my device can identify me.
-
-
 </td>
     <td>WHAT DO WE WRITE HERE?</td>
     <td>we will score it somehow</td>
+      <td>I</td>
 </tr>
 </table>
 
@@ -248,6 +267,7 @@
     <th>Description</th>
     <th>Estimated Story Point Size</th>
     <th> Estimated Risk Level</th>
+    <th> Status (C/I)</th>
   </tr>
 
   <tr>
@@ -257,6 +277,7 @@
 </td>
     <td>WHAT DO WE WRITE HERE?</td>
     <td>we will score it somehow</td>
+        <td>I</td>
 </tr>
 
 <tr>
@@ -264,6 +285,7 @@
     <td>As a player, I want to search for nearby QR codes by using geolocation.</td>
     <td>WHAT DO WE WRITE HERE?</td>
     <td>we will score it somehow</td>
+      <td>I</td>
 </tr>
 </table>
 
@@ -275,6 +297,7 @@
     <th>Description</th>
     <th>Estimated Story Point Size</th>
     <th> Estimated Risk Level</th>
+    <th> Status (C/I)</th>
   </tr>
 
   <tr>
@@ -284,6 +307,8 @@
 </td>
     <td>WHAT DO WE WRITE HERE?</td>
     <td>we will score it somehow</td>
+    <td>I</td>
+    
 </tr>
 
 </table>
@@ -296,6 +321,7 @@
     <th>Description</th>
     <th>Estimated Story Point Size</th>
     <th> Estimated Risk Level</th>
+    <th> Status (C/I)</th>
   </tr>
 
   <tr>
@@ -306,6 +332,7 @@
 </td>
     <td>WHAT DO WE WRITE HERE?</td>
     <td>we will score it somehow</td>
+    <td>I</td>
 </tr>
 
 <tr>
@@ -314,6 +341,7 @@
 </td>
     <td>WHAT DO WE WRITE HERE?</td>
     <td>we will score it somehow</td>
+    <td>I</td>
 </tr>
 </table>
 
@@ -324,6 +352,7 @@
     <th>Description</th>
     <th>Estimated Story Point Size</th>
     <th> Estimated Risk Level</th>
+    <th> Status (C/I)</th>
   </tr>
 
   <tr>
@@ -335,6 +364,7 @@
 </td>
     <td>WHAT DO WE WRITE HERE?</td>
     <td>we will score it somehow</td>
+    <td>I</td>
 </tr>
 
 <tr>
@@ -344,6 +374,7 @@
 </td>
     <td>WHAT DO WE WRITE HERE?</td>
     <td>we will score it somehow</td>
+  <td>I</td>
 </tr>
 </table>
 
@@ -355,6 +386,7 @@
     <th>Description</th>
     <th>Estimated Story Point Size</th>
     <th> Estimated Risk Level</th>
+    <th> Status (C/I)</th>
   </tr>
 
   <tr>
@@ -363,6 +395,7 @@
 </td>
     <td>WHAT DO WE WRITE HERE?</td>
     <td>we will score it somehow</td>
+    <td>I</td>
 </tr>
 
 </table>
