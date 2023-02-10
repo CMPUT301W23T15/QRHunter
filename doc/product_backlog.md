@@ -379,7 +379,7 @@
 </table>
 
 
-<h2>Privacy Info</h2>
+<h2>Owner</h2>
 <table>
   <tr>
     <th>User Story ID</th>
