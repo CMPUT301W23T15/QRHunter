@@ -95,6 +95,11 @@
     <li>Marked as Complete or Incomplete (C/I)</li>
 </ul>
 
+<h2> Sprints</h2>
+<ul>
+  <li>Sprints can be defined as the to-do list of each time period that us as a team want done</li>
+  <li>As in what we want/need to complete per spring with a timeline in mind</li>
+</ul>
 
 
 <h2 >Player Info</h2>
@@ -393,3 +398,10 @@
 </tr>
 
 </table>
+
+<h2>Sprint 1: Project Part 3 -- Halfway Checkpoint on Monday, March 13 2023</h2>
+<ul>
+    <li><a href=#US04.01.01>US 04.01.01</a></li>
+    <li><a href=#US04.02.01>US 04.02.01</a></li>
+</ul>  
+
