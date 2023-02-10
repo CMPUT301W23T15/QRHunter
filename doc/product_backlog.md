@@ -80,8 +80,7 @@
     <li>Story point size is how long it will take to finish a piece of work in relation to other pieces of work. In other words, story points measure the estimated effort needed to complete a given user story 
     </l1>
     <li>Reference: (Ildar Akhmetov:https://eclass.srv.ualberta.ca/mod/forum/discuss.php?d=2192749).</li>
-    <li>We will measure Story Point Size using Small, Medium, Large, Extra Large</li>
-<li>Denoted as S,M,L,XL respectively.</li>
+    <li>We will measure Story Point Size using Small, Medium, Large, XLarge</li>
 </ul>
 
 <h2>Calculating Risk Level</h2>
@@ -111,8 +110,8 @@
 <tr>
     <td id="US01.01.01">US 01.01.01</td>
     <td>As a player, I want to add new QR codes to my account.</td>
-    <td>WHAT DO WE WRITE HERE?</td>
-    <td>we will score it somehow</td>
+    <td>Medium</td>
+    <td>Low</td>
     <td>I</td>
 </tr>
 
@@ -120,15 +119,15 @@
     <td id="US01.02.01">US 01.02.01</td>
     <td>As a player, I want to see what QR codes I have added to my account.
     </td>
-    <td>WHAT DO WE WRITE HERE?</td>
-    <td>we will score it somehow</td>
+    <td>Small</td>
+    <td>Low</td>
       <td>I</td>
 <tr>
     <td id="US01.03.01">US 01.03.01</td>
     <td>As a player, I want to remove QR codes from my account.
 </td>
-    <td>WHAT DO WE WRITE HERE?</td>
-    <td>we will score it somehow</td>
+    <td>Medium</td>
+    <td>Low</td>
       <td>I</td>
 </tr>
 
@@ -136,32 +135,32 @@
     <td id="US01.04.01">US 01.04.01</td>
     <td>As a player, I want to see my highest and lowest scoring QR codes.
 </td>
-    <td>WHAT DO WE WRITE HERE?</td>
-    <td>we will score it somehow</td>
+    <td>Small</td>
+    <td>Low</td>
       <td>I</td>
 </tr>
 
 <tr>
     <td id="US01.05.01">US 01.05.01</td>
     <td>As a player, I want to see the sum of scores of QR codes that I have scanned.</td>
-    <td>WHAT DO WE WRITE HERE?</td>
-    <td>we will score it somehow</td>
+    <td>Small</td>
+    <td>Low</td>
       <td>I</td>
 </tr>
 
 <tr>
     <td id="US01.06.01">US 01.06.01</td>
     <td>As a player, I want to see the total number of QR codes that I have scanned.</td>
-    <td>WHAT DO WE WRITE HERE?</td>
-    <td>we will score it somehow</td>
+    <td>Small</td>
+    <td>Medium</td>
       <td>I</td>
 </tr>
 
 <tr>
     <td id="US01.07.01">US 01.07.01</td>
     <td>As a player, I want to see other player’s profiles</td>
-    <td>WHAT DO WE WRITE HERE?</td>
-    <td>we will score it somehow</td>
+    <td>Medium</td>
+    <td>Medium</td>
       <td>I</td>
 </tr>
 </tr>
@@ -181,16 +180,16 @@
     <td id="US02.01.01">US 02.01.01</td>
     <td>As a player, I want to be able to scan QR codes and record a photo of the location or object, and the geolocation of the location or object.
 </td>
-    <td>WHAT DO WE WRITE HERE?</td>
-    <td>we will score it somehow</td>
+    <td>XLarge</td>
+    <td>High</td>
       <td>I</td>
 </tr>
 
 <tr>
     <td id="US02.02.01">US 02.02.01</td>
     <td>As a player, I want to be able to comment on QR codes.</td>
-    <td>WHAT DO WE WRITE HERE?</td>
-    <td>we will score it somehow</td>
+    <td>Small</td>
+    <td>Low</td>
       <td>I</td>
 </tr>
 
@@ -198,8 +197,8 @@
     <td id="US02.03.01">US 02.03.01</td>
     <td>As a player, I want to be able to browse QR codes that other players have scanned.
 </td>
-    <td>WHAT DO WE WRITE HERE?</td>
-    <td>we will score it somehow</td>
+    <td>Large</td>
+    <td>Medium</td>
       <td>I</td>
 </tr>
 
@@ -207,8 +206,8 @@
     <td id="US02.04.01">US 02.04.01</td>
     <td>As a player, I want to see that other players have scanned the same QR code.
 </td>
-    <td>WHAT DO WE WRITE HERE?</td>
-    <td>we will score it somehow</td>
+    <td>Large</td>
+    <td>Medium</td>
       <td>I</td>
 </tr>
 
@@ -216,8 +215,8 @@
     <td id="US02.05.01">US 02.05.01</td>
     <td>As a player, I want QR codes to have a unique human readable name.
 </td>
-    <td>WHAT DO WE WRITE HERE?</td>
-    <td>we will score it somehow</td>
+    <td>Large</td>
+    <td>High</td>
       <td>I</td>
 </tr>
 
@@ -225,8 +224,8 @@
     <td id="US02.06.01">US 02.06.01</td>
     <td>As a player, I want to see a visual representation of a QR code relatively unique to that QR code.
 </td>
-    <td>WHAT DO WE WRITE HERE?</td>
-    <td>we will score it somehow</td>
+    <td>XLarge</td>
+    <td>High</td>
       <td>I</td>
 </tr>
 </table>
@@ -245,8 +244,8 @@
     <td id="US04.01.01">US 04.01.01</td>
     <td>As a player, I want a profile with a unique username and my contact information.
 </td>
-    <td>WHAT DO WE WRITE HERE?</td>
-    <td>we will score it somehow</td>
+    <td>Small</td>
+    <td>Medium</td>
       <td>I</td>
 </tr>
 
@@ -254,8 +253,8 @@
     <td id="US04.02.01">US 04.02.01</td>
     <td>As a player, I do not want to log into my application using a username and password as my device can identify me.
 </td>
-    <td>WHAT DO WE WRITE HERE?</td>
-    <td>we will score it somehow</td>
+    <td>Medium</td>
+    <td>Medium</td>
       <td>I</td>
 </tr>
 </table>
@@ -275,16 +274,16 @@
     <td>As a player, I want to search for other players by username.
 
 </td>
-    <td>WHAT DO WE WRITE HERE?</td>
-    <td>we will score it somehow</td>
+    <td>Medium</td>
+    <td>Low</td>
         <td>I</td>
 </tr>
 
 <tr>
     <td id="US05.02.01">US 05.02.01</td>
     <td>As a player, I want to search for nearby QR codes by using geolocation.</td>
-    <td>WHAT DO WE WRITE HERE?</td>
-    <td>we will score it somehow</td>
+    <td>Large</td>
+    <td>High</td>
       <td>I</td>
 </tr>
 </table>
@@ -305,8 +304,8 @@
     <td>As a player, I want to see a map of geo-locations of nearby QR codes.
 
 </td>
-    <td>WHAT DO WE WRITE HERE?</td>
-    <td>we will score it somehow</td>
+    <td>Medium</td>
+    <td>Medium</td>
     <td>I</td>
     
 </tr>
@@ -327,11 +326,9 @@
   <tr>
     <td id="US07.01.01">US 07.01.01</td>
     <td>As a player, I want to see game-wide high scores of all players.
-
-
 </td>
-    <td>WHAT DO WE WRITE HERE?</td>
-    <td>we will score it somehow</td>
+    <td>Small</td>
+    <td>Medium</td>
     <td>I</td>
 </tr>
 
@@ -339,8 +336,8 @@
     <td id="US07.02.01">US 07.02.01</td>
     <td>As a player, I want an estimate of my ranking for the highest scoring unique QR code.
 </td>
-    <td>WHAT DO WE WRITE HERE?</td>
-    <td>we will score it somehow</td>
+    <td>Small</td>
+    <td>Low</td>
     <td>I</td>
 </tr>
 </table>
@@ -358,12 +355,9 @@
   <tr>
     <td id="US08.01.01">US 08.01.01</td>
     <td>As a player, I don’t want the actual code recorded. E.g., so I can scan and score my vaccine passport.
-
-
-
 </td>
-    <td>WHAT DO WE WRITE HERE?</td>
-    <td>we will score it somehow</td>
+    <td>Medium</td>
+    <td>High</td>
     <td>I</td>
 </tr>
 
@@ -372,8 +366,8 @@
     <td>As a player, I want to be able to decline recording geolocation for privacy reasons.
 
 </td>
-    <td>WHAT DO WE WRITE HERE?</td>
-    <td>we will score it somehow</td>
+    <td>Medium</td>
+    <td>Medium</td>
   <td>I</td>
 </tr>
 </table>
@@ -393,8 +387,8 @@
     <td id="US09.01.01">US 09.01.01</td>
     <td>As an owner, I don’t want to store big images online.
 </td>
-    <td>WHAT DO WE WRITE HERE?</td>
-    <td>we will score it somehow</td>
+    <td>Medium</td>
+    <td>Medium</td>
     <td>I</td>
 </tr>
 
