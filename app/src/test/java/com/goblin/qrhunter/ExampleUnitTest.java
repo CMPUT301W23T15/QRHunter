@@ -1,4 +1,4 @@
-package com.example.qrhunter;
+package com.goblin.qrhunter;
 
 import org.junit.Test;
 
