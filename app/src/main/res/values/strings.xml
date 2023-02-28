@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">QRHunter</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_summary">Summary</string>
+    <string name="title_search">Search</string>
+    <string name="map_button_text">map</string>
+    <string name="leaderboard_button_text">leaderboard</string>
+    <string name="camera_button_text">scan a code</string>
 </resources>
