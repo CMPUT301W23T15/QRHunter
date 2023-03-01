@@ -17,7 +17,6 @@ public class HomeViewModel extends ViewModel {
         mText.setValue("This is home fragment");
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         PlayerRepository players = new PlayerRepository();
-        Player p1 = new Player("user1", "example@email.com");
     }
 
     public LiveData<String> getText() {
