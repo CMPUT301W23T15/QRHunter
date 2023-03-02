@@ -1,14 +1,25 @@
 package com.goblin.qrhunter;
 
-import com.goblin.qrhunter.data.DAO;
+import android.location.Location;
+
 
 import java.util.UUID;
 
-public class Post implements DAO {
+public class Post {
     private String id;
     private String name;
     private QRCode code;
     private String playerId;
+    private Location location;
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
 
     public Post() {
         // empty constructor required by firebase
