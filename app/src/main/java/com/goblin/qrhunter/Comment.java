@@ -1,10 +1,9 @@
 package com.goblin.qrhunter;
 
-import com.goblin.qrhunter.data.DAO;
 
 import java.util.UUID;
 
-public class Comment implements DAO {
+public class Comment {
     private String id;
     private String playerId;
     private String postId;

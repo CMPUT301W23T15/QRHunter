@@ -38,6 +38,7 @@ public class WelcomeFragment extends Fragment {
         NavController navController = Navigation.findNavController(container);
 
         binding.getStartedButton.setOnClickListener(v-> {
+            // signInAnonymously will only sign if not already signed in
             mAuth.signInAnonymously()
                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override

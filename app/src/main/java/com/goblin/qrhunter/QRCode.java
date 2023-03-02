@@ -1,13 +1,12 @@
 package com.goblin.qrhunter;
 
-import com.goblin.qrhunter.data.DAO;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 
-public class QRCode implements DAO {
+public class QRCode {
     private String hash;
     private int score;
 
@@ -47,7 +46,6 @@ public class QRCode implements DAO {
         return new String(hexChars);
     }
 
-    @Override
     public String getId() {
         return hash;
     }
