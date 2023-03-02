@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_navigation_home_to_scanFragment"
             app:destination="@id/scanFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_welcomeFragment"
+            app:destination="@id/welcomeFragment" />
     </fragment>
 
     <fragment
@@ -59,5 +62,25 @@
             android:id="@+id/action_scanFragment_to_navigation_home"
             app:destination="@id/navigation_home" />
     </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.goblin.qrhunter.ui.profile.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
 
+    <action android:id="@+id/action_navigate_to_profile"
+        app:destination="@id/profileFragment"
+        android:menuCategory="secondary"/>
+    <fragment
+        android:id="@+id/welcomeFragment"
+        android:name="com.goblin.qrhunter.ui.welcome.WelcomeFragment"
+        android:label="fragment_welcome"
+        tools:layout="@layout/fragment_welcome" >
+        <action
+            android:id="@+id/action_welcomeFragment_to_navigation_home"
+            app:destination="@id/navigation_home"
+            app:popUpTo="@+id/welcomeFragment"
+            app:popUpToInclusive="true"
+            />
+    </fragment>
 </navigation>

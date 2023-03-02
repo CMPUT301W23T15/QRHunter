@@ -8,4 +8,5 @@
     <string name="map_button_text">map</string>
     <string name="leaderboard_button_text">leaderboard</string>
     <string name="camera_button_text">scan a code</string>
+    <string name="user_uid_key">com.goblin.qrhunter.USER_UUID</string>
 </resources>
