@@ -1,26 +1,30 @@
 package com.goblin.qrhunter.data;
 
-import androidx.annotation.NonNull;
-
 import com.goblin.qrhunter.Player;
-import com.google.android.gms.tasks.Continuation;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.Map;
 import java.util.Random;
 
+/**
+ * A repository class for managing Player objects in Firestore database.
+ */
 public class PlayerRepository extends BaseRepository<Player> {
 
+    /**
+     * Constructs a new PlayerRepository object and sets the collection reference and the class type.
+     */
     public PlayerRepository() {
         super("players", Player.class);
     }
 
-
+    /**
+     * Gets a player object by its username.
+     * @param username the username of the player to retrieve.
+     * @return a task that returns the player object if successful, or null if the player does not exist.
+     */
     public Task<Player> getPlayerByUsername(String username) {
         return getCollectionRef()
                 .whereEqualTo("username", username)
@@ -42,6 +46,7 @@ public class PlayerRepository extends BaseRepository<Player> {
     private Task<String> randomUsername() {
         String username = "User" + new Random().nextInt(999999999);
         return getPlayerByUsername(username).continueWith(task -> {
+            // if exist retry
             if (task.isSuccessful() && task.getResult() != null) {
                 return randomUsername().getResult();
             } else {
@@ -50,6 +55,12 @@ public class PlayerRepository extends BaseRepository<Player> {
         });
     }
 
+    /**
+     * Adds a new player object with a random unique username and the given ID. Primarly used for
+     * first time signin.
+     * @param id the ID of the new player object.
+     * @return a task that returns null if successful, or an exception if not.
+     */
     public Task<Void> addWithRandomUsername(String id) {
 
         Task<String> usernameTask = this.randomUsername();

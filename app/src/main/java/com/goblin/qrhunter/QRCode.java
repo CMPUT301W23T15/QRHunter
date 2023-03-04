@@ -32,7 +32,6 @@ public class QRCode {
         return calculateScore(hash);
     }
 
-
     public static int calculateScore(String hex) {
         // TODO: determine if should be in post or qrcode
         int score = 0;
