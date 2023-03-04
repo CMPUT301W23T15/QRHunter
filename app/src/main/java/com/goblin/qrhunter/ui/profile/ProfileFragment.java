@@ -17,6 +17,7 @@ import com.goblin.qrhunter.R;
 import com.goblin.qrhunter.databinding.FragmentHomeBinding;
 import com.goblin.qrhunter.databinding.FragmentProfileBinding;
 import com.goblin.qrhunter.ui.home.HomeViewModel;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class ProfileFragment extends Fragment {
 
@@ -32,13 +33,18 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        // homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
 
         mViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
         binding = FragmentProfileBinding.inflate(inflater, container, false);
         TextView txtView = binding.usernameTextView;
-
         mViewModel.getUsername().observe(getViewLifecycleOwner(), txtView::setText);
+
+        binding.signOutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+            }
+        });
         return binding.getRoot();
     }
 

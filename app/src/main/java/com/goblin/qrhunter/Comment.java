@@ -1,9 +1,13 @@
 package com.goblin.qrhunter;
 
 
+import com.goblin.qrhunter.data.Entity;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
-public class Comment {
+public class Comment implements Entity {
     private String id;
     private String playerId;
     private String postId;
@@ -26,6 +30,17 @@ public class Comment {
         this.setText(text);
         this.setId(UUID.randomUUID().toString());
     }
+
+    @Override
+    public Map<String, Object> toMap() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", id);
+        map.put("playerId", playerId);
+        map.put("postId", postId);
+        map.put("text", text);
+        return map;
+    }
+
 
     public String getId() {
         return id;

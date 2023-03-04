@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.goblin.qrhunter.data.PlayerRepository;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
@@ -27,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     FirebaseAuth.AuthStateListener authListener;
     private NavController navController;
+    private PlayerRepository playerDB;
 
     FirebaseAuth auth;
     private final String TAG = "main activity";
@@ -52,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
         FirebaseApp.initializeApp(this);
         auth = FirebaseAuth.getInstance();
+        playerDB = new PlayerRepository();
 
 
     }
@@ -94,6 +98,19 @@ public class MainActivity extends AppCompatActivity {
                     // user signed out
                     startActivity(welcomeIntent);
                 }
+
+                /* trying to update firebaseauth with username from firestore
+                else {
+                    if (user.getDisplayName() == null || user.getDisplayName().length() < 1) {
+                        playerDB.get(user.getUid()).addOnSuccessListener(new OnSuccessListener<Player>() {
+                            @Override
+                            public void onSuccess(Player player) {
+
+                            }
+                        });
+                    }
+                }
+                */
             }
         };
         FirebaseAuth.getInstance().addAuthStateListener(authListener);

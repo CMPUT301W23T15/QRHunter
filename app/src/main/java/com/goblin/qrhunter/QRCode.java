@@ -11,12 +11,9 @@ import java.util.regex.Pattern;
 
 
 public class QRCode {
+
     private String hash;
     private int score;
-
-    public QRCode() {
-        // empty constructor for firebase
-    }
 
     public QRCode(String code) throws NoSuchAlgorithmException {
         hash = toHexString(MessageDigest.getInstance("SHA-256").digest(code.getBytes(StandardCharsets.UTF_8)));
@@ -57,8 +54,8 @@ public class QRCode {
     }
 
     @Exclude
-    // https://stackoverflow.com/questions/332079/in-java-how-do-i-convert-a-byte-array-to-a-string-of-hex-digits-while-keeping-l/2197650#2197650
     public static String toHexString(byte[] bytes) {
+        // https://stackoverflow.com/questions/332079/in-java-how-do-i-convert-a-byte-array-to-a-string-of-hex-digits-while-keeping-l/2197650#2197650
         char[] hexArray = {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
         char[] hexChars = new char[bytes.length * 2];
         int v;
@@ -70,7 +67,5 @@ public class QRCode {
         return new String(hexChars);
     }
 
-    public String getId() {
-        return hash;
-    }
+
 }

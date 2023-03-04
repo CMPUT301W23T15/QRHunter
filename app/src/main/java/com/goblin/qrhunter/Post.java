@@ -3,48 +3,58 @@ package com.goblin.qrhunter;
 import android.location.Location;
 
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
-public class Post {
+import android.location.Location;
+
+import com.goblin.qrhunter.data.Entity;
+
+import java.util.UUID;
+
+public class Post implements Entity {
     private String id;
     private String name;
     private QRCode code;
     private String playerId;
     private Location location;
 
-    public Location getLocation() {
-        return location;
-    }
-
-    public void setLocation(Location location) {
-        this.location = location;
-    }
-
-
     public Post() {
-        // empty constructor required by firebase
+        // empty constructor required by Firebase
     }
 
     public Post(String name, QRCode code, String playerId) {
-        this.name = name;
-        this.code = code;
-        this.playerId = playerId;
-        this.id = UUID.randomUUID().toString();
+        setName(name);
+        setCode(code);
+        setPlayerId(playerId);
+        setId(UUID.randomUUID().toString());
     }
 
-    public Post(String uid, String name, String comment, QRCode code, String playerId) {
-        this.id = uid;
-        this.name = name;
-        this.code = code;
-        this.playerId = playerId;
+    public Post(String id, String name, String comment, QRCode code, String playerId) {
+        setId(id);
+        setName(name);
+        setCode(code);
+        setPlayerId(playerId);
+    }
+
+    @Override
+    public Map<String, Object> toMap() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", id);
+        map.put("name", name);
+        map.put("code", code);
+        map.put("playerId", playerId);
+        map.put("location", location);
+        return map;
     }
 
     public String getId() {
         return id;
     }
 
-    public void setId(String uid) {
-        this.id = uid;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -70,4 +80,15 @@ public class Post {
     public void setPlayerId(String playerId) {
         this.playerId = playerId;
     }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+
 }
+

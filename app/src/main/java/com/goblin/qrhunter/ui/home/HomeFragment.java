@@ -30,12 +30,7 @@ public class HomeFragment extends Fragment {
         View root = binding.getRoot();
 
         final TextView textView = binding.textHome;
-        // homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-        textView.setText("This is home fragment and user not logged in");
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
-            textView.setText("home fragment user: " + user.getDisplayName());
-        }
+        homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
 
 
         NavController navController = Navigation.findNavController(container);
