@@ -14,6 +14,8 @@ import androidx.navigation.Navigation;
 
 import com.goblin.qrhunter.R;
 import com.goblin.qrhunter.databinding.FragmentHomeBinding;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class HomeFragment extends Fragment {
 
@@ -28,7 +30,14 @@ public class HomeFragment extends Fragment {
         View root = binding.getRoot();
 
         final TextView textView = binding.textHome;
-        homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        // homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        textView.setText("This is home fragment and user not logged in");
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            textView.setText("home fragment user: " + user.getDisplayName());
+        }
+
+
         NavController navController = Navigation.findNavController(container);
         binding.mapButton.setOnClickListener(new View.OnClickListener() {
             @Override
