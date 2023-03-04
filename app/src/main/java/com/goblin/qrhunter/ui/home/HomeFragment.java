@@ -14,6 +14,8 @@ import androidx.navigation.Navigation;
 
 import com.goblin.qrhunter.R;
 import com.goblin.qrhunter.databinding.FragmentHomeBinding;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class HomeFragment extends Fragment {
 
@@ -29,6 +31,8 @@ public class HomeFragment extends Fragment {
 
         final TextView textView = binding.textHome;
         homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+
+
         NavController navController = Navigation.findNavController(container);
         binding.mapButton.setOnClickListener(new View.OnClickListener() {
             @Override
