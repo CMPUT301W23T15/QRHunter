@@ -13,10 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.goblin.qrhunter.R;
-import com.goblin.qrhunter.databinding.FragmentHomeBinding;
 import com.goblin.qrhunter.databinding.FragmentProfileBinding;
-import com.goblin.qrhunter.ui.home.HomeViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class ProfileFragment extends Fragment {
