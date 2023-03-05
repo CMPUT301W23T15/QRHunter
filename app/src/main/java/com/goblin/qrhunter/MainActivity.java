@@ -2,27 +2,48 @@ package com.goblin.qrhunter;
 
 import static android.app.PendingIntent.getActivity;
 
+import android.app.Activity;
+import android.Manifest;
+
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Log;
+import android.util.SparseArray;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import com.goblin.qrhunter.data.PlayerRepository;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.vision.Frame;
+import com.google.android.gms.vision.barcode.Barcode;
+import com.google.android.gms.vision.barcode.BarcodeDetector;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.goblin.qrhunter.databinding.ActivityMainBinding;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.ListenerRegistration;
+//import com.dynamsoft.*;
+//import com.dynamsoft.barcode.BarcodeReader;
+//import com.dynamsoft.barcode.BarcodeReaderException;
+
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,6 +55,11 @@ public class MainActivity extends AppCompatActivity {
     FirebaseAuth auth;
     private final String TAG = "main activity";
     private String uid;
+    FloatingActionButton button_camera;
+    private static final int REQUEST_IMAGE_CAPTURE = 1;
+    private static final int MY_PERMISSIONS_REQUEST_CAMERA = 123;
+
+
 
 
     @Override
@@ -56,9 +82,67 @@ public class MainActivity extends AppCompatActivity {
         FirebaseApp.initializeApp(this);
         auth = FirebaseAuth.getInstance();
         playerDB = new PlayerRepository();
+        initCamera();
 
 
     }
+
+    private void initCamera() {
+        button_camera=findViewById(R.id.scan_button);
+        button_camera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Check for camera permission
+                if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                    // Permission is not granted. Request the permission
+                    ActivityCompat.requestPermissions(MainActivity.this,
+                            new String[]{Manifest.permission.CAMERA},
+                            MY_PERMISSIONS_REQUEST_CAMERA);
+                } else {
+                    // Launch the camera to scan the QR code
+                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
+                }
+            }
+        });
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap photo = (Bitmap) extras.get("data");
+
+            // Use the Google Vision API to scan the QR code and extract the data from it
+            BarcodeDetector detector = new BarcodeDetector.Builder(getApplicationContext())
+                    .setBarcodeFormats(Barcode.QR_CODE)
+                    .build();
+
+            if (!detector.isOperational()) {
+                Log.w(TAG, "Could not set up the detector!");
+                return;
+            }
+
+            Frame frame = new Frame.Builder().setBitmap(photo).build();
+            SparseArray<Barcode> barcodes = detector.detect(frame);
+
+            if (barcodes.size() == 0) {
+                Log.w(TAG, "No QR code found in the image!");
+                return;
+            }
+
+            Barcode barcode = barcodes.valueAt(0);
+            String qrCodeData = barcode.displayValue;
+
+            // Handle the scanned data as needed (e.g., display it to the user, save it to a file or database, etc.)
+            Log.d(TAG, "QR code data: " + qrCodeData);
+        }
+    }
+
+
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

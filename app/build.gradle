@@ -57,7 +57,16 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore'
 
     implementation 'com.google.firebase:firebase-auth'
-
+    //Camera implementation
+    implementation 'com.google.android.gms:play-services-vision:11.8.0'
+//    def camerax_version = "1.0.1"
+//    implementation "androidx.camera:camera-camera2:$camerax_version"
+//    implementation "androidx.camera:camera-lifecycle:$camerax_version"
+//    implementation "androidx.camera:camera-view:1.0.0-alpha27"
+//    implementation 'com.dynamsoft:dynamsoftcameraenhancer:2.1.0@aar'
+//    implementation 'com.dynamsoft:dynamsoftbarcodereader:9.0.0@aar'
 }
+
+
 
 apply plugin: 'com.google.gms.google-services'
