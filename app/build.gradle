@@ -58,6 +58,9 @@ dependencies {
 
     implementation 'com.google.firebase:firebase-auth'
 
+    //Camera implementation
+    implementation 'com.google.android.gms:play-services-vision:11.8.0'
+
 }
 
 apply plugin: 'com.google.gms.google-services'
