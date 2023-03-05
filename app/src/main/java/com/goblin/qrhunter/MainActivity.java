@@ -47,6 +47,7 @@ import com.google.firebase.firestore.ListenerRegistration;
 
 public class MainActivity extends AppCompatActivity {
 
+
     private ActivityMainBinding binding;
     FirebaseAuth.AuthStateListener authListener;
     private NavController navController;
