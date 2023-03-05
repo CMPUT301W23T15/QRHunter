@@ -1,7 +1,6 @@
 package com.goblin.qrhunter;
 
 import com.goblin.qrhunter.data.Entity;
-import com.google.firebase.auth.FirebaseUser;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -28,11 +28,4 @@ public class LeaderboardFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_leaderboard, container, false);
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(LeaderboardViewModel.class);
-        // TODO: Use the ViewModel
-    }
-
 }

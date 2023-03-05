@@ -16,7 +16,7 @@ import com.goblin.qrhunter.R;
 
 public class ScanFragment extends Fragment {
 
-    private ScanViewModel mViewModel;
+    private ScanViewModel vModel;
 
     public static ScanFragment newInstance() {
         return new ScanFragment();
@@ -28,11 +28,5 @@ public class ScanFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_scan, container, false);
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(ScanViewModel.class);
-        // TODO: Use the ViewModel
-    }
 
 }
