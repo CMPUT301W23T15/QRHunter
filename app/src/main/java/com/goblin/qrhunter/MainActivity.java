@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.goblin.qrhunter.data.PlayerRepository;
 import com.goblin.qrhunter.ui.welcome.WelcomeActivity;
@@ -19,6 +20,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.goblin.qrhunter.databinding.ActivityMainBinding;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -33,6 +35,10 @@ public class MainActivity extends AppCompatActivity {
     FirebaseAuth auth;
     private final String TAG = "main activity";
     private String uid;
+    FloatingActionButton button_camera;
+    private static final int REQUEST_IMAGE_CAPTURE = 1;
+    private static final int MY_PERMISSIONS_REQUEST_CAMERA = 123;
+
 
 
     @Override
@@ -55,9 +61,40 @@ public class MainActivity extends AppCompatActivity {
         FirebaseApp.initializeApp(this);
         auth = FirebaseAuth.getInstance();
         playerDB = new PlayerRepository();
+        initCamera();
 
 
     }
+
+    private void initCamera() {
+        button_camera=findViewById(R.id.scan_button);
+        button_camera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Check for camera permission
+//                if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+//                    // Permission is not granted. Request the permission
+//                    ActivityCompat.requestPermissions(MainActivity.this,
+//                            new String[]{Manifest.permission.CAMERA},
+//                            MY_PERMISSIONS_REQUEST_CAMERA);
+//                } else {
+//                    // Launch the camera to scan the QR code
+//                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//                    startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
+//                }
+                // * moved to ScanActivity *
+                Intent scanIntent = new Intent(MainActivity.this, ScanActivity.class);
+                button_camera.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        startActivity(scanIntent);
+                    }
+                });
+            }
+        });
+    }
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
