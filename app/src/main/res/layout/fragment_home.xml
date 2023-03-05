@@ -60,5 +60,57 @@
         app:layout_constraintBottom_toBottomOf="@+id/scan_button"
         app:layout_constraintStart_toEndOf="@+id/scan_button"
         app:layout_constraintTop_toTopOf="@+id/scan_button" />
+    <TextView
+        android:id="@+id/text_QRSum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" QR Points Summary:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/title_LowestScoring"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="68dp"
+        android:text="Lowest Scoring:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_QRSum" />
+
+    <TextView
+        android:id="@+id/title_HighestScoring"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Highest Scoring:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        app:layout_constraintBottom_toTopOf="@+id/title_TotalScore"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_LowestScoring" />
+
+    <TextView
+        android:id="@+id/title_TotalScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Total Score:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        app:layout_constraintBottom_toTopOf="@+id/title_TotalQRCode"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_HighestScoring"
+        app:layout_constraintVertical_bias="0.5" />
+
+    <TextView
+        android:id="@+id/title_TotalQRCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="324dp"
+        android:text="Total QR Codes Scanned:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        app:layout_constraintBottom_toTopOf="@+id/map_button"
+        app:layout_constraintStart_toStartOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
