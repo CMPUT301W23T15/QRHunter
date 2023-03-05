@@ -93,52 +93,61 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Check for camera permission
-                if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                    // Permission is not granted. Request the permission
-                    ActivityCompat.requestPermissions(MainActivity.this,
-                            new String[]{Manifest.permission.CAMERA},
-                            MY_PERMISSIONS_REQUEST_CAMERA);
-                } else {
-                    // Launch the camera to scan the QR code
-                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
-                }
+//                if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+//                    // Permission is not granted. Request the permission
+//                    ActivityCompat.requestPermissions(MainActivity.this,
+//                            new String[]{Manifest.permission.CAMERA},
+//                            MY_PERMISSIONS_REQUEST_CAMERA);
+//                } else {
+//                    // Launch the camera to scan the QR code
+//                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//                    startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
+//                }
+                // * moved to ScanActivity *
+                Intent scanIntent = new Intent(MainActivity.this, ScanActivity.class);
+                button_camera.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        startActivity(scanIntent);
+                    }
+                });
             }
         });
     }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            Bundle extras = data.getExtras();
-            Bitmap photo = (Bitmap) extras.get("data");
-
-            // Use the Google Vision API to scan the QR code and extract the data from it
-            BarcodeDetector detector = new BarcodeDetector.Builder(getApplicationContext())
-                    .setBarcodeFormats(Barcode.QR_CODE)
-                    .build();
-
-            if (!detector.isOperational()) {
-                Log.w(TAG, "Could not set up the detector!");
-                return;
-            }
-
-            Frame frame = new Frame.Builder().setBitmap(photo).build();
-            SparseArray<Barcode> barcodes = detector.detect(frame);
-
-            if (barcodes.size() == 0) {
-                Log.w(TAG, "No QR code found in the image!");
-                return;
-            }
-
-            Barcode barcode = barcodes.valueAt(0);
-            String qrCodeData = barcode.displayValue;
-
-            // Handle the scanned data as needed (e.g., display it to the user, save it to a file or database, etc.)
-            Log.d(TAG, "QR code data: " + qrCodeData);
-        }
-    }
+    // * moved to ScanActivity *
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+//            Bundle extras = data.getExtras();
+//            Bitmap photo = (Bitmap) extras.get("data");
+//
+//            // Use the Google Vision API to scan the QR code and extract the data from it
+//            BarcodeDetector detector = new BarcodeDetector.Builder(getApplicationContext())
+//                    .setBarcodeFormats(Barcode.QR_CODE)
+//                    .build();
+//
+//            if (!detector.isOperational()) {
+//                Log.w(TAG, "Could not set up the detector!");
+//                return;
+//            }
+//
+//            Frame frame = new Frame.Builder().setBitmap(photo).build();
+//            SparseArray<Barcode> barcodes = detector.detect(frame);
+//
+//            if (barcodes.size() == 0) {
+//                Log.w(TAG, "No QR code found in the image!");
+//                return;
+//            }
+//
+//            Barcode barcode = barcodes.valueAt(0);
+//            String qrCodeData = barcode.displayValue;
+//
+//            // Handle the scanned data as needed (e.g., display it to the user, save it to a file or database, etc.)
+//            Log.d(TAG, "QR code data: " + qrCodeData);
+//        }
+//    }
 
 
 

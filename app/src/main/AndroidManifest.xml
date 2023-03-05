@@ -38,6 +38,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".WelcomeActivity" />
+        <activity android:name=".ScanActivity" />
+
 
 
     </application>
