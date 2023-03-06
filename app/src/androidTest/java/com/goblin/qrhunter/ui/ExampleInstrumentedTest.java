@@ -1,4 +1,4 @@
-package com.goblin.qrhunter;
+package com.goblin.qrhunter.ui;
 
 import android.content.Context;
 
