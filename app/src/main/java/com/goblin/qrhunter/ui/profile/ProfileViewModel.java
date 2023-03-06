@@ -17,7 +17,7 @@ public class ProfileViewModel extends ViewModel {
         super();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         playerDB = new PlayerRepository();
-        username.setValue("Unknown user");
+        // create unknown player fallback
         if (user != null) {
            playerDB.get(user.getUid()).addOnSuccessListener(player -> username.setValue(player.getUsername()));
         }
