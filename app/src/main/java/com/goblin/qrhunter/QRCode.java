@@ -15,8 +15,12 @@ public class QRCode {
     private String hash;
     private int score;
 
-    public QRCode(String code) throws NoSuchAlgorithmException {
-        hash = toHexString(MessageDigest.getInstance("SHA-256").digest(code.getBytes(StandardCharsets.UTF_8)));
+    public QRCode(String code) {
+        try {
+            hash = toHexString(MessageDigest.getInstance("SHA-256").digest(code.getBytes(StandardCharsets.UTF_8)));
+        } catch (Exception e) {
+            // pass
+        }
     }
 
     public String getHash() {
