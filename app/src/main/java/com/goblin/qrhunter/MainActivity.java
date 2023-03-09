@@ -7,10 +7,15 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.FrameLayout;
 
 import com.goblin.qrhunter.data.PlayerRepository;
+import com.goblin.qrhunter.ui.map.MapViewModel;
 import com.goblin.qrhunter.ui.welcome.WelcomeActivity;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,8 +29,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.type.LatLng;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
 
     private ActivityMainBinding binding;
     FirebaseAuth.AuthStateListener authListener;
@@ -38,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
     FloatingActionButton button_camera;
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int MY_PERMISSIONS_REQUEST_CAMERA = 123;
-
 
 
     @Override
@@ -62,8 +67,6 @@ public class MainActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         playerDB = new PlayerRepository();
         initCamera();
-
-
     }
 
     private void initCamera() {
@@ -93,7 +96,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
