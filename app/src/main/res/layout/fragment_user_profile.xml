@@ -24,6 +24,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         android:text="Username:"
+        android:fontFamily="@font/jetbrainsmono"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView4" />
 
@@ -34,6 +35,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
         android:text="Phone Number:"
+        android:fontFamily="@font/jetbrainsmono"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title_username" />
 
@@ -44,14 +46,33 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
         android:text="Email:"
+        android:fontFamily="@font/jetbrainsmono"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title_phone" />
+
+    <Button
+        android:id="@+id/button_edit_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Edit"
+        android:fontFamily="@font/jetbrainsmono"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.587" />
 
     <Button
         android:id="@+id/button_test_signout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="signout"
-        tools:layout_editor_absoluteX="302dp"
-        tools:layout_editor_absoluteY="660dp" />
+        android:fontFamily="@font/jetbrainsmono"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.713" />
 </androidx.constraintlayout.widget.ConstraintLayout>
