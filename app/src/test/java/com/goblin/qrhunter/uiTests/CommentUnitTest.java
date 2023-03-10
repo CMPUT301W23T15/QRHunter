@@ -1,14 +1,13 @@
 package com.goblin.qrhunter.uiTests;
 
 import com.goblin.qrhunter.Comment;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-
+import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class CommentUnitTest {
     private Comment comment;
 
+//    mockComment used for testing given the parameters
     public Comment MockComment() {
         comment = new Comment("userID", "Player22", "PostID", "Comment Text");
         return comment;
