@@ -25,25 +25,24 @@
         android:layout_marginBottom="28dp"
         android:fontFamily="@font/jetbrainsmono"
         android:text="Welcome to QR Hunter!"
-        android:textSize="24sp"
         android:textColor="@color/black"
+        android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/welcome_button"
         app:layout_constraintEnd_toEndOf="@+id/welcome_button"
-        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="@+id/welcome_button" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/welcome_button"
         android:layout_width="133dp"
         android:layout_height="41dp"
-        android:layout_marginBottom="216dp"
+        android:layout_marginBottom="192dp"
         android:background="@drawable/rounded_style"
         android:backgroundTint="@color/lilac"
         android:fontFamily="@font/jetbrainsmono"
         android:text="get started"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
