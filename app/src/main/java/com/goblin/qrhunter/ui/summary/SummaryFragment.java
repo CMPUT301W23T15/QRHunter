@@ -9,18 +9,26 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.goblin.qrhunter.QRCode;
+import com.goblin.qrhunter.R;
 import com.goblin.qrhunter.databinding.FragmentSummaryBinding;
+
+import java.util.ArrayList;
 
 /**
  * The SummaryFragment class is responsible for displaying a summary of information in the application.
  * It uses the SummaryViewModel class to manage the data and logic behind the summary view.
  */
 public class SummaryFragment extends Fragment {
+    private ArrayList<QRCode> dataList;
+    private ListView qrcodeList;
+    private QRcodesArrayAdapter qrAdapter;
 
     private FragmentSummaryBinding binding;
 
@@ -39,11 +47,22 @@ public class SummaryFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         // SummaryViewModel summaryViewModel = new ViewModelProvider(this).get(SummaryViewModel.class);
-
         binding = FragmentSummaryBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
         final TextView textView = binding.textDashboard;
+
+        // Set up listview, datalist (holds the QR codes), and adapter.
+        dataList = new ArrayList<>();
+        qrcodeList = binding.getRoot().findViewById(R.id.qrcode_list);
+        qrAdapter = new QRcodesArrayAdapter(getContext(), dataList);
+
+
+        // Test: add a QR code with random string.
+        QRCode testCode = new QRCode("I am a test");
+        dataList.add(testCode);
+        qrcodeList.setAdapter(qrAdapter);
+
+
         return root;
     }
 
