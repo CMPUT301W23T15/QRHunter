@@ -1,6 +1,12 @@
+/**
+ * MainActivity is the main entry point for the application. It is responsible for setting up the
+ * UI, initializing Firebase, and checking if the user is signed in or not. If the user is not
+ * signed in, the activity will redirect them to the WelcomeActivity. The activity also handles
+ * camera functionality for scanning QR codes and navigation to the profile screen via the action
+ * bar menu.
+ */
 package com.goblin.qrhunter;
 
-import static android.app.PendingIntent.getActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,14 +15,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
-
-import com.goblin.qrhunter.data.PlayerRepository;
-import com.goblin.qrhunter.ui.map.MapViewModel;
-import com.goblin.qrhunter.ui.welcome.WelcomeActivity;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -24,14 +22,23 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.goblin.qrhunter.data.PlayerRepository;
 import com.goblin.qrhunter.databinding.ActivityMainBinding;
+import com.goblin.qrhunter.ui.scan.ScanActivity;
+import com.goblin.qrhunter.ui.welcome.WelcomeActivity;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.type.LatLng;
 
-public class MainActivity extends AppCompatActivity{
+
+/**
+ * The main activity of the QR Hunter app, which serves as the entry point for the app.
+ * This activity sets up the bottom navigation view, handles navigation, and performs user authentication.
+ */
+public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
     FirebaseAuth.AuthStateListener authListener;
@@ -42,10 +49,15 @@ public class MainActivity extends AppCompatActivity{
     private final String TAG = "main activity";
     private String uid;
     FloatingActionButton button_camera;
-    private static final int REQUEST_IMAGE_CAPTURE = 1;
-    private static final int MY_PERMISSIONS_REQUEST_CAMERA = 123;
 
 
+
+    /**
+     * Initializes the activity's UI, sets up the bottom navigation view and action bar, initializes
+     * Firebase, and sets up the camera functionality for scanning QR codes.
+     *
+     * @param savedInstanceState A saved instance of the current activity state.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,23 +81,14 @@ public class MainActivity extends AppCompatActivity{
         initCamera();
     }
 
+    /**
+     * Sets up the camera functionality for scanning QR codes.
+     */
     private void initCamera() {
-        button_camera=findViewById(R.id.scan_button);
+        button_camera = findViewById(R.id.scan_button);
         button_camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Check for camera permission
-//                if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-//                    // Permission is not granted. Request the permission
-//                    ActivityCompat.requestPermissions(MainActivity.this,
-//                            new String[]{Manifest.permission.CAMERA},
-//                            MY_PERMISSIONS_REQUEST_CAMERA);
-//                } else {
-//                    // Launch the camera to scan the QR code
-//                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//                    startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
-//                }
-                // * moved to ScanActivity *
                 Intent scanIntent = new Intent(MainActivity.this, ScanActivity.class);
                 button_camera.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -97,6 +100,13 @@ public class MainActivity extends AppCompatActivity{
         });
     }
 
+
+    /**
+     * Inflate the menu; this adds items to the action bar if it is present.
+     * In this method, we create a button that navigates to the profile fragment when clicked.
+     *
+     * @param menu actionbar menu
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -112,11 +122,24 @@ public class MainActivity extends AppCompatActivity{
     }
 
 
+    /**
+     * This function is called when the user presses the Up button in the app's action bar.
+     * It handles navigation up one level in the app's navigation hierarchy.
+     * If the navigation controller cannot navigate up, this function calls the superclass implementation.
+     *
+     * @return true if navigation up succeeded, false otherwise.
+     */
     @Override
     public boolean onSupportNavigateUp() {
         return navController.navigateUp() || super.onNavigateUp();
     }
 
+    /**
+     * Called when the activity is starting. This method checks if the user is signed in,
+     * and if not, it directs the user to the welcome screen. Sets up a Firebase Auth State Listener
+     * to listen for changes in the user's authentication state, and if the user is signed out,
+     * kicks back to welcome screen.
+     */
     @Override
     public void onStart() {
         super.onStart();
@@ -124,7 +147,7 @@ public class MainActivity extends AppCompatActivity{
         FirebaseUser currentUser = auth.getCurrentUser();
         Intent welcomeIntent = new Intent(MainActivity.this, WelcomeActivity.class);
 
-        if(currentUser == null){
+        if (currentUser == null) {
             startActivity(welcomeIntent);
         }
 
@@ -136,29 +159,20 @@ public class MainActivity extends AppCompatActivity{
                     // user signed out
                     startActivity(welcomeIntent);
                 }
-
-                /* trying to update firebaseauth with username from firestore
-                else {
-                    if (user.getDisplayName() == null || user.getDisplayName().length() < 1) {
-                        playerDB.get(user.getUid()).addOnSuccessListener(new OnSuccessListener<Player>() {
-                            @Override
-                            public void onSuccess(Player player) {
-
-                            }
-                        });
-                    }
-                }
-                */
             }
         };
         FirebaseAuth.getInstance().addAuthStateListener(authListener);
-
     }
 
+    /**
+     * Called when the activity is no longer visible to the user. This method is called after
+     * onPause() and before onDestroy(). It is used to release resources, unregister listeners,
+     * and perform any other cleanup activities.
+     */
     @Override
     protected void onStop() {
         super.onStop();
-        if(authListener != null) {
+        if (authListener != null) {
             auth.removeAuthStateListener(authListener);
             authListener = null;
         }

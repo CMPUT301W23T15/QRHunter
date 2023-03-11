@@ -40,7 +40,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ScanActivity" />
+
+        <activity android:name=".ui.scan.ScanActivity" />
         <activity android:name=".ui.welcome.WelcomeActivity" />
         <!-- UNCOMMENT FOR MAPS API
         <meta-data
