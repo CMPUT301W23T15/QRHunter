@@ -67,13 +67,14 @@
         android:id="@+id/text_QRSum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
         android:fontFamily="@font/jetbrainsmono"
-        android:text=" QR Points Summary"
+        android:text="QR Points Summary"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textColor="@color/black"
         android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.177"
+        app:layout_constraintHorizontal_bias="0.355"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -81,7 +82,7 @@
         android:id="@+id/title_LowestScoring"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="124dp"
+        android:layout_marginTop="108dp"
         android:fontFamily="@font/jetbrainsmono"
         android:text="Lowest Scoring:"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
@@ -93,10 +94,25 @@
         app:layout_constraintTop_toBottomOf="@+id/text_QRSum" />
 
     <TextView
+        android:id="@+id/title_HighestScoring"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="156dp"
+        android:fontFamily="@font/jetbrainsmono"
+        android:text="Highest Scoring:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.222"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_QRSum" />
+
+    <TextView
         android:id="@+id/title_TotalScore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="56dp"
         android:fontFamily="@font/jetbrainsmono"
         android:text="Total Score:"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
@@ -111,7 +127,7 @@
         android:id="@+id/title_TotalQRCode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="224dp"
+        android:layout_marginTop="208dp"
         android:fontFamily="@font/jetbrainsmono"
         android:text="Total QR Codes Scanned:"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
@@ -122,20 +138,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_QRSum" />
 
-    <TextView
-        android:id="@+id/title_HighestScoring"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="172dp"
-        android:fontFamily="@font/jetbrainsmono"
-        android:text="Highest Scoring:"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        android:textColor="@color/black"
-        android:textSize="20dp"
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="163dp"
+        android:background="@drawable/circle_shape"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.222"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_QRSum" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

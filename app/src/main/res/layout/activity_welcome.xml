@@ -7,35 +7,35 @@
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="264dp"
-        android:layout_height="479dp"
+        android:layout_width="248dp"
+        android:layout_height="247dp"
+        android:background="@drawable/globe_pic"
         android:contentDescription="Welcome Picture"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintHorizontal_bias="0.576"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.063"
-        app:srcCompat="@drawable/globe" />
+        app:layout_constraintVertical_bias="0.303" />
 
     <TextView
         android:id="@+id/welcome_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="28dp"
+        android:layout_marginBottom="24dp"
         android:fontFamily="@font/jetbrainsmono"
         android:text="Welcome to QR Hunter!"
         android:textColor="@color/black"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/welcome_button"
         app:layout_constraintEnd_toEndOf="@+id/welcome_button"
-        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="@+id/welcome_button" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/welcome_button"
-        android:layout_width="133dp"
-        android:layout_height="41dp"
+        android:layout_width="140dp"
+        android:layout_height="48dp"
         android:layout_marginBottom="192dp"
         android:background="@drawable/rounded_style"
         android:backgroundTint="@color/lilac"
