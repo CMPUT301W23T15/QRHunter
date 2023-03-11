@@ -13,7 +13,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-
+import android.widget.Button;
+import android.widget.FrameLayout;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -30,6 +31,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.type.LatLng;
+
 
 /**
  * The main activity of the QR Hunter app, which serves as the entry point for the app.
@@ -46,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     private final String TAG = "main activity";
     private String uid;
     FloatingActionButton button_camera;
+
 
 
     /**
@@ -95,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
 
     /**
      * Inflate the menu; this adds items to the action bar if it is present.
