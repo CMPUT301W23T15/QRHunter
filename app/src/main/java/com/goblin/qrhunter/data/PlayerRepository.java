@@ -25,6 +25,7 @@ public class PlayerRepository extends BaseRepository<Player> {
      * @param username the username of the player to retrieve.
      * @return a task that returns the player object if successful, or null if the player does not exist.
      */
+//     change to public for testing?
     public Task<Player> getPlayerByUsername(String username) {
         return getCollectionRef()
                 .whereEqualTo("username", username)
@@ -43,7 +44,7 @@ public class PlayerRepository extends BaseRepository<Player> {
                 });
     }
 
-    private Task<String> randomUsername() {
+    public Task<String> randomUsername() {
         String username = "User" + new Random().nextInt(999999999);
         return getPlayerByUsername(username).continueWith(task -> {
             // if exist retry
