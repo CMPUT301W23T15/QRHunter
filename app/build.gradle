@@ -1,6 +1,5 @@
 plugins {
     id 'com.android.application'
-    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 }
 
 android {
@@ -37,7 +36,6 @@ android {
 
 
 dependencies {
-    implementation 'com.google.android.gms:play-services-maps:18.1.0' // For google maps.
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.8.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
@@ -63,7 +61,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth'
 
     //Camera implementation
-    implementation 'com.google.android.gms:play-services-vision:11.8.0'
+    implementation 'com.google.android.gms:play-services-vision:20.1.3'
 
 }
 
