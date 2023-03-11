@@ -1,4 +1,4 @@
-package com.goblin.qrhunter;
+package com.goblin.qrhunter.ui.scan;
 
 import android.Manifest;
 import android.content.Intent;
