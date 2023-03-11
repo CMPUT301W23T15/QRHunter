@@ -1,3 +1,7 @@
+/**
+ * The {@link com.goblin.qrhunter.data.FirebaseLiveData} class is a LiveData implementation that
+ * safely listens to changes in a Firestore query and returns a list of entities of a specific type.
+ */
 package com.goblin.qrhunter.data;
 
 import android.util.Log;

@@ -1,3 +1,6 @@
+/**
+ * A base repository class. Provides generic CRUD on a firestore collection of a {@link Entity}
+ */
 package com.goblin.qrhunter.data;
 
 import androidx.annotation.NonNull;

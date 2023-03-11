@@ -1,3 +1,6 @@
+/**
+ * This class provides methods to manage Player objects in the Firestore database.
+ */
 package com.goblin.qrhunter.data;
 
 import com.goblin.qrhunter.Player;
@@ -10,6 +13,9 @@ import java.util.Random;
 
 /**
  * A repository class for managing Player objects in Firestore database.
+ * This class extends the `BaseRepository` class, which provides basic CRUD operations for Firestore.
+ * It also includes additional methods for retrieving player objects by username and
+ * adding a new player with a random username.
  */
 public class PlayerRepository extends BaseRepository<Player> {
 
