@@ -39,9 +39,8 @@ import java.util.concurrent.ExecutionException;
 
 
 /**
- * With help of Zachary
- * To run this test: terminal -> firebase emulator:start
- *
+ * With much help of Zachary
+ * To run this test: terminal -> firebase emulator:start -> run unit tests
  */
 @RunWith(AndroidJUnit4.class)
 public class PlayerRepoTest {
@@ -94,30 +93,24 @@ public class PlayerRepoTest {
      *
      * @return the new player
      */
-    public Player baseAddHelper() {
+    public Player baseAddHelper() throws ExecutionException, InterruptedException{
         String newPlayerId = UUID.randomUUID().toString();
         Player p1 = new Player(newPlayerId, "User" + newPlayerId, "example@email.com");
 
         // create a new task to add a player to the database
         Task<Void> addPlayerTask = playerDB.add(p1);
+        Tasks.await(addPlayerTask);
         // create a new task to get a player from the database
         Task<Player> getPlayerTask = playerDB.get(newPlayerId);
-        try {
-            // wait for all task to finish
-            Tasks.whenAllComplete(addPlayerTask, getPlayerTask);
-
-            // if database returns null that means the task completed but failed
-            if (getPlayerTask.getResult() == null) {
-                return null;
-            }
-            return p1;
-        } catch (Exception e) {
-            return null;
-        }
+        Tasks.await(getPlayerTask);
+        // await tasks to complete
+        assertTrue((p1.getUsername().equals(getPlayerTask.getResult().getUsername())));
+        assertTrue((p1.getId().equals(getPlayerTask.getResult().getId())));
+        return p1;
     }
 
     @Test
-    public void baseAddTest() {
+    public void baseAddTest() throws ExecutionException, InterruptedException {
         Player p1 = baseAddHelper();
         if (p1 == null) {
             fail("base repository method add failed");
@@ -151,13 +144,13 @@ public class PlayerRepoTest {
     /**
      * addWithRandomTest runs addWithRandomHelper if any exception are raise task will fail.
      */
-//    @Test
-//    public void addWithRandomTest() throws ExecutionException, InterruptedException {
-//        String playerId = addWithRandomHelper();
-//        if(playerId == null || playerId.isEmpty()) {
-//            fail("unknown failure");
-//        }
-//    }
+    @Test
+    public void addWithRandomTest() throws ExecutionException, InterruptedException {
+        String playerId = addWithRandomHelper();
+        if(playerId == null || playerId.isEmpty()) {
+            fail("unknown failure");
+        }
+    }
 
     @Test
     public void getPlayerByUsernameTest() throws ExecutionException, InterruptedException {
@@ -180,10 +173,10 @@ public class PlayerRepoTest {
             // check that the player we got by searching username is not null
             assertNotNull(playerByUsername);
 
-            // check if their equal
-            assertTrue(playerByIdTask.equals(playerByUsername));
+            assertEquals(playerById,playerByUsername);
             return null;
         });
-
     }
+
+
 }
