@@ -25,6 +25,7 @@ public class GetPlayerQRCodes {
         postDB = new PostRepository();
         userPosts = postDB.getUserPosts(username);
         playerCodes.addSource(userPosts, this::refresh);
+        // adding test post
 //        QRCode testCode = new QRCode("I am a test");
 //        Post testPost = new Post("Test Post", testCode, username);
 //        postDB.add(testPost);
@@ -37,6 +38,7 @@ public class GetPlayerQRCodes {
     private void refresh(List<Post> postList) {
         QRCode code;
         ArrayList<QRCode> codeList = new ArrayList<>();
+        int l = postList.size();
         for (Post post : postList) {
             // null guards
             if (post == null || post.getCode() == null || post.getPlayerId() == null) {
