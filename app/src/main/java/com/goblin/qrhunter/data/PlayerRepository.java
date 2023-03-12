@@ -49,6 +49,7 @@ public class PlayerRepository extends BaseRepository<Player> {
                 });
     }
 
+
     private Task<String> randomUsername() {
         String username = "User" + new Random().nextInt(999999999);
         return getPlayerByUsername(username).continueWith(task -> {
@@ -83,5 +84,30 @@ public class PlayerRepository extends BaseRepository<Player> {
             }
         });
     }
+
+    /**
+     * Gets a player object by its ID.
+     * @param id the ID of the player to retrieve.
+     * @return a task that returns the player object if successful, or null if the player does not exist.
+     */
+    public Task<Player> getPlayerById(String id) {
+        return getCollectionRef()
+                .document(id)
+                .get()
+                .continueWith(task -> {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot documentSnapshot = task.getResult();
+                        if (documentSnapshot.exists()) {
+                            Player player = documentSnapshot.toObject(Player.class);
+                            player.setId(documentSnapshot.getId());
+                            return player;
+                        }
+                    }
+                    return null;
+                });
+    }
+
+
+
 
 }

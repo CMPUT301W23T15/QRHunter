@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="listView_totalscore" type="id" />
+    <item name="headerLayout" type="id" />
+    <item name="titleTextView" type="id" />
+    <item name="subtitleTextView" type="id" />
+</resources>
