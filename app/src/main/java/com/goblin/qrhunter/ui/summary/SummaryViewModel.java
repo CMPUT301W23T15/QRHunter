@@ -3,6 +3,8 @@
  */
 package com.goblin.qrhunter.ui.summary;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -38,6 +40,6 @@ public class SummaryViewModel extends ViewModel {
      * @return LiveData object that holds the user's username.
      */
     public LiveData<String> getUsername() {
-        return  username;
+        return username;
     }
 }
