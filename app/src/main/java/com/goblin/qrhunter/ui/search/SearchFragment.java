@@ -9,13 +9,21 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.goblin.qrhunter.Player;
+import com.goblin.qrhunter.QRCode;
+import com.goblin.qrhunter.R;
 import com.goblin.qrhunter.databinding.FragmentSearchBinding;
+import com.goblin.qrhunter.databinding.FragmentSummaryBinding;
+import com.goblin.qrhunter.ui.summary.QRcodesArrayAdapter;
+
+import java.util.ArrayList;
 
 /**
  * The SearchFragment class is a UI component that allows users to search for players and games.
@@ -23,8 +31,12 @@ import com.goblin.qrhunter.databinding.FragmentSearchBinding;
  * that allows users to enter a search query and view the results.
  */
 public class SearchFragment extends Fragment {
-
     private FragmentSearchBinding binding;
+
+    // Attributes
+    public ArrayList<Player> dataList;
+    public ListView playerList;
+    public playerSearchArrayAdapter playerAdapter;
 
     /**
      * Called to have the fragment instantiate its user interface view.
@@ -42,11 +54,21 @@ public class SearchFragment extends Fragment {
         SearchViewModel searchViewModel =
                 new ViewModelProvider(this).get(SearchViewModel.class);
 
+        // Fragment Set Up
         binding = FragmentSearchBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
-        final TextView textView = binding.textNotifications;
+        final TextView textView = binding.textDashboard; // Changed from "binding.textNotifications"
         searchViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+
+        // Set up list view, data list (holds the players), and adapter.
+        dataList = new ArrayList<>();
+        playerList = binding.getRoot().findViewById(R.id.qrcode_list);
+        playerAdapter = new playerSearchArrayAdapter(getContext(), dataList);
+
+        // Test: Add a player and display their username
+        Player testPlayer = new Player("123456", "Goblins101", "780-123-456");
+        dataList.add(testPlayer);
+        playerList.setAdapter(playerAdapter);
         return root;
     }
 
