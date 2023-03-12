@@ -91,20 +91,7 @@ public class PlayerRepository extends BaseRepository<Player> {
      * @return a task that returns the player object if successful, or null if the player does not exist.
      */
     public Task<Player> getPlayerById(String id) {
-        return getCollectionRef()
-                .document(id)
-                .get()
-                .continueWith(task -> {
-                    if (task.isSuccessful()) {
-                        DocumentSnapshot documentSnapshot = task.getResult();
-                        if (documentSnapshot.exists()) {
-                            Player player = documentSnapshot.toObject(Player.class);
-                            player.setId(documentSnapshot.getId());
-                            return player;
-                        }
-                    }
-                    return null;
-                });
+        return this.get(id);
     }
 
 

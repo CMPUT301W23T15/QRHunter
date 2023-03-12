@@ -1,4 +1,4 @@
-package com.goblin.qrhunter.ui.leaderboard.rankinglist;
+package com.goblin.qrhunter.ui.leaderboard;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;

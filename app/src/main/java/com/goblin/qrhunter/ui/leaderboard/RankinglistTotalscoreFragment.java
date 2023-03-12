@@ -1,4 +1,4 @@
-package com.goblin.qrhunter.ui.leaderboard.rankinglist;
+package com.goblin.qrhunter.ui.leaderboard;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,8 +13,6 @@ import androidx.fragment.app.Fragment;
 
 import com.goblin.qrhunter.R;
 import com.goblin.qrhunter.domain.GetPlayersScoreUseCase;
-import com.goblin.qrhunter.ui.leaderboard.LeaderboardFragment;
-import com.goblin.qrhunter.ui.leaderboard.LeaderboardViewModel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
