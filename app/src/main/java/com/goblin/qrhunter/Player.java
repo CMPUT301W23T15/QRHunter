@@ -21,8 +21,10 @@ public class Player implements Entity {
     private String id;
     private String username;
     private String contactInfo;
-    
+
     private String profileURI;
+
+    private int totalScore;
 
     /**
      * Constructs an empty player object.
@@ -133,6 +135,20 @@ public class Player implements Entity {
      */
     public void setProfileURI(String profilePicURL) {
         this.profileURI = profilePicURL;
+    }
+    /**
+     * Returns the total score of the player.
+     * @return The total score of the player.
+     */
+    public int getTotalScore() {
+        return totalScore;
+    }
+    /**
+     * Adds points to the player's total score.
+     * @param points The points to add to the player's total score.
+     */
+    public void addPoints(int points) {
+        totalScore += points;
     }
 
 }
