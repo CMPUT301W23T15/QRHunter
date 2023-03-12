@@ -6,6 +6,7 @@
 package com.goblin.qrhunter.ui.summary;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +15,18 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.MediatorLiveData;
+import androidx.lifecycle.ViewModelProvider;
 
+import com.goblin.qrhunter.Post;
 import com.goblin.qrhunter.QRCode;
 import com.goblin.qrhunter.R;
 import com.goblin.qrhunter.databinding.FragmentSummaryBinding;
+import com.goblin.qrhunter.domain.GetPlayerQRCodes;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The SummaryFragment class is responsible for displaying a summary of information in the application.
@@ -29,6 +36,8 @@ public class SummaryFragment extends Fragment {
     private ArrayList<QRCode> dataList;
     private ListView qrcodeList;
     private QRcodesArrayAdapter qrAdapter;
+
+    private SummaryViewModel mViewModel;
 
     private FragmentSummaryBinding binding;
 
@@ -46,22 +55,35 @@ public class SummaryFragment extends Fragment {
      */
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        // SummaryViewModel summaryViewModel = new ViewModelProvider(this).get(SummaryViewModel.class);
+        mViewModel = new ViewModelProvider(this).get(SummaryViewModel.class);
         binding = FragmentSummaryBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         final TextView textView = binding.textDashboard;
 
+        String username = mViewModel.getUsername().getValue();
+
+        // TODO error is here
+        MediatorLiveData<ArrayList<QRCode>> pc = new GetPlayerQRCodes(username).get();
         // Set up listview, datalist (holds the QR codes), and adapter.
+
+//        QRCode testCode = new QRCode("I am a test");
+
+        if (pc.getValue() != null) {
+            Log.d("POST", pc.getValue().get(0).getHash());
+            dataList = pc.getValue();
+        }
+        else {
+            dataList = new ArrayList<>();
+        }
         dataList = new ArrayList<>();
         qrcodeList = binding.getRoot().findViewById(R.id.qrcode_list);
         qrAdapter = new QRcodesArrayAdapter(getContext(), dataList);
 
 
         // Test: add a QR code with random string.
-        QRCode testCode = new QRCode("I am a test");
-        dataList.add(testCode);
+//        QRCode testCode = new QRCode("I am a test");
+//        dataList.add(testCode);
         qrcodeList.setAdapter(qrAdapter);
-
 
         return root;
     }
