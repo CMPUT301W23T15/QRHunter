@@ -28,6 +28,12 @@ public class QRCode {
     private String hash;
 
     /**
+     * required by firebase
+     */
+    public QRCode() {
+    }
+
+    /**
      * Constructs a QR code object with the given code string.
      *
      * @param code The code string used to construct the QR code.
