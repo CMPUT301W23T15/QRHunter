@@ -83,5 +83,13 @@ public class PlayerRepository extends BaseRepository<Player> {
             }
         });
     }
+    /**
+     * Gets a player object by its ID.
+     * @param id the ID of the player to retrieve.
+     * @return a task that returns the player object if successful, or null if the player does not exist.
+     */
+    public Task<Player> getPlayerById(String id) {
+        return this.get(id);
+    }
 
 }
