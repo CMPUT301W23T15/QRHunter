@@ -23,6 +23,7 @@ public class PostRepository extends BaseRepository<Post> {
 
     /**
      * get a livedata live of the top scoring posts of all time
+     *
      * @param limit number of posts to return
      * @return highest scoring posts
      */
@@ -30,5 +31,15 @@ public class PostRepository extends BaseRepository<Post> {
 
         Query q = getCollectionRef().orderBy("code.score", Query.Direction.DESCENDING).limit(limit);
         return new FirebaseLiveData<>(q, Post.class);
+    }
+
+    /**
+     * Returns a LiveData<List<Post>> object containing all the posts created by a player.
+     *
+     * @param id the id of the player whose posts are to be fetched
+     * @return a LiveData<List<Post>> object containing all the posts associated with the specified player id
+     */
+    public LiveData<List<Post>> getPostByPlayer(String id) {
+        return this.getWhereEqualTo("playerId", id);
     }
 }
