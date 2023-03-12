@@ -1,19 +1,20 @@
+/**
+ * SummaryViewModel Stub
+ */
 package com.goblin.qrhunter.ui.summary;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+/**
+ * SummaryViewModel Stub
+ */
 public class SummaryViewModel extends ViewModel {
 
-    private final MutableLiveData<String> mText;
 
+    /**
+     * SummaryViewModel Stub
+     */
     public SummaryViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is summary fragment");
-    }
 
-    public LiveData<String> getText() {
-        return mText;
     }
 }
