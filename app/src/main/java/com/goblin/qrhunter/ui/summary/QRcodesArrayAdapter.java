@@ -17,6 +17,8 @@ import java.util.ArrayList;
 
 public class QRcodesArrayAdapter extends ArrayAdapter<QRCode> {
 
+    private ArrayList<QRCode> codes;
+
     public QRcodesArrayAdapter(@NonNull Context context, ArrayList<QRCode> QRcodes) {
         super(context, 0, QRcodes);
     }
@@ -33,16 +35,12 @@ public class QRcodesArrayAdapter extends ArrayAdapter<QRCode> {
         } else {
             view = convertView;
         }
-
         // Get the position of the qrcode item in list.
         QRCode qrcode = getItem(position);
-
         // Get textViews for all attributes of "visit" object.
-        TextView test = view.findViewById(R.id.test);
-
+        TextView qrcodeName = view.findViewById(R.id.qrcode_name);
         // Sets the name for each textView to the actual name of the attribute in the list.
-        test.setText(qrcode.getHash());
-
+        qrcodeName.setText(qrcode.getHash());
         return view;
     }
 }
