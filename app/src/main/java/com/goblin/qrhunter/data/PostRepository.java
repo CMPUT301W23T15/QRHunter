@@ -31,4 +31,14 @@ public class PostRepository extends BaseRepository<Post> {
         Query q = getCollectionRef().orderBy("code.score", Query.Direction.DESCENDING).limit(limit);
         return new FirebaseLiveData<>(q, Post.class);
     }
+
+    /**
+     * get a livedata list of all the users posts
+     * @param id user id
+     * @return all user posts
+     */
+    public LiveData<List<Post>> getUserPosts(String id) {
+        Query q = getCollectionRef().whereEqualTo("playerId", id);
+        return new FirebaseLiveData<>(q, Post.class);
+    }
 }
