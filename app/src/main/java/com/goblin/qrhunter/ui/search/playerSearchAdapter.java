@@ -22,19 +22,28 @@ public class playerSearchAdapter extends FirestoreRecyclerAdapter<Player, player
     public playerSearchAdapter(@NonNull FirestoreRecyclerOptions<Player> options){
         super(options);
     }
-    // Bind view to the card view (player_search_content.xml) with the "player.java" class.
+
+    /**
+     * Binds view to the card view (player_search_content.xml) with the "player.java" class.
+     * @param holder where the data for a given user is stored.
+     * @param position not used.
+     * @param model the model object containing the data that should be used to populate the view.
+     */
     @Override
     protected void
-    onBindViewHolder(@NonNull playerViewholder holder,
-                     int position, @NonNull Player model)
-    {
-
+    onBindViewHolder(@NonNull playerViewholder holder, int position, @NonNull Player model) {
         holder.username.setText(model.getUsername());
         holder.email.setText(model.getContactInfo());
         holder.phone.setText(model.getPhone());
     }
 
-    // Function to tell the class about the Card view (what data to be shown)
+    /**
+     * Tells the class about the Card view (what data to be shown)
+     * @param parent   The ViewGroup into which the new View will be added after it is bound to
+     *                 an adapter position.
+     * @param viewType The view type of the new View.
+     * @return
+     */
     @NonNull
     @Override
     public playerViewholder
@@ -43,7 +52,9 @@ public class playerSearchAdapter extends FirestoreRecyclerAdapter<Player, player
         return new playerSearchAdapter.playerViewholder(view);
     }
 
-    // Sub Class to create references of the views.
+    /**
+     * Sub Class to create references of the views.
+     */
     class playerViewholder extends RecyclerView.ViewHolder {
         TextView username, email, phone;
         public playerViewholder(@NonNull View itemView)
