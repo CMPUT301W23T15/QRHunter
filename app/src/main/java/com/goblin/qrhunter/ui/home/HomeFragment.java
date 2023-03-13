@@ -6,24 +6,28 @@
 package com.goblin.qrhunter.ui.home;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import com.goblin.qrhunter.Post;
+import com.goblin.qrhunter.QRCode;
 import com.goblin.qrhunter.R;
+import com.goblin.qrhunter.data.PostRepository;
 import com.goblin.qrhunter.databinding.FragmentHomeBinding;
+import com.google.firebase.auth.FirebaseAuth;
 
-import java.util.HashMap;
-import java.util.function.BiConsumer;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 
 /**
@@ -33,7 +37,7 @@ import java.util.function.BiConsumer;
  * navigation actions using the Android Navigation Component.
  */
 public class HomeFragment extends Fragment {
-
+    String TAG = "HomeFragment";
     private FragmentHomeBinding binding;
 
     /**
@@ -53,21 +57,13 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+
         // setup scores and post count
-        homeViewModel.getUserHighScore().observe(getViewLifecycleOwner(), highScore -> {
-           binding.titleHighestScoring.setText(getString(R.string.highest_scoring_title) + highScore);
-        });
-        homeViewModel.getUserLowScore().observe(getViewLifecycleOwner(), lowScore -> {
-            binding.titleLowestScoring.setText(getString(R.string.lowest_scoring_title) + lowScore);
-        });
-        homeViewModel.getUserQRCount().observe(getViewLifecycleOwner(), qrCount -> {
-            binding.titleTotalQRCode.setText(getString(R.string.total_qr_codes_scanned_title) + qrCount);
-        });
-        homeViewModel.getUserTotalScore().observe(getViewLifecycleOwner(), totalScore -> {
-            binding.titleTotalScore.setText(getString(R.string.total_score_title) + totalScore);
-        });
-
-
+        homeViewModel.getUserPosts().observe(getViewLifecycleOwner(), this::refresh);
+        List<Post> seedData = homeViewModel.getSeedList();
+        if( seedData != null) {
+            this.refresh(seedData);
+        }
 
         // Set up the navigation options as buttons
         NavController navController = Navigation.findNavController(container);
@@ -84,6 +80,12 @@ public class HomeFragment extends Fragment {
         binding.scanButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Post p1 = new Post();
+                p1.setPlayerId(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                p1.setName("hello3");
+                p1.setCode(new QRCode("hello world! james"));
+                PostRepository postRepository = new PostRepository();
+                postRepository.add(p1);
                 navController.navigate(R.id.action_navigation_home_to_scanFragment);
             }
         });
@@ -109,4 +111,33 @@ public class HomeFragment extends Fragment {
         binding = null;
     }
 
+    private void refresh(List<Post> posts) {
+        if (posts == null || posts.isEmpty()) {
+            return;
+        }
+        int highScore = 0;
+        int lowScore = -1;
+        int totalScore = 0;
+        int qrCount = 0;
+        for (Post p : posts) {
+            for (Post post : posts) {
+                if(post.getCode() != null) {
+                    int score = post.getCode().getScore();
+                    totalScore = totalScore + score;
+                    highScore = Math.max(score, highScore);
+                    if(lowScore < 0) {
+                        lowScore = score;
+                    }
+                    lowScore = Math.min(score, lowScore);
+                    Log.d("Adding", "HomeViewModel: " + post.getId());
+                }
+                qrCount = posts.size();
+            }
+        }
+
+        binding.titleHighestScoring.setText("Highest score: " + highScore);
+        binding.titleLowestScoring.setText("Lowest score: " + lowScore);
+        binding.titleTotalScore.setText("Total score: " + totalScore);
+        binding.titleTotalQRCode.setText( "Number of QRcodes: " + qrCount);
+    }
 }

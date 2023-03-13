@@ -23,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/jetbrainsmono"
-        android:text="Phone Number: "
+        android:text="Phone Number"
         android:textColor="@color/black"
         android:textSize="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -32,29 +32,12 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.434" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button_test_signout"
-        android:layout_width="115dp"
-        android:layout_height="48dp"
-        android:background="@drawable/rounded_style"
-        android:backgroundTint="@color/teal_200"
-        android:fontFamily="@font/jetbrainsmono"
-        android:text="sign-out"
-        android:textColor="@color/black"
-        android:textSize="17dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.517"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.789" />
-
     <TextView
         android:id="@+id/title_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/jetbrainsmono"
-        android:text="Username: "
+        android:text="Username"
         android:textColor="@color/black"
         android:textSize="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -77,24 +60,68 @@
         android:textSize="17dp"
         app:layout_constraintBottom_toTopOf="@+id/button_test_signout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.517"
+        app:layout_constraintHorizontal_bias="0.516"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_test_signout"
+        android:layout_width="115dp"
+        android:layout_height="48dp"
+        android:background="@drawable/rounded_style"
+        android:backgroundTint="@color/teal_200"
+        android:fontFamily="@font/jetbrainsmono"
+        android:text="sign-out"
+        android:textColor="@color/black"
+        android:textSize="17dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.516"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.83" />
 
     <TextView
         android:id="@+id/title_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/jetbrainsmono"
-        android:text="Email: "
+        android:text="Email "
         android:textColor="@color/black"
         android:textSize="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.318"
+        app:layout_constraintHorizontal_bias="0.322"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.527" />
+        app:layout_constraintVertical_bias="0.559" />
+
+    <TextView
+        android:id="@+id/phone_number_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@{viewModel.phoneNumber}"
+        android:textSize="22sp"
+        android:fontFamily="@font/jetbrainsmono"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/title_email"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_phone" />
+
+    <TextView
+        android:id="@+id/email_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@{viewModel.email}"
+        android:textSize="22sp"
+        android:fontFamily="@font/jetbrainsmono"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/button_edit_profile"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_email" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
