@@ -28,7 +28,6 @@ public class Post implements Entity {
     private String name;
     private QRCode code;
     private String playerId;
-    private Location location;
 
     /**
      * Creates a new Post instance with default values.
@@ -74,11 +73,10 @@ public class Post implements Entity {
     @Override
     public Map<String, Object> toMap() {
         Map<String, Object> map = new HashMap<>();
-        map.put("id", id);
-        map.put("name", name);
-        map.put("code", code);
-        map.put("playerId", playerId);
-        map.put("location", location);
+        map.put("name", getName());
+        map.put("code", getCode());
+        map.put("playerId", getPlayerId());
+        map.put("postKey", getPostKey());
         return map;
     }
 
@@ -155,22 +153,8 @@ public class Post implements Entity {
         this.playerId = playerId;
     }
 
-    /**
-     * Returns the location of the post.
-     *
-     * @return the location of the post
-     */
-    public Location getLocation() {
-        return location;
-    }
-
-    /**
-     * Sets the location of the post.
-     *
-     * @param location the location to be set
-     */
-    public void setLocation(Location location) {
-        this.location = location;
+    public String getPostKey() {
+        return playerId+code.getHash();
     }
 
 
