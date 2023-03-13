@@ -73,18 +73,19 @@ public class PostUnitTest {
         assertEquals(post.getPlayerId(), "newPlayerId");
     }
 
-    @Test
-    public void getLocationTest(){
-        post = MockPost();
-        assertEquals(post.getLocation(), location);
-    }
-
-    @Test
-    public void setLocation(){
-        post = MockPost();
-        Location newLocation = location;
-        post.setLocation(location);
-        assertEquals(post.getLocation(), location);
-    }
+//    NOTE: WE DONT HAVE THESE METHODS ANYMORE
+//    @Test
+//    public void getLocationTest(){
+//        post = MockPost();
+//        assertEquals(post.getLocation(), location);
+//    }
+//
+//    @Test
+//    public void setLocation(){
+//        post = MockPost();
+//        Location newLocation = location;
+//        post.setLocation(location);
+//        assertEquals(post.getLocation(), location);
+//    }
 
 }
