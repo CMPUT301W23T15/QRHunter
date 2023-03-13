@@ -11,14 +11,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.goblin.qrhunter.Player;
 import com.goblin.qrhunter.R;
 
 import java.util.List;
 
-public class playerSearchAdapter extends FirebaseRecyclerAdapter<Player, playerSearchAdapter.playerViewholder> {
+public class playerSearchAdapter extends FirestoreRecyclerAdapter<Player, playerSearchAdapter.playerViewholder> {
 
-    public playerSearchAdapter(@NonNull FirebaseRecyclerOptions<Player> options){
+    public playerSearchAdapter(@NonNull FirestoreRecyclerOptions<Player> options){
         super(options);
     }
 
