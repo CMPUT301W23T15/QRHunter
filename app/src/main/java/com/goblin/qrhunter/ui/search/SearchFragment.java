@@ -23,6 +23,8 @@ import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -50,6 +52,7 @@ public class SearchFragment extends Fragment implements MenuProvider{
     private SearchView searchView;
     private RecyclerView search_results_view;
     private SearchViewModel viewModel;
+    NavController navController;
 
 
 
@@ -67,6 +70,8 @@ public class SearchFragment extends Fragment implements MenuProvider{
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         viewModel = new ViewModelProvider(this).get(SearchViewModel.class);
+        navController = Navigation.findNavController(container);
+
 
         // Fragment Set Up
         binding = FragmentSearchBinding.inflate(inflater, container, false);
@@ -175,4 +180,6 @@ public class SearchFragment extends Fragment implements MenuProvider{
     @Override public void onStop() {
         super.onStop();
     }
+
+
 }
