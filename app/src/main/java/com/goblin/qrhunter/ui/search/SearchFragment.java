@@ -130,7 +130,6 @@ public class SearchFragment extends Fragment implements MenuProvider{
 
     @Override
     public boolean onMenuItemSelected(@NonNull MenuItem menuItem) {
-        Toast.makeText(getContext(), "search bar clicked", Toast.LENGTH_SHORT).show();
         return false;
     }
 

@@ -31,7 +31,7 @@ public class playerSearchAdapter extends FirestoreRecyclerAdapter<Player, player
 
         holder.username.setText(model.getUsername());
         holder.email.setText(model.getContactInfo());
-        // holder.phone.setText(model.getContactInfo();
+        holder.phone.setText(model.getPhone());
     }
 
     // Function to tell the class about the Card view (what data to be shown)
@@ -52,7 +52,7 @@ public class playerSearchAdapter extends FirestoreRecyclerAdapter<Player, player
 
             username = itemView.findViewById(R.id.searched_username);
             email = itemView.findViewById(R.id.result_email);
-            // phone = itemView.findViewById(R.id.result_phone);
+            phone = itemView.findViewById(R.id.result_phone);
         }
     }
 }
