@@ -6,6 +6,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import android.app.Activity;
+import android.widget.EditText;
+import android.widget.SearchView;
 
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
@@ -78,7 +80,8 @@ public class MainActivityTest {
     public void checkNavigationSearch(){
         solo.assertCurrentActivity("wrong activity", MainActivity.class);
         solo.clickOnView(solo.getView(R.id.navigation_search));
-        assertTrue(solo.waitForText("This is search fragment"));
+        assertTrue(solo.waitForText("Search for other players"));
+        solo.clickOnView(solo.getView(R.id.player_search));
         solo.sleep(2000);
         solo.goBack();
     }
