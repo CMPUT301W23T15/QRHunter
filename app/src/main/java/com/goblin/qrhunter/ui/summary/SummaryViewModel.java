@@ -53,11 +53,19 @@ public class SummaryViewModel extends ViewModel {
         return username;
     }
 
+    public void setUsername(String username) {
+        this.username.setValue(username);
+    }
+
     /**
      * get all of the post from the current user
      * @return livedata list of posts
      */
     public MediatorLiveData<List<Post>> getUserPosts() {
         return userPosts;
+    }
+
+    public void setUserPosts(List<Post> lp) {
+        this.userPosts.setValue(lp);
     }
 }
