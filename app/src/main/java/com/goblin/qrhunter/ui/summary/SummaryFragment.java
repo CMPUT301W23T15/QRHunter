@@ -6,14 +6,18 @@
 package com.goblin.qrhunter.ui.summary;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.goblin.qrhunter.Post;
 import com.goblin.qrhunter.databinding.FragmentSummaryBinding;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -26,6 +30,7 @@ public class SummaryFragment extends Fragment {
     private SummaryViewModel mViewModel;
     private FragmentSummaryBinding binding;
     FirebaseFirestore db;
+    String TAG = "SummaryFragment";
 
 
     /**
@@ -44,12 +49,23 @@ public class SummaryFragment extends Fragment {
         // set username.
         mViewModel.getUsername().observe(getViewLifecycleOwner(), binding.textDashboard::setText);
 
+        LinearLayoutManager llm = new LinearLayoutManager(this.getContext());
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        binding.qrListView.setLayoutManager(llm);
         // create a qr list
-        QRRecyclerAdapter qrAdapter = new QRRecyclerAdapter(mViewModel.getUserPosts().getValue());
+        QRRecyclerAdapter qrAdapter = new QRRecyclerAdapter();
         binding.qrListView.setAdapter(qrAdapter);
 
         // listen for changes and update list
-        mViewModel.getUserPosts().observe(getViewLifecycleOwner(), qrAdapter::setPosts);
+        mViewModel.getUserPosts().observe(getViewLifecycleOwner(), qrAdapter::setData);
+        mViewModel.getUserPosts().observe(getViewLifecycleOwner(), posts -> {
+            for (Post p: posts
+                 ) {
+                Log.d(TAG, "onCreateView: updating: " + p.getId() );
+            }
+
+        });
+
 
         return binding.getRoot();
     }

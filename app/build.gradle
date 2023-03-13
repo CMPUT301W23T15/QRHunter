@@ -54,15 +54,21 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    androidTestImplementation 'androidx.fragment:fragment-testing:1.5.5'
 
 
 //    needed this for unit testing -
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.3.2")
     testImplementation 'org.junit.jupiter:junit-jupiter:5.8.0-M1'
-    testImplementation "org.mockito:mockito-core:3+" //Mockito
+    testImplementation "org.mockito:mockito-core:3.12.4" //Mockito
 
     implementation  'com.google.android.gms:play-services-base:18.2.0'
     implementation  'com.google.android.gms:play-services-appindex:16.1.0'
+
+//    Intent Tests
+    androidTestImplementation "androidx.test:runner:1.5.2"
+    androidTestImplementation "androidx.test:rules:1.5.0"
+    androidTestImplementation "com.jayway.android.robotium:robotium-solo:5.2.1"
 
     // Import the BoM for the Firebase platform
     implementation platform('com.google.firebase:firebase-bom:31.2.2')
@@ -70,11 +76,18 @@ dependencies {
     // Declare the dependency for the Cloud Firestore library
     // When using the BoM, you don't specify versions in Firebase library dependencies
     implementation 'com.google.firebase:firebase-firestore'
+    implementation 'com.firebaseui:firebase-ui-database:8.0.1'
 
     implementation 'com.google.firebase:firebase-auth'
 
     //Camera implementation
     implementation 'com.google.android.gms:play-services-vision:20.1.3'
+
+
+    implementation 'com.firebase:geofire-android-common:3.2.0'
+
+    // Search UI elements
+    implementation 'com.google.android.material:material:1.8.0'
 
 }
 

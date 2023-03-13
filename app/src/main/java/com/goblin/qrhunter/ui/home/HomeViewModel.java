@@ -5,6 +5,9 @@
  */
 package com.goblin.qrhunter.ui.home;
 
+
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.ViewModel;
@@ -14,8 +17,8 @@ import com.goblin.qrhunter.data.PostRepository;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.ArrayList;
 import java.util.List;
-
 
 
 /**
@@ -24,22 +27,16 @@ import java.util.List;
  */
 public class HomeViewModel extends ViewModel {
 
-    /**
-     * Inner class that holds the high score, low score, and total score for a user's QR codes.
-     * To reduce the number of loops.
-     */
-    class Scores {
-        int highScore = 0;
-        int lowScore = 0;
-        int totalScore = 0;
-    }
-
+    String TAG = "homeviewmodel";
     private PostRepository postDB;
-    private final MediatorLiveData<List<Post>> userPosts = new MediatorLiveData<>();
-    private final MediatorLiveData<Scores> userScores = new MediatorLiveData<>() {{
-        setValue(new Scores());
-    }};
-    private final MediatorLiveData<Integer> userQRCount = new MediatorLiveData<>();
+    private int highScore = 0;
+    private int lowScore = 0;
+    private int totalScore = 0;
+    private int qrCount = 0;
+
+    LiveData<List<Post>> postSource;
+
+    private List<Post> seedList = new ArrayList<>();
 
     /**
      * Constructor for home view model that creates initializes the PostRepository and
@@ -48,70 +45,33 @@ public class HomeViewModel extends ViewModel {
     public HomeViewModel() {
         postDB = new PostRepository();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
-            userQRCount.addSource(userPosts, posts -> {
-                userQRCount.setValue(posts.size());
-            });
 
-            // do high, low and total score in one loop
-            userScores.addSource(userPosts, posts -> {
-                for (Post post : posts) {
-                    if (post != null && post.getCode() != null) {
-                        int postScore = post.getCode().getScore();
-                        Scores current = userScores.getValue();
-                        if (current != null) {
-                            current.highScore = Math.max(postScore, current.highScore);
-                            current.lowScore = Math.min(postScore, current.lowScore);
-                            current.totalScore = current.totalScore + postScore;
-                        }
-                    }
-                }
-            });
-
-            userPosts.addSource(postDB.getPostByPlayer(user.getUid()), userPosts::setValue);
-
-        }
+        assert user != null;
+        postSource = postDB.getPostByPlayer(user.getUid());
     }
 
-    /**
-     * Returns the MediatorLiveData object that holds the user's QR code count.
-     *
-     * @return MediatorLiveData object that holds the user's QR code count
-     */
-    public MediatorLiveData<Integer> getUserQRCount() {
-        return userQRCount;
+    public LiveData<List<Post>> getUserPosts() {
+        return postSource;
     }
 
-    /**
-     * Returns a LiveData object that observes changes in the user's high score and updates the UI.
-     *
-     * @return LiveData object that observes changes in the user's high score
-     */
-    public LiveData<Integer> getUserHighScore() {
-        MediatorLiveData<Integer> highScore = new MediatorLiveData<>();
-        highScore.addSource(userScores, scores -> {highScore.setValue(scores.highScore);});
-        return  highScore;
+    public List<Post> getSeedList() {
+        return seedList;
     }
 
-    /**
-     * Returns a LiveData object that observes changes in the user's low score and updates the UI.
-     *
-     * @return LiveData object that observes changes in the user's low score
-     */
-    public LiveData<Integer> getUserLowScore() {
-        MediatorLiveData<Integer> lowScore = new MediatorLiveData<>();
-        lowScore.addSource(userScores, scores -> {lowScore.setValue(scores.lowScore);});
-        return  lowScore;
+    public int getHighScore() {
+        return highScore;
     }
 
-    /**
-     * Returns a LiveData object that observes changes in the user's total score and updates the UI.
-     *
-     * @return LiveData object that observes changes in the user's total score
-     */
-    public LiveData<Integer> getUserTotalScore() {
-        MediatorLiveData<Integer> totalScore = new MediatorLiveData<>();
-        totalScore.addSource(userScores, scores -> {totalScore.setValue(scores.totalScore);});
-        return  totalScore;
+    public int getLowScore() {
+        return lowScore;
     }
+
+    public int getTotalScore() {
+        return totalScore;
+    }
+
+    public int getQrCount() {
+        return postSource.getValue().size();
+    }
+
 }

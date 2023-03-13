@@ -31,6 +31,7 @@ public class QRCode {
      * required by firebase
      */
     public QRCode() {
+
     }
 
     /**
