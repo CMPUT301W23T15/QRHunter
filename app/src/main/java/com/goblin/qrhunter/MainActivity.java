@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
         FirebaseApp.initializeApp(this);
         auth = FirebaseAuth.getInstance();
         playerDB = new PlayerRepository();
-        initCamera();
+        // initCamera();
     }
 
     /**

@@ -80,12 +80,6 @@ public class HomeFragment extends Fragment {
         binding.scanButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Post p1 = new Post();
-                p1.setPlayerId(FirebaseAuth.getInstance().getCurrentUser().getUid());
-                p1.setName("hello3");
-                p1.setCode(new QRCode("hello world! james"));
-                PostRepository postRepository = new PostRepository();
-                postRepository.add(p1);
                 navController.navigate(R.id.action_navigation_home_to_scanFragment);
             }
         });
@@ -119,7 +113,6 @@ public class HomeFragment extends Fragment {
         int lowScore = -1;
         int totalScore = 0;
         int qrCount = 0;
-        for (Post p : posts) {
             for (Post post : posts) {
                 if(post.getCode() != null) {
                     int score = post.getCode().getScore();
@@ -132,7 +125,6 @@ public class HomeFragment extends Fragment {
                     Log.d("Adding", "HomeViewModel: " + post.getId());
                 }
                 qrCount = posts.size();
-            }
         }
 
         binding.titleHighestScoring.setText("Highest score: " + highScore);
