@@ -37,7 +37,8 @@ public class MainActivityTest {
     }
 
     @Test
-//    checks to see when clicked on profile to sign out and sign back in
+    // checks to see when clicked on profile to sign out and sign back in
+    // issues with edit function -> Will crash app. Will not test edit functionality for now.
     public void CheckProfileLogInLogOut(){
         solo.assertCurrentActivity("Wrong activity", MainActivity.class);
         solo.clickOnView(solo.getView(R.id.profile_button));
