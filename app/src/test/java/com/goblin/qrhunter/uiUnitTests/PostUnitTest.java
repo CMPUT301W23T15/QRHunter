@@ -1,4 +1,4 @@
-package com.goblin.qrhunter.ui_UnitTests;
+package com.goblin.qrhunter.uiUnitTests;
 
 import static org.junit.Assert.*;
 

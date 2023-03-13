@@ -59,7 +59,7 @@ dependencies {
 //    needed this for unit testing -
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.3.2")
     testImplementation 'org.junit.jupiter:junit-jupiter:5.8.0-M1'
-    testImplementation "org.mockito:mockito-core:3+" //Mockito
+    testImplementation "org.mockito:mockito-core:3.12.4" //Mockito
 
     implementation  'com.google.android.gms:play-services-base:18.2.0'
     implementation  'com.google.android.gms:play-services-appindex:16.1.0'
