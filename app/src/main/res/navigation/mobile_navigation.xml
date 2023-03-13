@@ -41,6 +41,9 @@
         <action
             android:id="@+id/action_leaderboardFragment_to_navigation_home"
             app:destination="@id/navigation_home" />
+        <action
+            android:id="@+id/action_leaderboardFragment_to_navigation_rankingListTotalscore"
+            app:destination="@id/rankingListTotalscoreFragment" />
     </fragment>
     <fragment
         android:id="@+id/mapFragment"
@@ -69,5 +72,13 @@
     <action android:id="@+id/action_navigate_to_profile"
         app:destination="@id/profileFragment"
         android:menuCategory="secondary"/>
+
+    <fragment
+        android:id="@+id/rankingListTotalscoreFragment"
+        android:name="com.goblin.qrhunter.ui.leaderboard.RankinglistTotalscoreFragment"
+        android:label="fragment_rankinglistTotalscore"
+        tools:layout="@layout/fragment_rankbytotalscore" >
+
+    </fragment>
 
 </navigation>
