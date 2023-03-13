@@ -11,20 +11,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.goblin.qrhunter.Player;
 import com.goblin.qrhunter.R;
 
 import java.util.List;
 
-public class playerSearchAdapter extends FirebaseRecyclerAdapter<Player, playerSearchAdapter.playerViewholder> {
-
-    public playerSearchAdapter(@NonNull FirebaseRecyclerOptions<Player> options){
+public class playerSearchAdapter extends FirestoreRecyclerAdapter<Player, playerSearchAdapter.playerViewholder> {
+    public playerSearchAdapter(@NonNull FirestoreRecyclerOptions<Player> options){
         super(options);
     }
-
-    // Function to bind the view in Card view(here
-    // "person.xml") iwth data in
-    // model class(here "person.class")
+    // Bind view to the card view (player_search_content.xml) with the "player.java" class.
     @Override
     protected void
     onBindViewHolder(@NonNull playerViewholder holder,
@@ -33,7 +31,7 @@ public class playerSearchAdapter extends FirebaseRecyclerAdapter<Player, playerS
 
         holder.username.setText(model.getUsername());
         holder.email.setText(model.getContactInfo());
-        // holder.phone.setText(model.getContactInfo();
+        holder.phone.setText(model.getPhone());
     }
 
     // Function to tell the class about the Card view (what data to be shown)
@@ -54,7 +52,7 @@ public class playerSearchAdapter extends FirebaseRecyclerAdapter<Player, playerS
 
             username = itemView.findViewById(R.id.searched_username);
             email = itemView.findViewById(R.id.result_email);
-            // phone = itemView.findViewById(R.id.result_phone);
+            phone = itemView.findViewById(R.id.result_phone);
         }
     }
 }

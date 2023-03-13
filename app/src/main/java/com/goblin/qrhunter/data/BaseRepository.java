@@ -147,7 +147,7 @@ public abstract class BaseRepository<T extends Entity> {
      *
      * @return The Firestore collection reference for the repository.
      */
-    protected CollectionReference getCollectionRef() {
+    public CollectionReference getCollectionRef() {
         return collectionRef;
     }
 }

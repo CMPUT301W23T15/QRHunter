@@ -26,11 +26,13 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.goblin.qrhunter.Player;
 import com.goblin.qrhunter.R;
+import com.goblin.qrhunter.data.PlayerRepository;
 import com.goblin.qrhunter.databinding.FragmentSearchBinding;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
@@ -42,17 +44,13 @@ import java.util.ArrayList;
 public class SearchFragment extends Fragment implements MenuProvider{
     private FragmentSearchBinding binding;
 
-    // Attributes
-    public ArrayList<Player> dataList;
-    public ListView playerList;
-    public playerSearchAdapter searchAdapter;
-
-    // Search bar
+    // Search
     private MenuItem menuItem;
+    public playerSearchAdapter searchAdapter;
     private SearchView searchView;
-
-    // Results from search
     private RecyclerView search_results_view;
+    private SearchViewModel viewModel;
+
 
 
     /**
@@ -68,14 +66,13 @@ public class SearchFragment extends Fragment implements MenuProvider{
      */
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        SearchViewModel searchViewModel =
-                new ViewModelProvider(this).get(SearchViewModel.class);
+        viewModel = new ViewModelProvider(this).get(SearchViewModel.class);
 
         // Fragment Set Up
         binding = FragmentSearchBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         final TextView textView = binding.textDashboard; // Changed from "binding.textNotifications"
-        searchViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        viewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
 
         // Set up search bar
         MenuHost menuHost = getActivity();
@@ -87,9 +84,10 @@ public class SearchFragment extends Fragment implements MenuProvider{
         search_results_view.setLayoutManager(new LinearLayoutManager(getContext()));
 
         // Access to firebase
-        FirebaseRecyclerOptions<Player> options =
-                new FirebaseRecyclerOptions.Builder<Player>()
-                        .setQuery(FirebaseDatabase.getInstance().getReference().child("players"), Player.class)
+        FirestoreRecyclerOptions<Player> options =
+                new FirestoreRecyclerOptions.Builder<Player>()
+                        .setQuery(viewModel.getPlayerCollection(), Player.class)
+                        .setLifecycleOwner(getViewLifecycleOwner())
                         .build();
 
         searchAdapter = new playerSearchAdapter(options);
@@ -130,39 +128,36 @@ public class SearchFragment extends Fragment implements MenuProvider{
         });
     }
 
-
-
     @Override
     public boolean onMenuItemSelected(@NonNull MenuItem menuItem) {
-        Toast.makeText(getContext(), "search bar clicked", Toast.LENGTH_SHORT).show();
         return false;
     }
 
-    // Method to search fire base
+    // Method to search fire store.
     private void process_search(String s){
-        FirebaseRecyclerOptions<Player> options =
-                new FirebaseRecyclerOptions.Builder<Player>()
-                        .setQuery(FirebaseDatabase.getInstance().getReference().child("players")
-                                .orderByChild("username")
+        viewModel = new ViewModelProvider(this).get(SearchViewModel.class);
+        FirestoreRecyclerOptions<Player> options =
+                new FirestoreRecyclerOptions.Builder<Player>()
+                        .setQuery(viewModel.getPlayerCollection().orderBy("username")
                                 .startAt(s).endAt(s+"\uf8ff"), Player.class)
+                        .setLifecycleOwner(getViewLifecycleOwner())
                         .build();
 
         searchAdapter = new playerSearchAdapter(options);
-        searchAdapter.startListening();
         search_results_view.setAdapter(searchAdapter);
     }
-    @Override public void onStart()
-    {
+    @Override public void onStart() {
+        viewModel = new ViewModelProvider(this).get(SearchViewModel.class);
         super.onStart();
-        searchAdapter.startListening();
-        Toast.makeText(getContext(), "listening", Toast.LENGTH_SHORT).show();
+
     }
 
-    // Function to tell the app to stop getting
-    // data from database on stopping of the activity
-    @Override public void onStop()
-    {
+    // Function to tell the app to stop getting data from database on stopping of the activity
+    @Override public void onStop() {
         super.onStop();
-        searchAdapter.stopListening();
     }
+
+    // On item clicked in search.
+
+
 }
