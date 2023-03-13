@@ -46,16 +46,10 @@ import java.util.ArrayList;
 public class SearchFragment extends Fragment implements MenuProvider{
     private FragmentSearchBinding binding;
 
-    // Attributes
-    public ArrayList<Player> dataList;
-    public ListView playerList;
-    public playerSearchAdapter searchAdapter;
-
-    // Search bar
+    // Search
     private MenuItem menuItem;
+    public playerSearchAdapter searchAdapter;
     private SearchView searchView;
-
-    // Results from search
     private RecyclerView search_results_view;
     private SearchViewModel viewModel;
     NavController navController;
@@ -117,6 +111,11 @@ public class SearchFragment extends Fragment implements MenuProvider{
         binding = null;
     }
 
+    /**
+     * Shows the search option in top toolbar. Allows user to enter text to search FireStore database.
+     * @param menu         the menu to inflate the new menu items into
+     * @param menuInflater the inflater to be used to inflate the updated menu
+     */
     @Override
     public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
         // Inflate the menu stuff
@@ -139,15 +138,20 @@ public class SearchFragment extends Fragment implements MenuProvider{
         });
     }
 
-
-
+    /**
+     * No usages.
+     * @param menuItem the menu item that was selected
+     * @return
+     */
     @Override
     public boolean onMenuItemSelected(@NonNull MenuItem menuItem) {
-        Toast.makeText(getContext(), "search bar clicked", Toast.LENGTH_SHORT).show();
         return false;
     }
 
-    // Method to search fire base
+    /**
+     * Searches Firestore database based on user input. Searches & orders BY username.
+     * @param s String that user enters -> Searches firestore.
+     */
     private void process_search(String s){
         viewModel = new ViewModelProvider(this).get(SearchViewModel.class);
         FirestoreRecyclerOptions<Player> options =
@@ -160,17 +164,20 @@ public class SearchFragment extends Fragment implements MenuProvider{
         searchAdapter = new playerSearchAdapter(options);
         search_results_view.setAdapter(searchAdapter);
     }
-    @Override public void onStart()
-    {
+
+    /**
+     * STells the app to start getting data from database on start of the fragment.
+     */
+    @Override public void onStart() {
         viewModel = new ViewModelProvider(this).get(SearchViewModel.class);
         super.onStart();
 
     }
 
-    // Function to tell the app to stop getting
-    // data from database on stopping of the activity
-    @Override public void onStop()
-    {
+    /**
+     * Tells the app to stop getting data from database on stopping of the fragment.
+     */
+    @Override public void onStop() {
         super.onStop();
     }
 

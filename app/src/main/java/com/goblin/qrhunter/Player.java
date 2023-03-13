@@ -21,8 +21,10 @@ public class Player implements Entity {
     private String id;
     private String username;
     private String contactInfo;
+    private String phone;
 
     private String profileURI;
+
 
     private int totalScore;
 
@@ -52,11 +54,13 @@ public class Player implements Entity {
      * @param username The username of the player.
      * @param contactInfo The contact information of the player.
      * @param profilePicURL The profile picture URL of the player.
+     * @param phone Phone number of the player.
      */
-    public Player(String id, String username, String contactInfo, String profilePicURL) {
+    public Player(String id, String username, String contactInfo, String profilePicURL, String phone) {
         setId(id);
         setUsername(username);
         setContactInfo(contactInfo);
+        setPhone(phone);
         setProfileURI(profilePicURL);
     }
 
@@ -69,6 +73,7 @@ public class Player implements Entity {
         HashMap<String, Object> result = new HashMap<>();
         result.put("username", username);
         result.put("contactInfo", contactInfo);
+        result.put("phone", phone);
         return result;
     }
 
@@ -114,12 +119,24 @@ public class Player implements Entity {
     }
 
     /**
-     * Sets the contact information of the player.
+     * Sets the contact information (email) of the player.
      * @param contactInfo The contact information to set for the player.
      */
     public void setContactInfo(String contactInfo) {
         this.contactInfo = contactInfo;
     }
+
+    /**
+     * Sets the phone number of player.
+     * @param phone
+     */
+    public void setPhone(String phone) {this.phone = phone;}
+
+    /**
+     * Gets the phone number of player.
+     * @return
+     */
+    public String getPhone() {return phone;}
 
     /**
      * Returns the profile picture URL of the player.

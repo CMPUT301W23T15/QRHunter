@@ -9,7 +9,7 @@ public class PlayerUnitTest {
     private Player player;
 
     public Player MockPlayer(){
-        player = new Player("playerID","playerUserName","playerContact", "ProfileURI");
+        player = new Player("playerID","playerUserName","playerContact", "ProfileURI", "Phone");
         return player;
     }
 

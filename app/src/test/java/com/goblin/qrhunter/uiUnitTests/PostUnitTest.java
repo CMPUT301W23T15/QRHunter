@@ -3,6 +3,7 @@ package com.goblin.qrhunter.uiUnitTests;
 import static org.junit.Assert.*;
 
 import android.location.Location;
+import android.util.Log;
 
 import com.goblin.qrhunter.Post;
 import com.goblin.qrhunter.QRCode;
@@ -12,7 +13,7 @@ import org.junit.Test;
 public class PostUnitTest {
     private Post post;
 //    not sure how I will use this QRCode to test?
-    private QRCode code;
+    private QRCode code= new QRCode("test");
     private Location location;
 
     public Post MockPost(){
@@ -87,5 +88,10 @@ public class PostUnitTest {
 //        post.setLocation(location);
 //        assertEquals(post.getLocation(), location);
 //    }
+    @Test
+    public void getPostKeyTest(){
+        post = MockPost();
+        assertEquals(post.getPostKey(), post.getPlayerId() + code.getHash());
+    }
 
 }

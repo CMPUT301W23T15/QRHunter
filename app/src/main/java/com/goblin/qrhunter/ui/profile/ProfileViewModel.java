@@ -37,7 +37,7 @@ public class ProfileViewModel extends ViewModel {
         playerDB = new PlayerRepository();
         // create unknown player fallback
         if (user != null) {
-           playerDB.get(user.getUid()).addOnSuccessListener(player -> username.setValue(player.getUsername()));
+           playerDB.get(user.getUid()).addOnSuccessListener(player -> username.setValue("  " + player.getUsername()));
         }
     }
 
