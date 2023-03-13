@@ -1,4 +1,4 @@
-package com.goblin.qrhunter.ui.summary;
+package com.goblin.qrhunter.ui.search;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,15 +10,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.goblin.qrhunter.Player;
 import com.goblin.qrhunter.QRCode;
 import com.goblin.qrhunter.R;
 
 import java.util.ArrayList;
 
-public class QRcodesArrayAdapter extends ArrayAdapter<QRCode> {
+public class playerSearchArrayAdapter extends ArrayAdapter<Player> {
 
-    public QRcodesArrayAdapter(@NonNull Context context, ArrayList<QRCode> QRcodes) {
-        super(context, 0, QRcodes);
+    public playerSearchArrayAdapter(@NonNull Context context, ArrayList<Player> players) {
+        super(context, 0, players);
     }
 
     @NonNull
@@ -29,19 +30,19 @@ public class QRcodesArrayAdapter extends ArrayAdapter<QRCode> {
         // Otherwise, we reuse 'convertView' as the 'view'.
         View view;
         if (convertView == null) {
-            view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_summary_list_content, parent, false);
+            view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_player_search_list_content, parent, false);
         } else {
             view = convertView;
         }
 
         // Get the position of the qrcode item in list.
-        QRCode qrcode = getItem(position);
+        Player player = getItem(position);
 
         // Get textViews for all attributes of "visit" object.
-        TextView test = view.findViewById(R.id.qr_test);
+        TextView test = view.findViewById(R.id.player_test);
 
-        // Sets the name for each textView to the actual name of the attribute in the list.
-        test.setText(qrcode.getHash());
+        // Sets the username. DON'T FORGET TO SET WHATEVER ELSE IS NEEDED LATER ON.
+        test.setText(player.getUsername());
 
         return view;
     }

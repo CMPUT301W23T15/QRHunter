@@ -26,11 +26,11 @@ import java.util.ArrayList;
  * It uses the SummaryViewModel class to manage the data and logic behind the summary view.
  */
 public class SummaryFragment extends Fragment {
-    private ArrayList<QRCode> dataList;
-    private ListView qrcodeList;
-    private QRcodesArrayAdapter qrAdapter;
+    public ArrayList<QRCode> dataList;
+    public ListView qrcodeList;
+    public QRcodesArrayAdapter qrAdapter;
 
-    private FragmentSummaryBinding binding;
+    public FragmentSummaryBinding binding;
 
     /**
 
