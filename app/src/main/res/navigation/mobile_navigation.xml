@@ -32,7 +32,18 @@
         android:id="@+id/navigation_search"
         android:name="com.goblin.qrhunter.ui.search.SearchFragment"
         android:label="Search"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_search_select_player"
+            app:destination="@id/otherProfileFragment" >
+            <argument
+                android:name="playerId"
+                app:argType="string"
+                android:defaultValue=""
+                />
+
+        </action>
+    </fragment>
     <fragment
         android:id="@+id/leaderboardFragment"
         android:name="com.goblin.qrhunter.ui.leaderboard.LeaderboardFragment"
@@ -78,6 +89,19 @@
         android:name="com.goblin.qrhunter.ui.leaderboard.RankinglistTotalscoreFragment"
         android:label="fragment_rankinglistTotalscore"
         tools:layout="@layout/fragment_rankbytotalscore" >
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/otherProfileFragment"
+        android:name="com.goblin.qrhunter.ui.profile.OtherProfileFragment"
+        android:label="fragment_other_profile"
+        tools:layout="@layout/fragment_other_profile">
+        <argument
+            android:name="playerId"
+            app:argType="string"
+            android:defaultValue=""
+            />
 
     </fragment>
 

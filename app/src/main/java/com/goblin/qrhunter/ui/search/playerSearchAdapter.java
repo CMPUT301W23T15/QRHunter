@@ -1,12 +1,14 @@
 package com.goblin.qrhunter.ui.search;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -15,6 +17,8 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.goblin.qrhunter.Player;
 import com.goblin.qrhunter.R;
+import com.goblin.qrhunter.databinding.FragmentOtherProfileBinding;
+import com.goblin.qrhunter.ui.profile.OtherProfileFragmentArgs;
 
 import java.util.List;
 
@@ -32,9 +36,22 @@ public class playerSearchAdapter extends FirestoreRecyclerAdapter<Player, player
     onBindViewHolder(@NonNull playerViewholder holder,
                      int position, @NonNull Player model)
     {
-
+        String playerId = model.getId();
+        String username = model.getUsername();
+        String contactInfo = model.getContactInfo();
         holder.username.setText(model.getUsername());
         holder.email.setText(model.getContactInfo());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putString("username", username);
+                bundle.putString("contactInfo", contactInfo);
+                bundle.putString("id", playerId);
+
+                Navigation.findNavController(v).navigate(R.id.action_search_select_player, bundle);
+            }
+        });
         // holder.phone.setText(model.getContactInfo();
     }
 
