@@ -59,7 +59,7 @@ public abstract class BaseRepository<T extends Entity> {
         if(item.getId() != null && item.getId().length() > 0) {
             return this.update(item);
         }
-        return collectionRef.add(map)
+        return getCollectionRef().add(map)
                 .continueWith(task -> {
                     String documentId = task.getResult().getId();
                     item.setId(documentId);
@@ -76,7 +76,7 @@ public abstract class BaseRepository<T extends Entity> {
     public Task<Void> update(@NonNull T item) {
         String id = item.getId();
         Map<String, Object> map = item.toMap();
-        return collectionRef.document(id).set(map);
+        return getCollectionRef().document(id).set(map);
     }
 
     /**
@@ -95,7 +95,7 @@ public abstract class BaseRepository<T extends Entity> {
      * @return A task that returns the model object when it is complete.
      */
     public Task<T> get(String id) {
-        return collectionRef.document(id).get().continueWith(task -> {
+        return getCollectionRef().document(id).get().continueWith(task -> {
             DocumentSnapshot document = task.getResult();
             if (document.exists()) {
                 T item = document.toObject(type);
@@ -110,13 +110,27 @@ public abstract class BaseRepository<T extends Entity> {
     }
 
     /**
+     * Returns a LiveData object containing a list of all the items in the Firestore
+     * collection that have a given field equal to a specific value.
+     *
+     * @param field The name of the field to filter by.
+     * @param value The value that the field must be equal to.
+     * @return A LiveData object containing a list of all the items in the Firestore
+     * collection that have a given field equal to a specific value.
+     */
+    protected LiveData<List<T>> getWhereEqualTo(String field, Object value) {
+        Query q =  getCollectionRef().whereEqualTo(field, value);
+        return new FirebaseLiveData<>(q, type);
+    }
+
+    /**
      * Checks if a document with the given ID exists in the collection.
      *
      * @param id the ID of the document to check.
      * @return a {@link Task} that on completes indicates if the item exists or not.
      */
     public Task<Boolean> exists(String id) {
-        return collectionRef.document(id).get().continueWith(task -> task.getResult().exists());
+        return getCollectionRef().document(id).get().continueWith(task -> task.getResult().exists());
     }
 
     /**
@@ -124,11 +138,16 @@ public abstract class BaseRepository<T extends Entity> {
      * @return A task that returns a list of model objects when it is complete.
      */
     public LiveData<List<T>> getAll() {
-        Query query = collectionRef.orderBy("timestamp", Query.Direction.DESCENDING);
+        Query query = getCollectionRef().orderBy("timestamp", Query.Direction.DESCENDING);
         return new FirebaseLiveData<>(query, type);
     }
 
-    public CollectionReference getCollectionRef() {
+    /**
+     * Returns the Firestore collection reference for the repository.
+     *
+     * @return The Firestore collection reference for the repository.
+     */
+    protected CollectionReference getCollectionRef() {
         return collectionRef;
     }
 }
