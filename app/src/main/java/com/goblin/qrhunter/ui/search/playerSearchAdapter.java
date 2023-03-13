@@ -18,7 +18,7 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.goblin.qrhunter.Player;
 import com.goblin.qrhunter.R;
 import com.goblin.qrhunter.databinding.FragmentOtherProfileBinding;
-import com.goblin.qrhunter.ui.profile.OtherProfileFragmentArgs;
+// import com.goblin.qrhunter.ui.profile.OtherProfileFragmentArgs;
 
 import java.util.List;
 
@@ -43,8 +43,8 @@ public class playerSearchAdapter extends FirestoreRecyclerAdapter<Player, player
         String contactInfo = model.getContactInfo();
         holder.username.setText(model.getUsername());
         holder.email.setText(model.getContactInfo());
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
         holder.phone.setText(model.getPhone());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
