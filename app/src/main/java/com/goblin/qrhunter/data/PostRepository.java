@@ -42,4 +42,14 @@ public class PostRepository extends BaseRepository<Post> {
     public LiveData<List<Post>> getPostByPlayer(String id) {
         return this.getWhereEqualTo("playerId", id);
     }
+
+    /**
+     * get a livedata list of all the users posts
+     * @param id user id
+     * @return all user posts
+     */
+    public LiveData<List<Post>> getUserPosts(String id) {
+        Query q = getCollectionRef().whereEqualTo("playerId", id);
+        return new FirebaseLiveData<>(q, Post.class);
+    }
 }
