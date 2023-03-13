@@ -44,16 +44,10 @@ import java.util.ArrayList;
 public class SearchFragment extends Fragment implements MenuProvider{
     private FragmentSearchBinding binding;
 
-    // Attributes
-    public ArrayList<Player> dataList;
-    public ListView playerList;
-    public playerSearchAdapter searchAdapter;
-
-    // Search bar
+    // Search
     private MenuItem menuItem;
+    public playerSearchAdapter searchAdapter;
     private SearchView searchView;
-
-    // Results from search
     private RecyclerView search_results_view;
     private SearchViewModel viewModel;
 
@@ -134,15 +128,12 @@ public class SearchFragment extends Fragment implements MenuProvider{
         });
     }
 
-
-
     @Override
     public boolean onMenuItemSelected(@NonNull MenuItem menuItem) {
-        Toast.makeText(getContext(), "search bar clicked", Toast.LENGTH_SHORT).show();
         return false;
     }
 
-    // Method to search fire base
+    // Method to search fire store.
     private void process_search(String s){
         viewModel = new ViewModelProvider(this).get(SearchViewModel.class);
         FirestoreRecyclerOptions<Player> options =
@@ -155,17 +146,18 @@ public class SearchFragment extends Fragment implements MenuProvider{
         searchAdapter = new playerSearchAdapter(options);
         search_results_view.setAdapter(searchAdapter);
     }
-    @Override public void onStart()
-    {
+    @Override public void onStart() {
         viewModel = new ViewModelProvider(this).get(SearchViewModel.class);
         super.onStart();
 
     }
 
-    // Function to tell the app to stop getting
-    // data from database on stopping of the activity
-    @Override public void onStop()
-    {
+    // Function to tell the app to stop getting data from database on stopping of the activity
+    @Override public void onStop() {
         super.onStop();
     }
+
+    // On item clicked in search.
+
+
 }
