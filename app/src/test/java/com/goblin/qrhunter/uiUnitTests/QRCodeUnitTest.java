@@ -1,14 +1,14 @@
-package com.goblin.qrhunter;
+package com.goblin.qrhunter.uiUnitTests;
 
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+import com.goblin.qrhunter.QRCode;
+
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
-import java.util.function.BiConsumer;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
