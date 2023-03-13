@@ -6,6 +6,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import android.app.Activity;
+import android.view.KeyEvent;
 import android.widget.EditText;
 import android.widget.SearchView;
 
@@ -82,6 +83,16 @@ public class MainActivityTest {
         solo.clickOnView(solo.getView(R.id.navigation_search));
         assertTrue(solo.waitForText("Search for other players"));
         solo.clickOnView(solo.getView(R.id.player_search));
+        solo.sendKey(KeyEvent.KEYCODE_U);
+        solo.sendKey(KeyEvent.KEYCODE_S);
+        solo.sendKey(KeyEvent.KEYCODE_E);
+        solo.sendKey(KeyEvent.KEYCODE_R);
+        solo.sendKey(KeyEvent.KEYCODE_4);
+        solo.sendKey(KeyEvent.KEYCODE_9);
+        solo.sendKey(KeyEvent.KEYCODE_3);
+        solo.sendKey(KeyEvent.KEYCODE_9);
+        solo.sendKey(KeyEvent.KEYCODE_ENTER);
+        assertTrue(solo.waitForText("user49394473"));
         solo.sleep(2000);
         solo.goBack();
     }
