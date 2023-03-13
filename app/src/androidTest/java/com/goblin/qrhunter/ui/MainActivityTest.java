@@ -46,9 +46,27 @@ public class MainActivityTest {
     }
 
     @Test
+    public void CheckLeaderBoards(){
+        solo.assertCurrentActivity("Wrong activity", MainActivity.class);
+        solo.clickOnView(solo.getView(R.id.leaderboard_button));
+        solo.sleep(1000);
+        solo.clickOnButton("TOTAL SCORE");
+        solo.sleep(2000);
+    }
+
+    @Test
+//    the camera is a third party access so just make sure for now that when clicked it does in fact pull up camera
     public void CheckCamera(){
         solo.assertCurrentActivity("wrong activity", MainActivity.class);
         solo.clickOnView(solo.getView(R.id.scan_button));
+        solo.sleep(2000);
+    }
+
+    @Test
+    public void CheckMap(){
+        solo.assertCurrentActivity("wrong activity", MainActivity.class);
+        solo.clickOnView(solo.getView(R.id.map_button));
+        solo.sleep(2000);
     }
 
     @Test
@@ -56,26 +74,58 @@ public class MainActivityTest {
         solo.assertCurrentActivity("wrong activity", MainActivity.class);
         solo.clickOnView(solo.getView(R.id.navigation_search));
         assertTrue(solo.waitForText("This is search fragment"));
-        solo.sleep(3000);
+        solo.sleep(2000);
     }
 
     @Test
-    public void checkNav(){
+    public void checkNavSummary(){
         solo.assertCurrentActivity("wrong activity", MainActivity.class);
         solo.clickOnView(solo.getView(R.id.navigation_summary));
         assertTrue(solo.waitForText("My QR Codes"));
-        solo.sleep(3000);
+        solo.sleep(2000);
     }
 
+    @Test
+    public void EndToEndFullTest(){
+        solo.assertCurrentActivity("Wrong activity", MainActivity.class);
+        solo.clickOnView(solo.getView(R.id.profile_button));
+        solo.clickOnButton("sign-out");
+        solo.clickOnButton("get started");
+        solo.sleep(1000);
+        solo.assertCurrentActivity("Wrong activity", MainActivity.class);
+        assertTrue(solo.waitForText("sign-out"));
+        solo.goBack();
 
+        solo.assertCurrentActivity("wrong activity", MainActivity.class);
+        solo.clickOnView(solo.getView(R.id.map_button));
+        solo.sleep(2000);
+        solo.goBack();
 
+        solo.clickOnView(solo.getView(R.id.scan_button));
+        solo.sleep(2000);
+        solo.goBack();
 
+        solo.assertCurrentActivity("Wrong activity", MainActivity.class);
+        solo.clickOnView(solo.getView(R.id.leaderboard_button));
+        solo.sleep(1000);
+        solo.clickOnButton("TOTAL SCORE");
+        solo.sleep(2000);
+        solo.goBack();
+        solo.goBack();
 
+        solo.assertCurrentActivity("wrong activity", MainActivity.class);
+        solo.clickOnView(solo.getView(R.id.navigation_search));
+        assertTrue(solo.waitForText("This is search fragment"));
+        solo.sleep(2000);
+        solo.goBack();
 
+        solo.assertCurrentActivity("wrong activity", MainActivity.class);
+        solo.clickOnView(solo.getView(R.id.navigation_summary));
+        assertTrue(solo.waitForText("My QR Codes"));
+        solo.sleep(2000);
+        solo.goBack();
 
-
-
-
+    }
     // Method 3) This method closes the activity after each test
     @After
     public void tearDown() throws Exception {
