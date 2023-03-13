@@ -43,6 +43,7 @@ public class MainActivityTest {
         solo.sleep(1000);
         solo.assertCurrentActivity("Wrong activity", MainActivity.class);
         assertTrue(solo.waitForText("sign-out"));
+        solo.goBack();
     }
 
     @Test
@@ -52,6 +53,8 @@ public class MainActivityTest {
         solo.sleep(1000);
         solo.clickOnButton("TOTAL SCORE");
         solo.sleep(2000);
+        solo.goBack();
+        solo.goBack();
     }
 
     @Test
@@ -60,6 +63,7 @@ public class MainActivityTest {
         solo.assertCurrentActivity("wrong activity", MainActivity.class);
         solo.clickOnView(solo.getView(R.id.scan_button));
         solo.sleep(2000);
+        solo.goBack();
     }
 
     @Test
@@ -67,6 +71,7 @@ public class MainActivityTest {
         solo.assertCurrentActivity("wrong activity", MainActivity.class);
         solo.clickOnView(solo.getView(R.id.map_button));
         solo.sleep(2000);
+        solo.goBack();
     }
 
     @Test
@@ -75,6 +80,7 @@ public class MainActivityTest {
         solo.clickOnView(solo.getView(R.id.navigation_search));
         assertTrue(solo.waitForText("This is search fragment"));
         solo.sleep(2000);
+        solo.goBack();
     }
 
     @Test
@@ -83,48 +89,17 @@ public class MainActivityTest {
         solo.clickOnView(solo.getView(R.id.navigation_summary));
         assertTrue(solo.waitForText("My QR Codes"));
         solo.sleep(2000);
+        solo.goBack();
     }
 
     @Test
     public void EndToEndFullTest(){
-        solo.assertCurrentActivity("Wrong activity", MainActivity.class);
-        solo.clickOnView(solo.getView(R.id.profile_button));
-        solo.clickOnButton("sign-out");
-        solo.clickOnButton("get started");
-        solo.sleep(1000);
-        solo.assertCurrentActivity("Wrong activity", MainActivity.class);
-        assertTrue(solo.waitForText("sign-out"));
-        solo.goBack();
-
-        solo.assertCurrentActivity("wrong activity", MainActivity.class);
-        solo.clickOnView(solo.getView(R.id.map_button));
-        solo.sleep(2000);
-        solo.goBack();
-
-        solo.clickOnView(solo.getView(R.id.scan_button));
-        solo.sleep(2000);
-        solo.goBack();
-
-        solo.assertCurrentActivity("Wrong activity", MainActivity.class);
-        solo.clickOnView(solo.getView(R.id.leaderboard_button));
-        solo.sleep(1000);
-        solo.clickOnButton("TOTAL SCORE");
-        solo.sleep(2000);
-        solo.goBack();
-        solo.goBack();
-
-        solo.assertCurrentActivity("wrong activity", MainActivity.class);
-        solo.clickOnView(solo.getView(R.id.navigation_search));
-        assertTrue(solo.waitForText("This is search fragment"));
-        solo.sleep(2000);
-        solo.goBack();
-
-        solo.assertCurrentActivity("wrong activity", MainActivity.class);
-        solo.clickOnView(solo.getView(R.id.navigation_summary));
-        assertTrue(solo.waitForText("My QR Codes"));
-        solo.sleep(2000);
-        solo.goBack();
-
+        CheckProfileLogInLogOut();
+        CheckLeaderBoards();
+        CheckCamera();
+        CheckMap();
+        checkNavigationSearch();
+        checkNavSummary();
     }
     // Method 3) This method closes the activity after each test
     @After
