@@ -7,12 +7,18 @@ package com.goblin.qrhunter.ui.search;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -38,6 +44,10 @@ public class SearchFragment extends Fragment {
     public ListView playerList;
     public playerSearchArrayAdapter playerAdapter;
 
+    // Search bar
+    private MenuItem menuItem;
+    private SearchView searchView;
+
     /**
      * Called to have the fragment instantiate its user interface view.
      *
@@ -59,6 +69,8 @@ public class SearchFragment extends Fragment {
         View root = binding.getRoot();
         final TextView textView = binding.textDashboard; // Changed from "binding.textNotifications"
         searchViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+
+
 
         // Set up list view, data list (holds the players), and adapter.
         dataList = new ArrayList<>();
