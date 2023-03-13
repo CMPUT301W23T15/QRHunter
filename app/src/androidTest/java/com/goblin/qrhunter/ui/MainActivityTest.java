@@ -82,6 +82,8 @@ public class MainActivityTest {
         solo.clickOnView(solo.getView(R.id.navigation_search));
         assertTrue(solo.waitForText("Search for other players"));
         solo.clickOnView(solo.getView(R.id.player_search));
+        solo.sendKey(solo.ENTER);
+
         solo.sleep(2000);
         solo.goBack();
     }

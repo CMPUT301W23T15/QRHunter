@@ -54,6 +54,7 @@ public class Player implements Entity {
      * @param username The username of the player.
      * @param contactInfo The contact information of the player.
      * @param profilePicURL The profile picture URL of the player.
+     * @param phone Phone number of player.
      */
     public Player(String id, String username, String contactInfo, String profilePicURL, String phone) {
         setId(id);
