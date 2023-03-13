@@ -16,18 +16,35 @@ import androidx.lifecycle.ViewModelProvider;
 import com.goblin.qrhunter.R;
 
 
+/**
+ * A dialog fragment that allows the user to edit their profile information, including phone number and email.
+ */
 public class EditProfileDialogFragment extends DialogFragment {
 
     private EditText mPhoneEditText;
+
     private EditText mEmailEditText;
+
     private ProfileViewModel mViewModel;
 
+    /**
+     * Creates a new instance of the EditProfileDialogFragment.
+     *
+     * @param viewModel The view model used to manage the profile information.
+     * @return The new instance of EditProfileDialogFragment.
+     */
     public static EditProfileDialogFragment newInstance(ProfileViewModel viewModel) {
         EditProfileDialogFragment fragment = new EditProfileDialogFragment();
         fragment.mViewModel = viewModel;
         return fragment;
     }
 
+    /**
+     * Creates and returns a new AlertDialog for the dialog.
+     *
+     * @param savedInstanceState The saved instance state of the dialog.
+     * @return The new AlertDialog for the dialog.
+     */
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -82,6 +99,12 @@ public class EditProfileDialogFragment extends DialogFragment {
         return builder.create();
     }
 
+    /**
+     * Called when the dialog is first created. Observes the phone number and email LiveData in the ProfileViewModel
+     * if mViewModel is not null and updates the EditText fields accordingly.
+     *
+     * @param savedInstanceState The saved instance state of the dialog.
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
