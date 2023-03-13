@@ -27,10 +27,18 @@ import com.google.firebase.firestore.FirebaseFirestore;
  * It uses the SummaryViewModel class to manage the data and logic behind the summary view.
  */
 public class SummaryFragment extends Fragment {
+<<<<<<< HEAD
     private SummaryViewModel mViewModel;
     private FragmentSummaryBinding binding;
     FirebaseFirestore db;
     String TAG = "SummaryFragment";
+=======
+    public ArrayList<QRCode> dataList;
+    public ListView qrcodeList;
+    public QRcodesArrayAdapter qrAdapter;
+
+    public FragmentSummaryBinding binding;
+>>>>>>> main
 
 
     /**
@@ -66,7 +74,14 @@ public class SummaryFragment extends Fragment {
 
         });
 
+        if(mViewModel.getUserPosts().getValue() != null) {
+            qrAdapter.setData(mViewModel.getUserPosts().getValue());
+            Log.d(TAG, "onCreateView: setting data: ");
 
+        }
+        for(Post p: qrAdapter.mPosts) {
+            Toast.makeText(getContext(), "post  " + p.getId()+ " adapter size: " + qrAdapter.getItemCount(), Toast.LENGTH_SHORT).show();
+        }
         return binding.getRoot();
     }
 

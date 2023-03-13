@@ -11,8 +11,14 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.goblin.qrhunter.Post;
+import com.goblin.qrhunter.QRCode;
 import com.goblin.qrhunter.R;
+import com.goblin.qrhunter.data.PostRepository;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class ScanFragment extends Fragment {
 
@@ -25,7 +31,18 @@ public class ScanFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_scan, container, false);
+        View root = inflater.inflate(R.layout.fragment_scan, container, false);
+        FirebaseUser usr = FirebaseAuth.getInstance().getCurrentUser();
+
+
+
+        root.findViewById(R.id.button_confirm).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        return root;
     }
 
 

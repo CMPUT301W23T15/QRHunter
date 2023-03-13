@@ -51,6 +51,15 @@ public class PostRepository extends BaseRepository<Post> {
     }
 
     /**
+<<<<<<< HEAD
+     * get a livedata list of all the users posts
+     * @param id user id
+     * @return all user posts
+     */
+    public LiveData<List<Post>> getUserPosts(String id) {
+        Query q = getCollectionRef().whereEqualTo("playerId", id);
+        return new FirebaseLiveData<>(q, Post.class);
+=======
      * Adds the given post to the collection.
      * @param post The model object to add to the collection.
      * @return A task indicating whether the operation was successful.
@@ -65,5 +74,6 @@ public class PostRepository extends BaseRepository<Post> {
             post.setId(existsList.get(0).getId());
         }
         return super.add(post);
+>>>>>>> main
     }
 }
