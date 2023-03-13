@@ -3,15 +3,18 @@
  */
 package com.goblin.qrhunter.ui.summary;
 
-import android.util.Log;
-
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.goblin.qrhunter.Post;
 import com.goblin.qrhunter.data.PlayerRepository;
+import com.goblin.qrhunter.data.PostRepository;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.util.List;
 
 /**
  * SummaryViewModel Stub
@@ -19,6 +22,10 @@ import com.google.firebase.auth.FirebaseUser;
 public class SummaryViewModel extends ViewModel {
 
     MutableLiveData<String> username = new MutableLiveData<>();
+    MediatorLiveData<List<Post>> userPosts = new MediatorLiveData<>();
+    String playerId;
+
+    PostRepository postDB;
     PlayerRepository playerDB;
     /**
      * Constructs a new SummaryViewModel and initializes the LiveData to hold the user's username.
@@ -28,11 +35,14 @@ public class SummaryViewModel extends ViewModel {
     public SummaryViewModel() {
         super();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        // if user is not logged in they will be kicked back to the welcome screen.
+        assert user != null;
+        playerId = user.getUid();
+        postDB = new PostRepository();
         playerDB = new PlayerRepository();
-        // create unknown player fallback
-        if (user != null) {
-            playerDB.get(user.getUid()).addOnSuccessListener(player -> username.setValue(player.getUsername()));
-        }
+
+        userPosts.addSource(postDB.getUserPosts(playerId), userPosts::setValue);
+        playerDB.get(playerId).addOnSuccessListener(player -> {username.setValue(player.getUsername());});
     }
 
     /**
@@ -41,5 +51,13 @@ public class SummaryViewModel extends ViewModel {
      */
     public LiveData<String> getUsername() {
         return username;
+    }
+
+    /**
+     * get all of the post from the current user
+     * @return livedata list of posts
+     */
+    public MediatorLiveData<List<Post>> getUserPosts() {
+        return userPosts;
     }
 }
