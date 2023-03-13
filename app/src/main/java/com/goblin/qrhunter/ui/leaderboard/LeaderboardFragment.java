@@ -7,12 +7,17 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.goblin.qrhunter.R;
+import com.goblin.qrhunter.databinding.FragmentHomeBinding;
+import com.goblin.qrhunter.databinding.FragmentLeaderboardBinding;
+import com.goblin.qrhunter.ui.home.HomeViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,6 +25,7 @@ import com.goblin.qrhunter.R;
  */
 public class LeaderboardFragment extends Fragment {
     private LeaderboardViewModel mViewModel;
+    private FragmentLeaderboardBinding binding;
 
     /**
      * Creates a new instance of the LeaderboardFragment.
@@ -41,6 +47,17 @@ public class LeaderboardFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_leaderboard, container, false);
+        mViewModel = new ViewModelProvider(this).get(LeaderboardViewModel.class);
+        binding = FragmentLeaderboardBinding.inflate(inflater, container, false);
+        NavController navController = Navigation.findNavController(container);
+
+        binding.buttonRankByTotalScore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navController.navigate(R.id.action_leaderboardFragment_to_navigation_rankingListTotalscore);
+            }
+        });
+
+        return binding.getRoot();
     }
 }
