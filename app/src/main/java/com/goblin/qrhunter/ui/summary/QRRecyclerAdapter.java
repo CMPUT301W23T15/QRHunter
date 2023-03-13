@@ -1,5 +1,6 @@
 package com.goblin.qrhunter.ui.summary;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,11 +17,17 @@ import java.util.List;
 
 public class QRRecyclerAdapter extends RecyclerView.Adapter<QRRecyclerAdapter.QRViewHolder> {
 
-    private List<Post> mPosts = new ArrayList<>();
+     List<Post> mPosts = new ArrayList<>();
+    String TAG = "QRRecyclerAdapter";
 
 
-    public QRRecyclerAdapter(List<Post> posts) {
-        mPosts = posts;
+
+    void setData(List<Post> posts) {
+        if(posts != null) {
+            mPosts.clear();
+            mPosts.addAll(posts);
+            notifyDataSetChanged();
+        }
     }
 
     @NonNull
@@ -48,6 +55,8 @@ public class QRRecyclerAdapter extends RecyclerView.Adapter<QRRecyclerAdapter.QR
 
     public static class QRViewHolder extends RecyclerView.ViewHolder {
 
+        String TAG = "QRRecyclerAdapter";
+
         private TextView mTitle;
         private TextView mPoints;
 
@@ -60,7 +69,8 @@ public class QRRecyclerAdapter extends RecyclerView.Adapter<QRRecyclerAdapter.QR
 
         public void bind(Post post) {
             mTitle.setText(post.getName());
-            mPoints.setText(post.getCode().getScore());
+            Log.d(TAG, "bind: " + post.getName());
+            mPoints.setText(String.valueOf(post.getCode().getScore()));
         }
     }
 }

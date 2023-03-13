@@ -22,7 +22,8 @@ import java.util.List;
 public class SummaryViewModel extends ViewModel {
 
     MutableLiveData<String> username = new MutableLiveData<>();
-    MediatorLiveData<List<Post>> userPosts = new MediatorLiveData<>();
+    LiveData<List<Post>> userPosts;
+
     String playerId;
 
     PostRepository postDB;
@@ -41,8 +42,7 @@ public class SummaryViewModel extends ViewModel {
         postDB = new PostRepository();
         playerDB = new PlayerRepository();
 
-        userPosts.addSource(postDB.getUserPosts(playerId), userPosts::setValue);
-        playerDB.get(playerId).addOnSuccessListener(player -> {username.setValue(player.getUsername());});
+        userPosts = postDB.getUserPosts(playerId);
     }
 
     /**
@@ -57,7 +57,7 @@ public class SummaryViewModel extends ViewModel {
      * get all of the post from the current user
      * @return livedata list of posts
      */
-    public MediatorLiveData<List<Post>> getUserPosts() {
+    public LiveData<List<Post>> getUserPosts() {
         return userPosts;
     }
 }
