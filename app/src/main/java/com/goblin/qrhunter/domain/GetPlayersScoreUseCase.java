@@ -8,8 +8,11 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 
+import com.goblin.qrhunter.Player;
 import com.goblin.qrhunter.Post;
+import com.goblin.qrhunter.data.PlayerRepository;
 import com.goblin.qrhunter.data.PostRepository;
+import com.google.android.gms.tasks.Task;
 
 import java.util.HashMap;
 import java.util.List;
@@ -25,6 +28,9 @@ public class GetPlayersScoreUseCase {
     private LiveData<List<Post>> allPosts;
 
     private MediatorLiveData<Map<String, Integer>> playerScores = new MediatorLiveData<>();
+
+    PlayerRepository playerRepository = new PlayerRepository();
+
 
     /**
      * Constructor for the use case. Sets up repo's and livedata.
@@ -80,4 +86,38 @@ public class GetPlayersScoreUseCase {
             });
         }};
     }
+
+    /**
+     * Get the player total score based on player ID
+     * @param playerId
+     * @return
+     */
+    public int getPlayerScore(String playerId) {
+        Map<String, Integer> scoresMap = playerScores.getValue();
+        if (scoresMap != null && scoresMap.containsKey(playerId)) {
+            return scoresMap.get(playerId);
+        } else {
+            return 0;
+        }
+    }
+
+    /**
+     * Get the player user name based on player ID
+     * @param playerId
+     * @return
+     */
+    public String getPlayerName(String playerId) {
+        Map<String, Integer> scoresMap = playerScores.getValue();
+        if (scoresMap != null && scoresMap.containsKey(playerId)) {
+            // Get the player's name from the PlayerRepository based on the player ID
+            Task<Player> player = playerRepository.getPlayerById(playerId);
+
+            if (player != null) {
+                return player.getResult().getUsername();
+            }
+        }
+        return null;
+    }
+
+
 }

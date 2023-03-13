@@ -23,6 +23,8 @@ import com.google.firebase.auth.FirebaseUser;
  */
 public class ProfileViewModel extends ViewModel {
     MutableLiveData<String> username = new MutableLiveData<>();
+    MutableLiveData<String> phoneNumber = new MutableLiveData<>("");
+    MutableLiveData<String> email = new MutableLiveData<>("");
     PlayerRepository playerDB;
     /**
      * Constructs a new ProfileViewModel and initializes the LiveData to hold the user's username.
@@ -46,5 +48,41 @@ public class ProfileViewModel extends ViewModel {
      */
     public LiveData<String> getUsername() {
         return  username;
+    }
+
+    /**
+     * Updates the MutableLiveData object for the user's phone number with the new value.
+     *
+     * @param phone The new phone number value.
+     */
+    public void setPhoneNumber(String phone) {
+        this.phoneNumber.setValue(phone);
+    }
+
+    /**
+     * Updates the MutableLiveData object for the user's email with the new value.
+     *
+     * @param email The new email value.
+     */
+    public void setEmail(String email) {
+        this.email.setValue(email);
+    }
+
+    /**
+     * Returns a LiveData object that holds the user's phone number.
+     *
+     * @return LiveData object that holds the user's phone number.
+     */
+    public LiveData<String> getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    /**
+     * Returns a LiveData object that holds the user's email.
+     *
+     * @return LiveData object that holds the user's email.
+     */
+    public LiveData<String> getEmail() {
+        return email;
     }
 }

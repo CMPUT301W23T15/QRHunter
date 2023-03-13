@@ -40,7 +40,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/button_retake"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.5" />
+        app:layout_constraintVertical_bias="0.378" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button_retake"
@@ -56,7 +56,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.5" />
+        app:layout_constraintVertical_bias="0.378" />
 
     <ImageView
         android:id="@+id/imageView"
