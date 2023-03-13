@@ -24,6 +24,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.goblin.qrhunter.data.PlayerRepository;
 import com.goblin.qrhunter.databinding.ActivityMainBinding;
+import com.goblin.qrhunter.ui.map.MapFragment;
 import com.goblin.qrhunter.ui.scan.ScanActivity;
 import com.goblin.qrhunter.ui.welcome.WelcomeActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -32,6 +33,8 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.type.LatLng;
+
+
 
 
 /**
@@ -79,7 +82,11 @@ public class MainActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         playerDB = new PlayerRepository();
         initCamera();
+
+
+
     }
+
 
     /**
      * Sets up the camera functionality for scanning QR codes.

@@ -73,12 +73,12 @@ public class HomeFragment extends Fragment {
         NavController navController = Navigation.findNavController(container);
 
         // Navigate to the MapFragment when the Map button is clicked
-        binding.mapButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navController.navigate(R.id.action_navigation_home_to_mapFragment);
-            }
-        });
+//        binding.mapButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                navController.navigate(R.id.action_navigation_home_to_mapFragment);
+//            }
+//        });
 
         // Navigate to the ScanFragment when the Scan button is clicked
         binding.scanButton.setOnClickListener(new View.OnClickListener() {

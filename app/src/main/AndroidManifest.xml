@@ -19,6 +19,13 @@
     <meta-data
         android:name="com.google.android.gms.vision.DEPENDENCIES"
         android:value="@integer/google_play_services_version" />
+<!--    Uncomment for the map-->
+<!--    <meta-data-->
+<!--        android:name="com.google.android.geo.API_KEY"-->
+<!--        android:value="@string/AIzaSyCRDKgDd0IBb6cN2h4kS1vgCNq8Z3YPbrE" />-->
+
+
+
 
     <application
         android:allowBackup="true"
@@ -43,10 +50,8 @@
 
         <activity android:name=".ui.scan.ScanActivity" />
         <activity android:name=".ui.welcome.WelcomeActivity" />
-        <!-- UNCOMMENT FOR MAPS API
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDafL36PgskaX4rzE1OgxdAAVcjuON7V8I"/> -->
+
+
     </application>
 
 </manifest>
