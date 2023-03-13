@@ -42,7 +42,7 @@ public class SummaryViewModel extends ViewModel {
         postDB = new PostRepository();
         playerDB = new PlayerRepository();
 
-        userPosts = postDB.getUserPosts(playerId);
+        userPosts = postDB.getPostByPlayer(playerId);
     }
 
     /**

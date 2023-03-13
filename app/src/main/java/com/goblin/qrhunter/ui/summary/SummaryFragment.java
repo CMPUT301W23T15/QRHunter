@@ -66,14 +66,7 @@ public class SummaryFragment extends Fragment {
 
         });
 
-        if(mViewModel.getUserPosts().getValue() != null) {
-            qrAdapter.setData(mViewModel.getUserPosts().getValue());
-            Log.d(TAG, "onCreateView: setting data: ");
 
-        }
-        for(Post p: qrAdapter.mPosts) {
-            Toast.makeText(getContext(), "post  " + p.getId()+ " adapter size: " + qrAdapter.getItemCount(), Toast.LENGTH_SHORT).show();
-        }
         return binding.getRoot();
     }
 

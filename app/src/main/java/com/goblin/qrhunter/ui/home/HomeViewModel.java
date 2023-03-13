@@ -71,7 +71,7 @@ public class HomeViewModel extends ViewModel {
     }
 
     public int getQrCount() {
-        return qrCount;
+        return postSource.getValue().size();
     }
 
 }
