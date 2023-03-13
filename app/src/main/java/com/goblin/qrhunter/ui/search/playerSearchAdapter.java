@@ -19,14 +19,10 @@ import com.goblin.qrhunter.R;
 import java.util.List;
 
 public class playerSearchAdapter extends FirestoreRecyclerAdapter<Player, playerSearchAdapter.playerViewholder> {
-
     public playerSearchAdapter(@NonNull FirestoreRecyclerOptions<Player> options){
         super(options);
     }
-
-    // Function to bind the view in Card view(here
-    // "person.xml") iwth data in
-    // model class(here "person.class")
+    // Bind view to the card view (player_search_content.xml) with the "player.java" class.
     @Override
     protected void
     onBindViewHolder(@NonNull playerViewholder holder,
