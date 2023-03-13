@@ -63,12 +63,27 @@ public class ProfileFragment extends Fragment {
         TextView txtView = binding.titleUsername;
         mViewModel.getUsername().observe(getViewLifecycleOwner(), txtView::setText);
 
+        TextView txtViewPhone = binding.phoneNumberTextview;
+        mViewModel.getPhoneNumber().observe(getViewLifecycleOwner(), txtViewPhone::setText);
+
+        TextView txtViewEmail = binding.emailTextview;
+        mViewModel.getEmail().observe(getViewLifecycleOwner(), txtViewEmail::setText);
+
         binding.buttonTestSignout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
             }
         });
+
+        binding.buttonEditProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditProfileDialogFragment dialog = EditProfileDialogFragment.newInstance(mViewModel);
+                dialog.show(getChildFragmentManager(), "EditProfileDialogFragment");
+            }
+        });
+
         return binding.getRoot();
     }
 
