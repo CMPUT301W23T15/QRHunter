@@ -38,7 +38,7 @@ public class QRcodesArrayAdapter extends ArrayAdapter<QRCode> {
         QRCode qrcode = getItem(position);
 
         // Get textViews for all attributes of "visit" object.
-        TextView test = view.findViewById(R.id.test);
+        TextView test = view.findViewById(R.id.qr_test);
 
         // Sets the name for each textView to the actual name of the attribute in the list.
         test.setText(qrcode.getHash());
