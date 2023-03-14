@@ -12,6 +12,8 @@ import androidx.lifecycle.ViewModel;
 import com.goblin.qrhunter.data.PlayerRepository;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 /**
  * ViewModel for the ProfileFragment.
@@ -37,7 +39,27 @@ public class ProfileViewModel extends ViewModel {
         playerDB = new PlayerRepository();
         // create unknown player fallback
         if (user != null) {
-           playerDB.get(user.getUid()).addOnSuccessListener(player -> username.setValue("  " + player.getUsername()));
+            playerDB.get(user.getUid()).addOnSuccessListener(player -> username.setValue("  " + player.getUsername()));
+
+            // Retrieve the phone number and update the MutableLiveData object
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            DocumentReference userDoc = db.collection("players").document(user.getUid());
+            userDoc.get().addOnSuccessListener(documentSnapshot -> {
+                if (documentSnapshot.exists()) {
+                    String phone = documentSnapshot.getString("phone");
+                    if (phone != null) {
+                        phoneNumber.setValue(phone);
+                    } else {
+                        phoneNumber.setValue("");
+                    }
+                    String email = documentSnapshot.getString("contactInfo");
+                    if (email != null) {
+                        this.email.setValue(email);
+                    } else {
+                        this.email.setValue("");
+                    }
+                }
+            });
         }
     }
 
@@ -51,22 +73,37 @@ public class ProfileViewModel extends ViewModel {
     }
 
     /**
-     * Updates the MutableLiveData object for the user's phone number with the new value.
+     * Updates the user's phone number in Firestore and updates the MutableLiveData object for the
+     * user's phone number with the new value.
      *
      * @param phone The new phone number value.
      */
     public void setPhoneNumber(String phone) {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            DocumentReference userDoc = db.collection("players").document(user.getUid());
+            userDoc.update("phone", phone);
+        }
         this.phoneNumber.setValue(phone);
     }
 
     /**
-     * Updates the MutableLiveData object for the user's email with the new value.
+     * Updates the user's email in Firestore and updates the MutableLiveData object for the
+     * user's email with the new value.
      *
      * @param email The new email value.
      */
     public void setEmail(String email) {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            DocumentReference userDoc = db.collection("players").document(user.getUid());
+            userDoc.update("contactInfo", email);
+        }
         this.email.setValue(email);
     }
+
 
     /**
      * Returns a LiveData object that holds the user's phone number.

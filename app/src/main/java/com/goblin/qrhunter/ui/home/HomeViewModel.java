@@ -10,6 +10,7 @@ import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.goblin.qrhunter.Post;
@@ -46,8 +47,12 @@ public class HomeViewModel extends ViewModel {
         postDB = new PostRepository();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-        assert user != null;
-        postSource = postDB.getPostByPlayer(user.getUid());
+        if (user != null) {
+            postSource = postDB.getPostByPlayer(user.getUid());
+        } else {
+            // Handle the case where the user is null, e.g., by setting postSource to an empty list
+            postSource = new MutableLiveData<>(new ArrayList<>());
+        }
     }
 
     public LiveData<List<Post>> getUserPosts() {
