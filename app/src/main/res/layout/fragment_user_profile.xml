@@ -6,6 +6,38 @@
     android:layout_height="match_parent"
     tools:context=".ui.scan.ScanFragment">
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/debug_button"
+        android:layout_width="115dp"
+        android:layout_height="48dp"
+        android:background="@drawable/rounded_style"
+        android:backgroundTint="@color/white"
+        android:fontFamily="@font/jetbrainsmono"
+        android:text="debug"
+        android:textColor="@color/black"
+        android:textSize="17dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.907" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_test_signout2"
+        android:layout_width="115dp"
+        android:layout_height="48dp"
+        android:background="@drawable/rounded_style"
+        android:backgroundTint="@color/teal_200"
+        android:fontFamily="@font/jetbrainsmono"
+        android:text="sign-out"
+        android:textColor="@color/black"
+        android:textSize="17dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.781" />
+
     <TextView
         android:id="@+id/title_phone"
         android:layout_width="wrap_content"

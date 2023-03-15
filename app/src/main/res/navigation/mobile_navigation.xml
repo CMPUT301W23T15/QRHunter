@@ -78,7 +78,11 @@
         android:id="@+id/profileFragment"
         android:name="com.goblin.qrhunter.ui.profile.ProfileFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_user_profile" />
+        tools:layout="@layout/fragment_user_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_debugFragment"
+            app:destination="@id/debugFragment" />
+    </fragment>
 
     <action android:id="@+id/action_navigate_to_profile"
         app:destination="@id/profileFragment"
@@ -103,6 +107,15 @@
             android:defaultValue=""
             />
 
+    </fragment>
+    <fragment
+        android:id="@+id/debugFragment"
+        android:name="com.goblin.qrhunter.ui.debug.DebugFragment"
+        android:label="fragment_debug"
+        tools:layout="@layout/fragment_debug" >
+        <action
+            android:id="@+id/action_debugFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
 
 </navigation>
