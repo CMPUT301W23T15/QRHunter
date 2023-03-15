@@ -11,14 +11,12 @@ import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.firebase.ui.database.FirebaseRecyclerOptions;
+
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.goblin.qrhunter.Player;
 import com.goblin.qrhunter.R;
-import com.goblin.qrhunter.databinding.FragmentOtherProfileBinding;
-// import com.goblin.qrhunter.ui.profile.OtherProfileFragmentArgs;
+
 
 import java.util.List;
 
