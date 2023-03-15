@@ -1,5 +1,6 @@
 package com.goblin.qrhunter.ui.debug;
 
+
 import android.util.Log;
 
 import androidx.lifecycle.ViewModel;
@@ -38,4 +39,5 @@ public class DebugViewModel extends ViewModel {
 
          return postDB.add(p1);
     }
+
 }
