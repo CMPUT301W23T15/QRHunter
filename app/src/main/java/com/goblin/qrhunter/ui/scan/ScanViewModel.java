@@ -39,8 +39,5 @@ public class ScanViewModel extends ViewModel {
     }
 
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 64d2505f2f3c733a901b4a3ca9e193ed0b944882
 }

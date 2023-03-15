@@ -73,25 +73,12 @@ public class ScanFragment extends Fragment {
                             Toast.makeText(this.getContext(), qrString, Toast.LENGTH_SHORT );
                             enableConfirmBtn();
 
-<<<<<<< HEAD
                         }
                     }
                     if(result.getResultCode() != Activity.RESULT_OK ) {
                         Log.d(TAG, "onCreateView: activity failed");
                     }
-=======
-        scanActivityIntent = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(),
-                result -> {
-                    // Add same code that you want to add in onActivityResult method
-                    if(result != null && result.getResultCode() == Activity.RESULT_OK) {
-                        if(result.getData() != null) {
-                            String qrString = result.getData().getStringExtra(ScanActivity.QR_CODE_STRING);
-                            vModel.setQRCode(qrString);
-                            Toast.makeText(this.getContext(), qrString, Toast.LENGTH_SHORT );
-                        }
-                    }
->>>>>>> 64d2505f2f3c733a901b4a3ca9e193ed0b944882
+
                 });
 
         scanIntent = new Intent(this.getContext(), ScanActivity.class);
@@ -115,7 +102,6 @@ public class ScanFragment extends Fragment {
         scanActivityIntent.launch(scanIntent);
     }
 
-<<<<<<< HEAD
     public void disableConfirmBtn() {
         binding.buttonConfirm.setAlpha(0.5f);
         binding.buttonConfirm.setClickable(false);
@@ -124,6 +110,5 @@ public class ScanFragment extends Fragment {
     public void enableConfirmBtn() {
         binding.buttonConfirm.setAlpha(1);
     }
-=======
->>>>>>> 64d2505f2f3c733a901b4a3ca9e193ed0b944882
+
 }

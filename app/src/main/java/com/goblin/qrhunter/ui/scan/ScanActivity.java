@@ -77,16 +77,12 @@ public class ScanActivity extends AppCompatActivity {
 
             // Handle the scanned data as needed (e.g., display it to the user, save it to a file or database, etc.)
             Log.d(TAG, "QR code data: " + qrCodeData);
-<<<<<<< HEAD
 
             Intent returnIntent = new Intent();
 
 
             returnIntent.putExtra("QR_CODE_STRING", qrCodeData);
             setResult(Activity.RESULT_OK, returnIntent);
-=======
-            getIntent().putExtra("QR_CODE_STRING", qrCodeData);
->>>>>>> 64d2505f2f3c733a901b4a3ca9e193ed0b944882
             finish();
         }
     }
