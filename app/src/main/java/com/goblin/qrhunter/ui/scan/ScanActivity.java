@@ -23,6 +23,7 @@ public class ScanActivity extends AppCompatActivity {
     private static final String TAG = ScanActivity.class.getSimpleName();
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int MY_PERMISSIONS_REQUEST_CAMERA = 2;
+    public static String QR_CODE_STRING  = "QR_CODE_STRING";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +58,7 @@ public class ScanActivity extends AppCompatActivity {
 
             if (!detector.isOperational()) {
                 Log.w(TAG, "Could not set up the detector!");
+                finish();
                 return;
             }
 
@@ -65,6 +67,7 @@ public class ScanActivity extends AppCompatActivity {
 
             if (barcodes.size() == 0) {
                 Log.w(TAG, "No QR code found in the image!");
+                finish();
                 return;
             }
 
@@ -73,6 +76,8 @@ public class ScanActivity extends AppCompatActivity {
 
             // Handle the scanned data as needed (e.g., display it to the user, save it to a file or database, etc.)
             Log.d(TAG, "QR code data: " + qrCodeData);
+            getIntent().putExtra("QR_CODE_STRING", qrCodeData);
+            finish();
         }
     }
 
