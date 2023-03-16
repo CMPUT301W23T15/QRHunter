@@ -79,27 +79,8 @@ public class MainActivity extends AppCompatActivity {
         FirebaseApp.initializeApp(this);
         auth = FirebaseAuth.getInstance();
         playerDB = new PlayerRepository();
-        // initCamera();
     }
 
-    /**
-     * Sets up the camera functionality for scanning QR codes.
-     */
-    private void initCamera() {
-        button_camera = findViewById(R.id.scan_button);
-        button_camera.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent scanIntent = new Intent(MainActivity.this, ScanActivity.class);
-                button_camera.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        startActivity(scanIntent);
-                    }
-                });
-            }
-        });
-    }
 
 
     /**

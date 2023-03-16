@@ -48,6 +48,8 @@ public class Player implements Entity {
         setContactInfo(contactInfo);
     }
 
+
+
     /**
      * Constructs a new player object with the given ID, username, contact information, and profile picture URL.
      * @param id The ID of the player.

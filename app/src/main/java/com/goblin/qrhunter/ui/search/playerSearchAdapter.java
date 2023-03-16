@@ -1,6 +1,5 @@
 package com.goblin.qrhunter.ui.search;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +15,6 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.goblin.qrhunter.Player;
 import com.goblin.qrhunter.R;
-
 
 import java.util.List;
 
