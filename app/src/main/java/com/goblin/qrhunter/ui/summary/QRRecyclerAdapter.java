@@ -63,8 +63,8 @@ public class QRRecyclerAdapter extends RecyclerView.Adapter<QRRecyclerAdapter.QR
         public QRViewHolder(View itemView) {
             super(itemView);
 
-            mTitle = itemView.findViewById(R.id.qr_list_item_title);
-            mPoints = itemView.findViewById(R.id.qr_list_item_points);
+            mTitle = itemView.findViewById(R.id.qr_name);
+            mPoints = itemView.findViewById(R.id.qr_points);
         }
 
         public void bind(Post post) {
