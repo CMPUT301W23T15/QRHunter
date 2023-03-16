@@ -26,7 +26,8 @@ import java.util.List;
 public class FirebaseLiveData<T extends Entity> extends LiveData<List<T>> {
 
     private final Class<T> type;
-    private final ListenerRegistration listenerReg;
+    final private Query query;
+    private ListenerRegistration listenerReg;
     private final String TAG = "FirebaseLiveData";
 
     /**
@@ -37,6 +38,19 @@ public class FirebaseLiveData<T extends Entity> extends LiveData<List<T>> {
      */
     public FirebaseLiveData(Query query, Class<T> type) {
         this.type = type;
+        this.query = query;
+        startListening();
+    }
+
+    @Override
+    protected void onActive() {
+        super.onActive();
+        if(listenerReg == null) {
+            startListening();
+        }
+    }
+
+    private void startListening() {
         listenerReg = query.addSnapshotListener((QuerySnapshot snapshot, FirebaseFirestoreException e)-> {
             if (e != null) {
                 Log.e(TAG, "fail.", e);
@@ -58,12 +72,13 @@ public class FirebaseLiveData<T extends Entity> extends LiveData<List<T>> {
 
 
     /*
-    Called when the LiveData becomes inactive.
-    Removes the snapshot listener to prevent further updates to the LiveData.
-     */
+        Called when the LiveData becomes inactive.
+        Removes the snapshot listener to prevent further updates to the LiveData.
+         */
     @Override
     protected void onInactive() {
         super.onInactive();
         listenerReg.remove();
+        listenerReg = null;
     }
 }
