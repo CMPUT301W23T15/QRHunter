@@ -73,10 +73,10 @@ public class Player implements Entity {
     @Override
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
-        result.put("id", id);
-        result.put("username", username);
-        result.put("contactInfo", contactInfo);
-        result.put("phone", phone);
+        result.put("id", getId());
+        result.put("username", getUsername());
+        result.put("contactInfo", getContactInfo());
+        result.put("phone", getPhone());
         return result;
     }
 

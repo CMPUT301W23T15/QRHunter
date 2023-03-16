@@ -78,6 +78,7 @@
         app:layout_constraintTop_toBottomOf="@+id/title_total_score" />
 
     <androidx.recyclerview.widget.RecyclerView
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         android:id="@+id/list_scannedQR"
         android:layout_width="409dp"
         android:layout_height="355dp"

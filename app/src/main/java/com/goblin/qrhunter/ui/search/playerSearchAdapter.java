@@ -15,6 +15,7 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.goblin.qrhunter.Player;
 import com.goblin.qrhunter.R;
+import com.goblin.qrhunter.ui.profile.OtherProfileFragment;
 
 import java.util.List;
 
@@ -44,9 +45,9 @@ public class playerSearchAdapter extends FirestoreRecyclerAdapter<Player, player
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
-                bundle.putString("username", username);
-                bundle.putString("contactInfo", contactInfo);
-                bundle.putString("id", playerId);
+                bundle.putString(OtherProfileFragment.PLAYER_USERNAME_ARG_KEY, model.getUsername());
+                bundle.putString(OtherProfileFragment.PLAYER_PHONE_ARG_KEY, model.getPhone());
+                bundle.putString(OtherProfileFragment.PLAYER_CONTACT_INFO_ARG_KEY, model.getPhone());
 
                 Navigation.findNavController(v).navigate(R.id.action_search_select_player, bundle);
             }
