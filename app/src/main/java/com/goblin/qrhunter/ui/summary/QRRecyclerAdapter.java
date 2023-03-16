@@ -33,7 +33,7 @@ public class QRRecyclerAdapter extends RecyclerView.Adapter<QRRecyclerAdapter.QR
     @NonNull
     @Override
     public QRViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_qr_list_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.qr_code_content, parent, false);
         return new QRViewHolder(view);
     }
 
