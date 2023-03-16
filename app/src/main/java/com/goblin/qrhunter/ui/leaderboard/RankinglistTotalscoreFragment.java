@@ -11,11 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 
 import com.goblin.qrhunter.R;
-import com.goblin.qrhunter.databinding.FragmentLeaderboardBinding;
 import com.goblin.qrhunter.domain.GetPlayersScoreUseCase;
 
 import java.util.ArrayList;
@@ -54,7 +51,7 @@ public class RankinglistTotalscoreFragment extends Fragment {
         SimpleAdapter adapter = new SimpleAdapter(
                 requireContext(),
                 getPlayerScoresList(),
-                R.layout.list_player_item,
+                R.layout.player_ranking_content,
                 new String[]{"name", "score"},
                 new int[]{R.id.player_name, R.id.player_score});
         listView.setAdapter(adapter);
