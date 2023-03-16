@@ -33,10 +33,12 @@ public class OtherProfileFragment extends Fragment {
 
         String username = getArguments().getString("username");
         String email = getArguments().getString("contactInfo");
+        String phone = getArguments().getString("phone");
 
 
         binding.titleUsername.setText(binding.titleUsername.getText() + username);
         binding.titleEmail.setText(binding.titleEmail.getText() + email);
+        binding.titlePhone.setText(binding.titlePhone.getText() + phone); // For some reason, only gets back NULL.
         return binding.getRoot();
     }
 
