@@ -8,13 +8,16 @@ import static org.junit.Assert.assertTrue;
 import android.app.Activity;
 import android.view.KeyEvent;
 import android.widget.EditText;
-import android.widget.SearchView;
 
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 
 import com.goblin.qrhunter.MainActivity;
+import com.goblin.qrhunter.Player;
 import com.goblin.qrhunter.R;
+import com.goblin.qrhunter.data.PlayerRepository;
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
 import com.robotium.solo.Solo;
 
 import org.junit.After;
@@ -24,12 +27,21 @@ import org.junit.Test;
 
 public class MainActivityTest {
     private Solo solo;
+    private String username_test_value = "user49394473";
     @Rule
     public ActivityTestRule<MainActivity> rule = new ActivityTestRule<>(MainActivity.class, true, true);
 
     @Before
     public void setUp() throws Exception{
         solo = new Solo(InstrumentationRegistry.getInstrumentation(),rule.getActivity());
+        PlayerRepository playerRepository = new PlayerRepository();
+        Task< Player> getplayer = playerRepository.getPlayerByUsername(username_test_value);
+        Tasks.await(getplayer);
+        if(getplayer.getResult() == null) {
+            Player p1 = new Player();
+            p1.setUsername(username_test_value);
+            playerRepository.add(p1);
+        }
     }
     // Gets the (main) activity
     public void start() throws Exception{
@@ -37,17 +49,26 @@ public class MainActivityTest {
     }
 
     @Test
-    // checks to see when clicked on profile to sign out and sign back in
-    // issues with edit function -> Will crash app. Will not test edit functionality for now.
-    public void CheckProfileLogInLogOut(){
+//    REFER TO TOP IMPORTANT NOTE FOR
+    public void CheckProfile(){
         solo.assertCurrentActivity("Wrong activity", MainActivity.class);
         solo.clickOnView(solo.getView(R.id.profile_button));
+        solo.sleep(1000);
+        solo.clickOnButton("Edit");
+        solo.sleep(1000);
+        solo.enterText((EditText) solo.getView(R.id.edit_phone_number), "780-888-9821");
+        solo.clickOnView(solo.getView(R.id.button_save));
+        solo.sleep(1000);
+        solo.goBack();
+        solo.clickOnView(solo.getView(R.id.profile_button));
+        solo.sleep(1000);
+
         solo.clickOnButton("sign-out");
         solo.clickOnButton("get started");
-        solo.sleep(1000);
         solo.assertCurrentActivity("Wrong activity", MainActivity.class);
         assertTrue(solo.waitForText("sign-out"));
         solo.goBack();
+
     }
 
     @Test
@@ -79,7 +100,7 @@ public class MainActivityTest {
     }
 
     @Test
-    public void checkNavigationSearch(){
+    public void CheckNavigationSearch(){
         solo.assertCurrentActivity("wrong activity", MainActivity.class);
         solo.clickOnView(solo.getView(R.id.navigation_search));
         assertTrue(solo.waitForText("Search for other players"));
@@ -93,13 +114,16 @@ public class MainActivityTest {
         solo.sendKey(KeyEvent.KEYCODE_3);
         solo.sendKey(KeyEvent.KEYCODE_9);
         solo.sendKey(KeyEvent.KEYCODE_ENTER);
-        assertTrue(solo.waitForText("user49394473"));
+        assertTrue(solo.waitForText(username_test_value));
         solo.sleep(2000);
+        solo.clickOnView(solo.getView(R.id.searched_username));
+        solo.sleep(1000);
+        solo.goBack();
         solo.goBack();
     }
 
     @Test
-    public void checkNavSummary(){
+    public void CheckNavSummary(){
         solo.assertCurrentActivity("wrong activity", MainActivity.class);
         solo.clickOnView(solo.getView(R.id.navigation_summary));
         assertTrue(solo.waitForText("My QR Codes"));
@@ -107,16 +131,22 @@ public class MainActivityTest {
         solo.goBack();
     }
 
-    @Test
-    public void EndToEndFullTest(){
-        CheckProfileLogInLogOut();
-        CheckLeaderBoards();
-        CheckCamera();
-        CheckMap();
-        checkNavigationSearch();
-        checkNavSummary();
-    }
-    // Method 3) This method closes the activity after each test
+    /**
+     * END 2 END is commented for now, for new features -> might move into new file because may conflict with what was done
+     * Also not even sure if needed, but good to have for future
+     * RUN SPECIFICALLY IF WANT -> AS RUNNING ALL MAY CAUSE CONFLICTS BETWEEN THE DATABASE OF PLAYERS ADDED
+     */
+
+//    @Test
+//    public void EndToEndFullTest(){
+//        CheckProfile();
+//        CheckLeaderBoards();
+//        CheckCamera();
+//        CheckMap();
+//        CheckNavigationSearch();
+//        CheckNavSummary();
+//    }
+
     @After
     public void tearDown() throws Exception {
         solo.finishOpenedActivities();

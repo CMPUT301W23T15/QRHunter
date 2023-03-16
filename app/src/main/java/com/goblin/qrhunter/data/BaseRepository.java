@@ -55,16 +55,13 @@ public abstract class BaseRepository<T extends Entity> {
      * @return A task indicating whether the operation was successful.
      */
     public Task<Void> add(@NonNull T item) {
+        getCollectionRef().document().getId();
         Map<String, Object> map = item.toMap();
-        if(item.getId() != null && item.getId().length() > 0) {
-            return this.update(item);
+        if(item.getId() == null && item.getId().isEmpty()) {
+            String id = getCollectionRef().document().getId();
+            item.setId(id);
         }
-        return getCollectionRef().add(map)
-                .continueWith(task -> {
-                    String documentId = task.getResult().getId();
-                    item.setId(documentId);
-                    return null;
-                });
+        return this.update(item);
     }
 
     /**

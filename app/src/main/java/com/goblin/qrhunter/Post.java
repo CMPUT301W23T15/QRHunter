@@ -73,6 +73,7 @@ public class Post implements Entity {
     @Override
     public Map<String, Object> toMap() {
         Map<String, Object> map = new HashMap<>();
+        map.put("id", id);
         map.put("name", getName());
         map.put("code", getCode());
         map.put("playerId", getPlayerId());
