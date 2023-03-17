@@ -127,9 +127,9 @@ public class HomeFragment extends Fragment {
                 qrCount = posts.size();
         }
 
-        binding.titleHighestScoring.setText("Highest score: " + highScore);
-        binding.titleLowestScoring.setText("Lowest score: " + lowScore);
+        binding.titleHighestScoring.setText("Highest Scoring: " + highScore);
+        binding.titleLowestScoring.setText("Lowest Scoring: " + lowScore);
         binding.titleTotalScore.setText("Total score: " + totalScore);
-        binding.titleTotalQRCode.setText( "Number of QRcodes: " + qrCount);
+        binding.titleTotalQRCode.setText("Total Scanned: " + qrCount);
     }
 }
