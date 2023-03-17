@@ -5,6 +5,7 @@
 # Covers files to be ignored for android development using Android Studio.
 
 .DS_Store
+*.orgin
 
 # Built application files
 *.apk

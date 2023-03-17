@@ -1,4 +1,10 @@
-package com.goblin.qrhunter.ui.summary;
+/**
+ * A RecyclerView adapter for displaying a list of QR codes in the OtherProfileFragment.
+ * This adapter receives a list of Post objects and uses them to populate the list of
+ * QR codes in the RecyclerView. The adapter also implements an inner ViewHolder class
+ * for defining the view of each individual QR code item.
+ */
+package com.goblin.qrhunter.ui.qrlist;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,19 +23,29 @@ import java.util.List;
 
 public class QRRecyclerAdapter extends RecyclerView.Adapter<QRRecyclerAdapter.QRViewHolder> {
 
-     List<Post> mPosts = new ArrayList<>();
+    List<Post> mPosts = new ArrayList<>();
     String TAG = "QRRecyclerAdapter";
 
 
-
-    void setData(List<Post> posts) {
-        if(posts != null) {
+    /**
+     * set the underlying data of the lists of posts
+     * @param posts post of the user to display.
+     */
+    public void setData(List<Post> posts) {
+        if (posts != null) {
             mPosts.clear();
             mPosts.addAll(posts);
             notifyDataSetChanged();
         }
     }
 
+    /**
+     * Called when RecyclerView needs a new ViewHolder of the given type to represent an item.
+     *
+     * @param parent the parent view group
+     * @param viewType the type of the view
+     * @return a new QRViewHolder instance
+     */
     @NonNull
     @Override
     public QRViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -37,22 +53,31 @@ public class QRRecyclerAdapter extends RecyclerView.Adapter<QRRecyclerAdapter.QR
         return new QRViewHolder(view);
     }
 
+    /**
+     * Called by RecyclerView to display the data at the specified position.
+     *
+     * @param holder the ViewHolder which should be updated
+     * @param position the position of the item within the adapter's data set
+     */
     @Override
     public void onBindViewHolder(QRViewHolder holder, int position) {
         Post post = mPosts.get(position);
         holder.bind(post);
     }
 
+    /**
+     * Returns the total number of items in the data set held by the adapter.
+     *
+     * @return the total number of items
+     */
     @Override
     public int getItemCount() {
         return mPosts.size();
     }
 
-    public void setPosts(List<Post> posts) {
-        mPosts = posts;
-    }
-
-
+    /**
+     * ViewHolder class for defining the view of each individual QR code item in the RecyclerView.
+     */
     public static class QRViewHolder extends RecyclerView.ViewHolder {
 
         String TAG = "QRRecyclerAdapter";
@@ -60,6 +85,13 @@ public class QRRecyclerAdapter extends RecyclerView.Adapter<QRRecyclerAdapter.QR
         private TextView mTitle;
         private TextView mPoints;
 
+
+
+        /**
+         * Constructs a new instance of QRViewHolder with the given view as the item view.
+         *
+         * @param itemView the view of the QR code item
+         */
         public QRViewHolder(View itemView) {
             super(itemView);
 
@@ -67,6 +99,11 @@ public class QRRecyclerAdapter extends RecyclerView.Adapter<QRRecyclerAdapter.QR
             mPoints = itemView.findViewById(R.id.qr_points);
         }
 
+        /**
+         * Binds the given Post object to the views in the QRViewHolder.
+         *
+         * @param post the Post object to bind
+         */
         public void bind(Post post) {
             mTitle.setText(post.getName());
             Log.d(TAG, "bind: " + post.getName());
