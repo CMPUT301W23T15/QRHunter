@@ -66,9 +66,9 @@ public class OtherProfileFragment extends Fragment {
         String phone = getArguments().getString(PLAYER_PHONE_ARG_KEY);
         String contactInfo = getArguments().getString(PLAYER_CONTACT_INFO_ARG_KEY);
 
-        binding.titleUsername.setText(username);
-        binding.titleEmail.setText(contactInfo);
-        binding.titlePhone.setText(phone);
+        binding.titleUsername.setText("User: " + username);
+        binding.titleEmail.setText("Email: " + contactInfo);
+        binding.titlePhone.setText("Phone: " + phone);
         try {
             mViewModel.getPlayerByUsername(username);
             QRRecyclerAdapter adapter = new QRRecyclerAdapter();
@@ -91,8 +91,6 @@ public class OtherProfileFragment extends Fragment {
             Toast.makeText(getContext(), "Failed to load player", Toast.LENGTH_SHORT).show();
         }
 
-
-        binding.titlePhone.setText(binding.titlePhone.getText() + phone); // For some reason, only gets back NULL.
         return binding.getRoot();
     }
 
