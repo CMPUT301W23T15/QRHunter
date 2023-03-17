@@ -47,7 +47,7 @@ public class playerSearchAdapter extends FirestoreRecyclerAdapter<Player, player
                 Bundle bundle = new Bundle();
                 bundle.putString(OtherProfileFragment.PLAYER_USERNAME_ARG_KEY, model.getUsername());
                 bundle.putString(OtherProfileFragment.PLAYER_PHONE_ARG_KEY, model.getPhone());
-                bundle.putString(OtherProfileFragment.PLAYER_CONTACT_INFO_ARG_KEY, model.getPhone());
+                bundle.putString(OtherProfileFragment.PLAYER_CONTACT_INFO_ARG_KEY, model.getContactInfo());
 
                 Navigation.findNavController(v).navigate(R.id.action_search_select_player, bundle);
             }

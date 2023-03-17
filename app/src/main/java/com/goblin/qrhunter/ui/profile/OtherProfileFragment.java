@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.goblin.qrhunter.Player;
+import com.goblin.qrhunter.Post;
 import com.goblin.qrhunter.databinding.FragmentOtherProfileBinding;
 import com.goblin.qrhunter.ui.qrlist.QRRecyclerAdapter;
 
@@ -72,7 +73,18 @@ public class OtherProfileFragment extends Fragment {
             mViewModel.getPlayerByUsername(username);
             QRRecyclerAdapter adapter = new QRRecyclerAdapter();
             binding.listScannedQR.setAdapter(adapter);
-            mViewModel.getPlayerPosts().observe(getViewLifecycleOwner(), adapter::setData);
+            mViewModel.getPlayerPosts().observe(getViewLifecycleOwner(), posts -> {
+                int score = 0;
+                adapter.setData(posts);
+                for (Post post : posts) {
+                    if (post.getCode() != null) {
+                        score += post.getCode().getScore();
+                    }
+
+                }
+                binding.titleTotalScore.setText("Total Score: " + score);
+
+            });
 
         } catch (Exception e) {
             Log.e(TAG, "onCreateView: ", e);
