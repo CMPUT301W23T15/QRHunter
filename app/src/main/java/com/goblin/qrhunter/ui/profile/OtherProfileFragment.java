@@ -92,6 +92,7 @@ public class OtherProfileFragment extends Fragment {
         }
 
 
+        binding.titlePhone.setText(binding.titlePhone.getText() + phone); // For some reason, only gets back NULL.
         return binding.getRoot();
     }
 

@@ -49,7 +49,7 @@ public class QRRecyclerAdapter extends RecyclerView.Adapter<QRRecyclerAdapter.QR
     @NonNull
     @Override
     public QRViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_qr_list_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.qr_code_content, parent, false);
         return new QRViewHolder(view);
     }
 
@@ -95,8 +95,8 @@ public class QRRecyclerAdapter extends RecyclerView.Adapter<QRRecyclerAdapter.QR
         public QRViewHolder(View itemView) {
             super(itemView);
 
-            mTitle = itemView.findViewById(R.id.qr_list_item_title);
-            mPoints = itemView.findViewById(R.id.qr_list_item_points);
+            mTitle = itemView.findViewById(R.id.qr_name);
+            mPoints = itemView.findViewById(R.id.qr_points);
         }
 
         /**
