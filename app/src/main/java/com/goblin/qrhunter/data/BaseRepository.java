@@ -3,6 +3,8 @@
  */
 package com.goblin.qrhunter.data;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
@@ -40,6 +42,8 @@ import java.util.Map;
  */
 public abstract class BaseRepository<T extends Entity> {
 
+
+    private String TAG = "BaseRepository";
     private final FirebaseFirestore db;
     private final CollectionReference collectionRef;
     private final Class<T> type;
@@ -114,6 +118,9 @@ public abstract class BaseRepository<T extends Entity> {
      */
     public LiveData<T> getAsLiveData(String id) {
         DocumentReference docRef = getCollectionRef().document(id);
+        if(docRef == null) {
+            Log.d(TAG, "getAsLiveData: null doc ref");
+        }
         return new FirebaseLiveEntity<T>(docRef, type);
     }
 

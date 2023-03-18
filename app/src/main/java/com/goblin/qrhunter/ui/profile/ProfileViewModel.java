@@ -1,15 +1,20 @@
 /**
  * Contains the classes responsible for managing the UI and data associated with the ProfileFragment.
- *
+ * <p>
  * The ProfileFragment displays the user's profile information, such as their username
  */
 package com.goblin.qrhunter.ui.profile;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.goblin.qrhunter.Player;
 import com.goblin.qrhunter.data.PlayerRepository;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -24,10 +29,14 @@ import com.google.firebase.firestore.FirebaseFirestore;
  * to update the UI.
  */
 public class ProfileViewModel extends ViewModel {
-    MutableLiveData<String> username = new MutableLiveData<>();
-    MutableLiveData<String> phoneNumber = new MutableLiveData<>("");
-    MutableLiveData<String> email = new MutableLiveData<>("");
+    String username = "";
+    String phoneNumber = "";
+    String email = "";
+    LiveData<Player> livePlayer;
+
+    private String TAG="ProfileViewModel";
     PlayerRepository playerDB;
+
     /**
      * Constructs a new ProfileViewModel and initializes the LiveData to hold the user's username.
      * If the user is logged in, the username is retrieved from the Firebase Realtime Database,
@@ -35,91 +44,36 @@ public class ProfileViewModel extends ViewModel {
      */
     public ProfileViewModel() {
         super();
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        Log.d(TAG, "ProfileViewModel: started");
         playerDB = new PlayerRepository();
-        // create unknown player fallback
-        if (user != null) {
-            playerDB.get(user.getUid()).addOnSuccessListener(player -> username.setValue("  " + player.getUsername()));
+        Log.d(TAG, "getLivePlayer: called");
 
-            // Retrieve the phone number and update the MutableLiveData object
-            FirebaseFirestore db = FirebaseFirestore.getInstance();
-            DocumentReference userDoc = db.collection("players").document(user.getUid());
-            userDoc.get().addOnSuccessListener(documentSnapshot -> {
-                if (documentSnapshot.exists()) {
-                    String phone = documentSnapshot.getString("phone");
-                    if (phone != null) {
-                        phoneNumber.setValue(phone);
-                    } else {
-                        phoneNumber.setValue("");
-                    }
-                    String email = documentSnapshot.getString("contactInfo");
-                    if (email != null) {
-                        this.email.setValue(email);
-                    } else {
-                        this.email.setValue("");
-                    }
-                }
-            });
+    }
+
+    public LiveData<Player> getLivePlayer() {
+        String userId = getUserId();
+        LiveData<Player> livePlayer = playerDB.getAsLiveData(userId);
+        Player p1 = livePlayer.getValue();
+        if(p1 != null) {
+            username = p1.getUsername();
+            email = p1.getContactInfo();
+            phoneNumber = p1.getPhone();
         }
+        return playerDB.getAsLiveData(userId);
     }
 
-    /**
-     * Returns a LiveData object that holds the user's username.
-     *
-     * @return LiveData object that holds the user's username.
-     */
-    public LiveData<String> getUsername() {
-        return  username;
+
+    Task<Void> updatePlayer(Player updated) {
+        return playerDB.update(updated);
     }
 
-    /**
-     * Updates the user's phone number in Firestore and updates the MutableLiveData object for the
-     * user's phone number with the new value.
-     *
-     * @param phone The new phone number value.
-     */
-    public void setPhoneNumber(String phone) {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
-            FirebaseFirestore db = FirebaseFirestore.getInstance();
-            DocumentReference userDoc = db.collection("players").document(user.getUid());
-            userDoc.update("phone", phone);
+    private String getUserId() {
+        FirebaseUser  usr = FirebaseAuth.getInstance().getCurrentUser();
+        if(usr != null) {
+            return usr.getUid();
         }
-        this.phoneNumber.setValue(phone);
-    }
-
-    /**
-     * Updates the user's email in Firestore and updates the MutableLiveData object for the
-     * user's email with the new value.
-     *
-     * @param email The new email value.
-     */
-    public void setEmail(String email) {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
-            FirebaseFirestore db = FirebaseFirestore.getInstance();
-            DocumentReference userDoc = db.collection("players").document(user.getUid());
-            userDoc.update("contactInfo", email);
-        }
-        this.email.setValue(email);
+        return null;
     }
 
 
-    /**
-     * Returns a LiveData object that holds the user's phone number.
-     *
-     * @return LiveData object that holds the user's phone number.
-     */
-    public LiveData<String> getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    /**
-     * Returns a LiveData object that holds the user's email.
-     *
-     * @return LiveData object that holds the user's email.
-     */
-    public LiveData<String> getEmail() {
-        return email;
-    }
 }

@@ -51,8 +51,7 @@ public class OtherProfileViewModel extends ViewModel {
      *
      * @param username the player's username
      * @throws ExecutionException
-     * @throws InterruptedException
-     */
+z     */
     public void getPlayerByUsername(@NonNull String username) throws ExecutionException, InterruptedException {
         if (!username.equals(selectedPlayer.getUsername())) {
             playerDB.getPlayerByUsername(username).addOnSuccessListener(player -> {

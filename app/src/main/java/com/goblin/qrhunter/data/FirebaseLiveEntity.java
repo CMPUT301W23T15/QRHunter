@@ -65,6 +65,8 @@ public class FirebaseLiveEntity<T extends Entity> extends LiveData<T> {
             }
             if(doc != null && doc.exists()) {
                 T item = doc.toObject(type);
+                item.setId(doc.getId());
+                setValue(item);
             }
 
         });

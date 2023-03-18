@@ -56,7 +56,7 @@ public class MainActivityTest {
         solo.sleep(1000);
         solo.clickOnButton("Edit");
         solo.sleep(1000);
-        solo.enterText((EditText) solo.getView(R.id.edit_phone_number), "780-888-9821");
+        solo.enterText((EditText) solo.getView(R.id.dialog_edit_phone_number), "780-888-9821");
         solo.clickOnView(solo.getView(R.id.button_save));
         solo.sleep(1000);
         solo.goBack();
