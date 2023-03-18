@@ -3,11 +3,14 @@
  */
 package com.goblin.qrhunter.data;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -39,6 +42,8 @@ import java.util.Map;
  */
 public abstract class BaseRepository<T extends Entity> {
 
+
+    private String TAG = "BaseRepository";
     private final FirebaseFirestore db;
     private final CollectionReference collectionRef;
     private final Class<T> type;
@@ -104,6 +109,19 @@ public abstract class BaseRepository<T extends Entity> {
                 return null;
             }
         });
+    }
+
+    /**
+     * Gets an updating item with the given ID from the collection.
+     * @param id The ID of the model object to get.
+     * @return A  item as livedata.
+     */
+    public LiveData<T> getAsLiveData(String id) {
+        DocumentReference docRef = getCollectionRef().document(id);
+        if(docRef == null) {
+            Log.d(TAG, "getAsLiveData: null doc ref");
+        }
+        return new FirebaseLiveEntity<T>(docRef, type);
     }
 
     /**

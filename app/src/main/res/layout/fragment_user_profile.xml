@@ -46,7 +46,7 @@
         android:fontFamily="@font/jetbrainsmono"
         android:text="Phone Number:"
         android:textColor="@color/black"
-        android:textSize="25dp"
+        android:textSize="22dp"
         app:layout_constraintBottom_toTopOf="@+id/title_email"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.46"
@@ -76,7 +76,7 @@
         android:fontFamily="@font/jetbrainsmono"
         android:text="Email:"
         android:textColor="@color/black"
-        android:textSize="25dp"
+        android:textSize="22dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.306"
@@ -115,31 +115,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.781" />
 
-    <TextView
-        android:id="@+id/phone_number_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@{viewModel.phoneNumber}"
-        android:textSize="22sp"
-        android:fontFamily="@font/jetbrainsmono"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toTopOf="@+id/title_email"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title_phone" />
 
-    <TextView
-        android:id="@+id/email_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@{viewModel.email}"
-        android:textSize="22sp"
-        android:fontFamily="@font/jetbrainsmono"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toTopOf="@+id/button_edit_profile"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title_email" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

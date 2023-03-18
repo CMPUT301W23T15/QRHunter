@@ -6,11 +6,13 @@
  */
 package com.goblin.qrhunter.ui.welcome;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.goblin.qrhunter.MainActivity;
 import com.goblin.qrhunter.data.PlayerRepository;
 import com.goblin.qrhunter.databinding.ActivityWelcomeBinding;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -56,11 +58,9 @@ public class WelcomeActivity extends AppCompatActivity {
         binding.welcomeButton.setOnClickListener(v -> {
             auth.signInAnonymously().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
-                    playerDB.addWithRandomUsername(task.getResult().getUser().getUid()).addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void unused) {
-                            finish();
-                        }
+                    playerDB.addWithRandomUsername(task.getResult().getUser().getUid()).addOnSuccessListener(unused -> {
+                        Intent mainIntent = new Intent(WelcomeActivity.this, MainActivity.class);
+                        startActivity(mainIntent);
                     });
                 } else {
                     Log.e(TAG, "signInAnonymously:failure", task.getException());

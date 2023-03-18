@@ -6,26 +6,25 @@
  */
 package com.goblin.qrhunter.ui.profile;
 
-import androidx.lifecycle.ViewModelProvider;
-
+import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+
+import com.goblin.qrhunter.Player;
 import com.goblin.qrhunter.R;
-import com.goblin.qrhunter.databinding.FragmentHomeBinding;
 import com.goblin.qrhunter.databinding.FragmentUserProfileBinding;
-import com.goblin.qrhunter.databinding.FragmentUserProfileBinding;
-import com.goblin.qrhunter.ui.home.HomeViewModel;
+import com.goblin.qrhunter.ui.welcome.WelcomeActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
 /**
@@ -34,6 +33,7 @@ import com.google.firebase.auth.FirebaseAuth;
  */
 public class ProfileFragment extends Fragment {
 
+    private String TAG="ProfileFragment";
     private ProfileViewModel mViewModel;
 
     private FragmentUserProfileBinding binding;
@@ -64,33 +64,39 @@ public class ProfileFragment extends Fragment {
         binding = FragmentUserProfileBinding.inflate(inflater, container, false);
         NavController navController = Navigation.findNavController(container);
         TextView txtView = binding.titleUsername;
-        mViewModel.getUsername().observe(getViewLifecycleOwner(), txtView::setText);
 
-        TextView txtViewPhone = binding.phoneNumberTextview;
-        mViewModel.getPhoneNumber().observe(getViewLifecycleOwner(), txtViewPhone::setText);
 
-        TextView txtViewEmail = binding.emailTextview;
-        mViewModel.getEmail().observe(getViewLifecycleOwner(), txtViewEmail::setText);
 
-        binding.buttonTestSignout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
-            }
+
+        binding.buttonTestSignout.setOnClickListener(v -> {
+            FirebaseAuth.getInstance().signOut();
+            Intent welcomeIntent = new Intent(getContext(), WelcomeActivity.class);
+            startActivity(welcomeIntent);
         });
 
-        binding.buttonEditProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EditProfileDialogFragment dialog = EditProfileDialogFragment.newInstance(mViewModel);
-                dialog.show(getChildFragmentManager(), "EditProfileDialogFragment");
-            }
-        });
 
         binding.debugButton.setOnClickListener(v -> {
             navController.navigate(R.id.action_profileFragment_to_debugFragment);
         });
         return binding.getRoot();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mViewModel.getLivePlayer().observe(getViewLifecycleOwner(), player -> {
+            Log.d(TAG, "onCreateView: ");
+            if (player != null) {
+                binding.titleUsername.setText("Username " + player.getUsername());
+                binding.titleEmail.setText("Email: " + player.getContactInfo());
+                binding.titlePhone.setText("Phone: " + player.getPhone());
+                binding.buttonEditProfile.setOnClickListener(v -> {
+                    EditProfileDialogFragment dialog = EditProfileDialogFragment.newInstance(player);
+                    dialog.show(getChildFragmentManager(), "EditProfileDialogFragment");
+                });
+            }
+        });
+
     }
 
 

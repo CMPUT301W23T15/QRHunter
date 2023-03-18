@@ -171,4 +171,20 @@ public class Player implements Entity {
         totalScore += points;
     }
 
+    /**
+     * Creates a new Player object that is a copy of the given Player object.
+     *
+     * @param original the Player object to be copied
+     * @return a new Player object that has the same field values as the original object
+     */
+    static public Player copy(Player original) {
+        Player newPlayer = new Player();
+        newPlayer.setId(original.getId());
+        newPlayer.setUsername(original.getUsername());
+        newPlayer.setContactInfo(original.getContactInfo());
+        newPlayer.setPhone(original.getPhone());
+        newPlayer.setProfileURI(original.getProfileURI());
+        return newPlayer;
+    }
+
 }
