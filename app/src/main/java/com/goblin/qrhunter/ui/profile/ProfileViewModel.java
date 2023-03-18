@@ -50,6 +50,13 @@ public class ProfileViewModel extends ViewModel {
 
     }
 
+    /**
+     * Gets the LiveData of the user's player information from the PlayerRepository.
+     * Updates the MutableLiveData for the username, email, and phone number,
+     * which are observed by the ProfileFragment to update the UI.
+     *
+     * @return LiveData<Player> The LiveData of the user's player information.
+     */
     public LiveData<Player> getLivePlayer() {
         String userId = getUserId();
         LiveData<Player> livePlayer = playerDB.getAsLiveData(userId);
@@ -62,11 +69,21 @@ public class ProfileViewModel extends ViewModel {
         return playerDB.getAsLiveData(userId);
     }
 
-
+    /**
+     * Updates the player information in the PlayerRepository.
+     *
+     * @param updated The updated Player object.
+     * @return Task<Void> A task that indicates whether the update was successful.
+     */
     Task<Void> updatePlayer(Player updated) {
         return playerDB.update(updated);
     }
 
+    /**
+     * Gets the user ID of the currently logged in user.
+     *
+     * @return String The user ID of the currently logged in user.
+     */
     private String getUserId() {
         FirebaseUser  usr = FirebaseAuth.getInstance().getCurrentUser();
         if(usr != null) {

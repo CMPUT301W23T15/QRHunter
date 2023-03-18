@@ -80,8 +80,9 @@ public class EditProfileDialogFragment extends DialogFragment {
                     Log.e(TAG, "onFailure: ", e);
                     Toast.makeText(getContext(), "Failed to update your profile", Toast.LENGTH_SHORT).show();
                 });
+                dismiss();
             }
-            dismiss();
+
         });
         // Create the dialog and return it
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -89,13 +90,20 @@ public class EditProfileDialogFragment extends DialogFragment {
         return builder.create();
     }
 
+    /**
+     * Validates the email and phone number input fields.
+     *
+     * @param email The email input field value.
+     * @param phoneNumber The phone number input field value.
+     * @return A boolean value indicating whether the input fields are valid or not.
+     */
     private boolean isValid(String email, String phoneNumber) {
 
+        // Validate the input fields i.e. check email and phone fields
         if (email == null || phoneNumber == null) {
             return false;
         }
 
-        // Validate the input fields
         if (email.isEmpty()) {
             mEmailEditText.setError("Email is required");
             return false;

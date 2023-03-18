@@ -55,18 +55,38 @@ public class HomeViewModel extends ViewModel {
         }
     }
 
+    /**
+     * Gets the seed list of posts for the QR Hunter game.
+     *
+     * @return List<Post> The seed list of posts.
+     */
     public LiveData<List<Post>> getUserPosts() {
         return postSource;
     }
 
+    /**
+     * Gets the highest score of the user's QR codes.
+     *
+     * @return int The highest score of the user's QR codes.
+     */
     public List<Post> getSeedList() {
         return seedList;
     }
 
+    /**
+     * Gets the lowest score of the user's QR codes.
+     *
+     * @return int The lowest score of the user's QR codes.
+     */
     public int getHighScore() {
         return highScore;
     }
 
+    /**
+     * Gets the total score of the user's QR codes.
+     *
+     * @return int The total score of the user's QR codes.
+     */
     public int getLowScore() {
         return lowScore;
     }
@@ -75,6 +95,11 @@ public class HomeViewModel extends ViewModel {
         return totalScore;
     }
 
+    /**
+     * Gets the number of QR codes scanned by the user.
+     *
+     * @return int The number of QR codes scanned by the user.
+     */
     public int getQrCount() {
         return postSource.getValue().size();
     }

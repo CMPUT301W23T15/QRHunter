@@ -50,6 +50,11 @@ public class PlayerRepository extends BaseRepository<Player> {
                 });
     }
 
+    /**
+     * Generates a random unique username for a new player.
+     *
+     * @return A task that returns the random username if successful, or an exception if not.
+     */
     public Task<String> randomUsername() {
         String username = "User" + new Random().nextInt(999999999);
         return getPlayerByUsername(username).continueWith(task -> {
