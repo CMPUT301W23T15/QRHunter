@@ -6,6 +6,7 @@ package com.goblin.qrhunter;
 
 import com.google.firebase.firestore.Exclude;
 
+import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -20,7 +21,7 @@ import java.util.regex.Pattern;
  *
  * from the hash using a custom scoring system.
  */
-public class QRCode {
+public class QRCode implements Serializable {
 
     /**
      * The hash value of the QR code.

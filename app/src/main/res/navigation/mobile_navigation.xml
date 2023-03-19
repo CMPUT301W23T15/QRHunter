@@ -117,5 +117,13 @@
             android:id="@+id/action_debugFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/postFragment"
+        android:name="com.goblin.qrhunter.ui.post.PostFragment"
+        android:label="fragment_post"
+        tools:layout="@layout/fragment_post" />
+    <action
+        android:id="@+id/action_global_postFragment"
+        app:destination="@id/postFragment" />
 
 </navigation>

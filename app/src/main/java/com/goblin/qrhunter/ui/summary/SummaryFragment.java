@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.goblin.qrhunter.Post;
 import com.goblin.qrhunter.databinding.FragmentSummaryBinding;
-import com.goblin.qrhunter.ui.qrlist.QRRecyclerAdapter;
+import com.goblin.qrhunter.ui.listutil.QRRecyclerAdapter;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 
