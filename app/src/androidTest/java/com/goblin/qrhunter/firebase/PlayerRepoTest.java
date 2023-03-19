@@ -67,7 +67,6 @@ public class PlayerRepoTest {
             // 10.0.2.2 is the special IP address to connect to the 'localhost' of
             // the host computer from an Android emulator.
             fireStore.useEmulator("10.0.2.2", 8080);
-            fireAuth.useEmulator("10.0.2.2", 9099);
 
 
         } catch (IllegalStateException e) {

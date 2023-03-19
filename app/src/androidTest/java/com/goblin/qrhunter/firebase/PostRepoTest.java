@@ -55,6 +55,7 @@ public class PostRepoTest {
     PlayerRepository playerDB;
     FirebaseFirestore fireStore;
     FirebaseAuth fireAuth;
+    String playerId;
 
     FirebaseUser user;
 
@@ -66,14 +67,13 @@ public class PostRepoTest {
      * Setup firebase to use the emulated enviroment;
      */
     @Before
-    public void init() {
+    public void init() throws ExecutionException, InterruptedException {
         fireStore = FirebaseFirestore.getInstance();
         fireAuth = FirebaseAuth.getInstance();
         try {
             // 10.0.2.2 is the special IP address to connect to the 'localhost' of
             // the host computer from an Android emulator.
             fireStore.useEmulator("10.0.2.2", 8080);
-            fireAuth.useEmulator("10.0.2.2", 9099);
 
         } catch (IllegalStateException e) {
             // pass
@@ -87,6 +87,7 @@ public class PostRepoTest {
         fireStore.setFirestoreSettings(firestoreSettings);
         postDB = new PostRepository();
         playerDB = new PlayerRepository();
+        playerId = addWithRandomHelper();
     }
 
 
@@ -107,12 +108,27 @@ public class PostRepoTest {
     }
     @Test
     public void addWithRandomTest() throws ExecutionException, InterruptedException {
-        String playerId = addWithRandomHelper();
         if(playerId == null || playerId.isEmpty()) {
             fail("unknown failure");
         }
     }
 
+    private void addPostHelper(Post p1) throws ExecutionException, InterruptedException {
+        Task<Void> addPostTask = postDB.add(p1);
+        Tasks.await(addPostTask);
+        if(!addPostTask.isSuccessful()) {
+            fail("failed to add post");
+        }
+    }
+    @Test
+    public void addRandomPost() throws ExecutionException, InterruptedException {
+        Post p1 = new Post("", new QRCode("hello"), playerId);
+        addPostHelper(p1);
+
+        Post p2 = new Post("", new QRCode(UUID.randomUUID().toString()), playerId);
+        addPostHelper(p2);
+
+    }
 
 //    Both tests test that there are top posts and there is a player with a specific Post
 //    need to go more in depth with getPostByPlayerTest moving forward
