@@ -52,14 +52,15 @@ public class WelcomeActivity extends AppCompatActivity {
      * If the sign-in is unsuccessful, logs the error message.
      */
     public void signInSetup() {
+        Intent mainIntent = new Intent(WelcomeActivity.this, MainActivity.class);
+
         if (auth.getCurrentUser() != null) {
-            finish();
+            startActivity(mainIntent);
         }
         binding.welcomeButton.setOnClickListener(v -> {
             auth.signInAnonymously().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     playerDB.addWithRandomUsername(task.getResult().getUser().getUid()).addOnSuccessListener(unused -> {
-                        Intent mainIntent = new Intent(WelcomeActivity.this, MainActivity.class);
                         startActivity(mainIntent);
                     });
                 } else {
