@@ -16,11 +16,14 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.goblin.qrhunter.Comment;
 import com.goblin.qrhunter.Post;
+import com.goblin.qrhunter.R;
 import com.goblin.qrhunter.data.CommentRepository;
 import com.goblin.qrhunter.databinding.FragmentPostBinding;
 import com.goblin.qrhunter.ui.listutil.commentRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.util.zip.Inflater;
 
 public class PostFragment extends Fragment {
 
@@ -48,9 +51,10 @@ public class PostFragment extends Fragment {
             }
             this.post = getArguments().getSerializable(POST_FRAGMENT_POST_KEY, Post.class);
         }
+        
         FirebaseUser usr = FirebaseAuth.getInstance().getCurrentUser();
-        if(usr == null) {
-            return binding.getRoot();
+        if(usr == null || this.post == null) {
+            return inflater.inflate(R.layout.fragment_error, container);
         }
         commentDB = new CommentRepository();
 

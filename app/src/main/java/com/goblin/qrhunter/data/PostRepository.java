@@ -6,27 +6,19 @@ package com.goblin.qrhunter.data;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
-import com.goblin.qrhunter.Player;
 import com.goblin.qrhunter.Post;
-import com.google.android.gms.tasks.OnCompleteListener;
+import com.goblin.qrhunter.QRCode;
+import com.goblin.qrhunter.Score;
 import com.google.android.gms.tasks.Task;
-import com.google.android.gms.tasks.TaskCompletionSource;
 import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.firestore.SetOptions;
 
-import java.nio.file.FileAlreadyExistsException;
-import java.util.Arrays;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * A repository class for managing Post objects in a Firestore database.
@@ -35,14 +27,14 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class PostRepository extends BaseRepository<Post> {
     String TAG = "PostRepository";
     private final FirebaseFirestore db;
-    private final CollectionReference scoreCollection;
+    private final CollectionReference scoreCol;
 
 
     public PostRepository() {
 
         super("posts", Post.class);
         this.db = FirebaseFirestore.getInstance();
-        scoreCollection = this.db.collection("scores");
+        scoreCol = this.db.collection("scores");
 
     }
 
@@ -71,41 +63,104 @@ public class PostRepository extends BaseRepository<Post> {
 
     /**
      * Adds the given post to the collection.
+     *
      * @param post The model object to add to the collection.
      * @return A task indicating whether the operation was successful.
      */
     @Override
     public Task<Void> add(@NonNull Post post) {
-        if(post.getCode() == null || post.getCode().getHash() == null) {
+
+        if (post.getCode() == null
+                || post.getCode().getHash() == null
+                || post.getPlayerId() == null
+                || post.getPlayerId().isEmpty()
+        ) {
             return Tasks.forException(new IllegalArgumentException("invalid qrcode"));
         }
+
         List<Post> existsList = this.getWhereEqualTo("postKey", post).getValue();
-        if(existsList != null && !existsList.isEmpty()) {
+        if (existsList != null && !existsList.isEmpty()) {
             post.setId(existsList.get(0).getId());
         }
 
-        if(post.getId() == null && post.getId().isEmpty()) {
-            String id = getCollectionRef().document().getId();
+        DocumentReference postRef;
+        if (post.getId() == null && post.getId().isEmpty()) {
+            postRef = getCollectionRef().document();
+            String id = postRef.getId();
             post.setId(id);
+        } else {
+            postRef = getCollectionRef().document(post.getId());
         }
 
-        PlayerRepository playerDB = new PlayerRepository();
+        DocumentReference scoreRef = getScoreCollection().document(post.getPlayerId());
 
+        QRCode qrCode = post.getCode();
 
-        return super.add(post).continueWithTask(task -> {
-            Player p1 = new Player();
-            p1.setId(post.getPlayerId());
-            Map<String, Object>  map1 = new HashMap<String, Object>() {{
-                put("hash", post.getCode().getHash());
-                put("score", post.getCode().getScore());
-                put("postId", post.getId());
-            }};
-            DocumentReference docRef = playerDB.getCollectionRef().document(post.getPlayerId());
+        return db.runTransaction(transaction -> {
+            DocumentSnapshot scoreSnapshot = transaction.get(scoreRef);
 
-            return docRef.update("posts", FieldValue.arrayUnion(map1));
+            Score score;
+            if (scoreSnapshot.exists()) {
+                score = scoreSnapshot.toObject(Score.class);
+                int totalScore = score.getTotalScore();
+                totalScore += qrCode.getScore();
+
+                List<QRCode> posts = score.getPosts();
+                posts.add(qrCode);
+                score.setPosts(posts);
+            } else {
+                score = new Score();
+
+                List<QRCode> posts = new ArrayList<>();
+                posts.add(qrCode);
+                score.setPosts(posts);
+            }
+
+            score.setPlayerId(post.getPlayerId());
+            transaction.set(postRef, post.toMap());
+            transaction.set(scoreRef, score.toMap());
+
+            return null;
         });
     }
 
+    /**
+     * Deletes the post from the collection.
+     * @param post object to delete.
+     * @return A task indicating whether the operation was successful.
+     */
+    public Task<Void> delete(@NonNull Post post) {
+        if (post.getId() == null || post.getId().isEmpty()) {
+            return Tasks.forException(new IllegalArgumentException("invalid post id"));
+        }
+
+        DocumentReference postRef = getCollectionRef().document(post.getId());
+        DocumentReference scoreRef = getScoreCollection().document(post.getPlayerId());
+
+        return db.runTransaction(transaction -> {
+            // Get the current Score document and remove the post ID from its 'posts' list
+            Score score = transaction.get(scoreRef).toObject(Score.class);
+            if (score != null) {
+                score.removeQRCode(post.getCode());
+                transaction.set(scoreRef, score.toMap());
+            }
+
+            // Delete the post document
+            transaction.delete(postRef);
+
+            return null;
+        });
+    }
+
+    public LiveData<Score> getScoreByPlayerId(String playerId) {
+        DocumentReference scoreRef = getScoreCollection().document(playerId);
+        return new FirebaseLiveEntity<>(scoreRef, Score.class);
+
+    }
+
+    private CollectionReference getScoreCollection() {
+        return scoreCol;
+    }
 
 
 }

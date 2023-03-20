@@ -24,9 +24,11 @@
 package com.goblin.qrhunter.data;
 
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
 import com.goblin.qrhunter.Comment;
+import com.google.android.gms.tasks.Task;
 
 import java.util.List;
 
@@ -47,5 +49,6 @@ public class CommentRepository extends BaseRepository<Comment> {
     public LiveData<List<Comment>> getByPost(String postId) {
         return new FirebaseLiveData<>(getCollectionRef().whereEqualTo("postId", postId), Comment.class);
     }
+
 
 }

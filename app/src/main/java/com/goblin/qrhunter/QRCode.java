@@ -10,6 +10,8 @@ import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -120,6 +122,22 @@ public class QRCode implements Serializable {
             hexChars[j*2 + 1] = hexArray[v%16];
         }
         return new String(hexChars);
+    }
+
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof QRCode)) {
+            return false;
+        }
+
+        QRCode other = (QRCode) obj;
+
+        return this.hash.equals(other.hash);
     }
 }
 
