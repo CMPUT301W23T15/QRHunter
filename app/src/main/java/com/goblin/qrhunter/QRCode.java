@@ -6,12 +6,16 @@ package com.goblin.qrhunter;
 
 import com.google.firebase.firestore.Exclude;
 
+import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -23,7 +27,7 @@ import java.util.regex.Pattern;
  *
  * from the hash using a custom scoring system.
  */
-public class QRCode {
+public class QRCode implements Serializable {
 
     /**
      * The hash value of the QR code.
@@ -283,6 +287,22 @@ public class QRCode {
             hexChars[j*2 + 1] = hexArray[v%16];
         }
         return new String(hexChars);
+    }
+
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof QRCode)) {
+            return false;
+        }
+
+        QRCode other = (QRCode) obj;
+
+        return this.hash.equals(other.hash);
     }
 }
 

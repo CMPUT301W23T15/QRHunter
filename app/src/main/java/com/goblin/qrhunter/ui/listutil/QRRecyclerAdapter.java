@@ -4,8 +4,9 @@
  * QR codes in the RecyclerView. The adapter also implements an inner ViewHolder class
  * for defining the view of each individual QR code item.
  */
-package com.goblin.qrhunter.ui.qrlist;
+package com.goblin.qrhunter.ui.listutil;
 
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,10 +14,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.goblin.qrhunter.Post;
 import com.goblin.qrhunter.R;
+import com.goblin.qrhunter.ui.post.PostFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,6 +66,11 @@ public class QRRecyclerAdapter extends RecyclerView.Adapter<QRRecyclerAdapter.QR
     public void onBindViewHolder(QRViewHolder holder, int position) {
         Post post = mPosts.get(position);
         holder.bind(post);
+        holder.itemView.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putSerializable(PostFragment.POST_FRAGMENT_POST_KEY, post);
+            Navigation.findNavController(v).navigate(R.id.action_global_postFragment, bundle);
+        });
     }
 
     /**

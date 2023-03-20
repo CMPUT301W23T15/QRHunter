@@ -48,7 +48,7 @@ public class DebugFragment extends Fragment {
             navController.navigate(R.id.action_debugFragment_to_profileFragment);
         });
 
-        binding.generatePostBtn.setOnClickListener(v -> {
+        binding.randomPostBtn.setOnClickListener(v -> {
             Task<Void> addTask = mViewModel.generatePost();
             addTask.addOnCompleteListener(task -> {
                 if(task.isSuccessful()) {
