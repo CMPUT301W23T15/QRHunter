@@ -25,6 +25,15 @@ public class Score implements Entity {
     }
 
     /**
+     * new Constructor for testing
+     */
+    public Score(int totalScore, List<QRCode> posts, String playerId){
+        this.totalScore = totalScore;
+        this.posts = posts;
+        this.playerId = playerId;
+    }
+
+    /**
      * Returns the total score for all QR codes.
      *
      * @return The total score for all QR codes.
