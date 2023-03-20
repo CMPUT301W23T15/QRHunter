@@ -61,24 +61,23 @@ public abstract class BaseRepository<T extends Entity> {
      */
     public Task<Void> add(@NonNull T item) {
         getCollectionRef().document().getId();
-        Map<String, Object> map = item.toMap();
         if(item.getId() == null && item.getId().isEmpty()) {
             String id = getCollectionRef().document().getId();
             item.setId(id);
         }
-        return this.update(item);
+        Map<String, Object> map = item.toMap();
+        return getCollectionRef().document(item.getId()).set(map);
     }
 
     /**
-     * Updates the item with the given ID in the collection. will create
-     * if it doesn't exist already.
+     * Updates the item with the given ID in the collection.
      * @param item The new model object to replace the old one with.
      * @return A task indicating whether the operation was successful.
      */
     public Task<Void> update(@NonNull T item) {
         String id = item.getId();
         Map<String, Object> map = item.toMap();
-        return getCollectionRef().document(id).set(map);
+        return getCollectionRef().document(id).update(map);
     }
 
     /**
@@ -118,9 +117,6 @@ public abstract class BaseRepository<T extends Entity> {
      */
     public LiveData<T> getAsLiveData(String id) {
         DocumentReference docRef = getCollectionRef().document(id);
-        if(docRef == null) {
-            Log.d(TAG, "getAsLiveData: null doc ref");
-        }
         return new FirebaseLiveEntity<T>(docRef, type);
     }
 

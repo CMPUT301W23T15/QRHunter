@@ -18,7 +18,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.goblin.qrhunter.Player;
 import com.goblin.qrhunter.Post;
 import com.goblin.qrhunter.databinding.FragmentOtherProfileBinding;
-import com.goblin.qrhunter.ui.qrlist.QRRecyclerAdapter;
+import com.goblin.qrhunter.ui.listutil.QRRecyclerAdapter;
 
 /**
  * The OtherProfileFragment class is a Fragment that displays the profile of a selected user.
