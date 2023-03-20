@@ -24,7 +24,13 @@
 package com.goblin.qrhunter.data;
 
 
+import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
+
 import com.goblin.qrhunter.Comment;
+import com.google.android.gms.tasks.Task;
+
+import java.util.List;
 
 /**
  * A repository class for managing {@link Comment} objects in a Firestore database.
@@ -39,4 +45,10 @@ public class CommentRepository extends BaseRepository<Comment> {
     public CommentRepository() {
         super("comments", Comment.class);
     }
+
+    public LiveData<List<Comment>> getByPost(String postId) {
+        return new FirebaseLiveData<>(getCollectionRef().whereEqualTo("postId", postId), Comment.class);
+    }
+
+
 }

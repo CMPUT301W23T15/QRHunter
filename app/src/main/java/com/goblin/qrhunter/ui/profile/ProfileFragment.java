@@ -65,6 +65,18 @@ public class ProfileFragment extends Fragment {
         NavController navController = Navigation.findNavController(container);
         TextView txtView = binding.titleUsername;
 
+        mViewModel.getLivePlayer().observe(getViewLifecycleOwner(), player -> {
+            Log.d(TAG, "onCreateView: ");
+            if (player != null) {
+                binding.titleUsername.setText("Username " + player.getUsername());
+                binding.titleEmail.setText("Email: " + player.getContactInfo());
+                binding.titlePhone.setText("Phone: " + player.getPhone());
+                binding.buttonEditProfile.setOnClickListener(v -> {
+                    EditProfileDialogFragment dialog = EditProfileDialogFragment.newInstance(player);
+                    dialog.show(getChildFragmentManager(), "EditProfileDialogFragment");
+                });
+            }
+        });
 
 
 
@@ -84,18 +96,6 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        mViewModel.getLivePlayer().observe(getViewLifecycleOwner(), player -> {
-            Log.d(TAG, "onCreateView: ");
-            if (player != null) {
-                binding.titleUsername.setText("Username " + player.getUsername());
-                binding.titleEmail.setText("Email: " + player.getContactInfo());
-                binding.titlePhone.setText("Phone: " + player.getPhone());
-                binding.buttonEditProfile.setOnClickListener(v -> {
-                    EditProfileDialogFragment dialog = EditProfileDialogFragment.newInstance(player);
-                    dialog.show(getChildFragmentManager(), "EditProfileDialogFragment");
-                });
-            }
-        });
 
     }
 

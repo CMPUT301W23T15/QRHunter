@@ -6,6 +6,7 @@ package com.goblin.qrhunter;
 import android.location.Location;
 
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -23,7 +24,7 @@ import java.util.UUID;
  * This class implements the `Entity` interface and provides a method to convert the object to a map, which is used to store the object in the database.
  *
  */
-public class Post implements Entity {
+public class Post implements Entity, Serializable {
     private String id;
     private String name;
     private QRCode code;

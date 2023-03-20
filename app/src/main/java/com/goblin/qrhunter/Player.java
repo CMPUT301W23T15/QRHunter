@@ -5,6 +5,7 @@ package com.goblin.qrhunter;
 
 import com.goblin.qrhunter.data.Entity;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,7 +18,7 @@ import java.util.Map;
  * The class implements the Entity interface, which provides a toMap() method for converting
  * the object to a map of key-value pairs (for use with Firebase).
  */
-public class Player implements Entity {
+public class Player implements Entity, Serializable {
     private String id;
     private String username;
     private String contactInfo;
