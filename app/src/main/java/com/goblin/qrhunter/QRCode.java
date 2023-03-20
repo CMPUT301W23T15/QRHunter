@@ -109,7 +109,7 @@ public class QRCode {
      *
      * @return the generated name.
      */
-    public static String NameGenerator() {
+    public String NameGenerator() {
         List<String> colors = Arrays.asList("Red", "Blue", "Green", "Yellow", "Purple", "Orange",
                 "Pink", "Gray", "Brown", "Black", "White", "Navy", "Teal", "Magenta", "Cyan",
                 "Lavender", "Olive", "Maroon", "Turquoise", "Beige", "Indigo", "Slate", "Silver",
