@@ -3,11 +3,21 @@
  */
 package com.goblin.qrhunter.data;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.lifecycle.LiveData;
+
 import com.goblin.qrhunter.Player;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.SetOptions;
+import com.google.firebase.firestore.Transaction;
 
 import java.util.Random;
 
@@ -19,11 +29,39 @@ import java.util.Random;
  */
 public class PlayerRepository extends BaseRepository<Player> {
 
+    private final FirebaseFirestore db;
+
+    private final CollectionReference scoreCol;
+
     /**
      * Constructs a new PlayerRepository object and sets the collection reference and the class type.
      */
     public PlayerRepository() {
         super("players", Player.class);
+        this.db = FirebaseFirestore.getInstance();
+        scoreCol = this.db.collection("scores");
+
+    }
+
+
+    /**
+     * Updates the player in the collection.
+     * @param player The new model object to replace the old one with.
+     * @return A task indicating whether the operation was successful.
+     */
+    @Override
+    public Task<Void> update(@NonNull Player player) {
+        if(player.getId() == null || player.getId().isEmpty()) {
+            return Tasks.forException(new IllegalArgumentException("Invalid player argument"));
+        }
+        DocumentReference playerRef = getCollectionRef().document(player.getId());
+        DocumentReference scoreRef = getScoreCol().document(player.getId());
+
+        return db.runTransaction(transaction -> {
+            transaction.update(playerRef, player.toMap());
+            transaction.set(scoreRef, player.toMap(), SetOptions.merge());
+            return null;
+        });
     }
 
     /**
@@ -89,6 +127,8 @@ public class PlayerRepository extends BaseRepository<Player> {
             }
         });
     }
+
+
     /**
      * Gets a player object by its ID.
      * @param id the ID of the player to retrieve.
@@ -98,4 +138,11 @@ public class PlayerRepository extends BaseRepository<Player> {
         return this.get(id);
     }
 
+    /**
+     * get the score collection reference.
+     * @return CollectionReference of the score table
+     */
+    private CollectionReference getScoreCol() {
+        return this.scoreCol;
+    }
 }

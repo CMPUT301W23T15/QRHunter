@@ -6,6 +6,7 @@ package com.goblin.qrhunter.data;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
+import com.goblin.qrhunter.Player;
 import com.goblin.qrhunter.Post;
 import com.goblin.qrhunter.QRCode;
 import com.goblin.qrhunter.Score;
@@ -29,7 +30,9 @@ public class PostRepository extends BaseRepository<Post> {
     private final FirebaseFirestore db;
     private final CollectionReference scoreCol;
 
-
+    /**
+     * Constructs a new PostRepository object.
+     */
     public PostRepository() {
 
         super("posts", Post.class);
@@ -93,12 +96,12 @@ public class PostRepository extends BaseRepository<Post> {
         }
 
         DocumentReference scoreRef = getScoreCollection().document(post.getPlayerId());
-
+        DocumentReference playerRef = this.db.collection("players").document(post.getPlayerId());
         QRCode qrCode = post.getCode();
 
         return db.runTransaction(transaction -> {
             DocumentSnapshot scoreSnapshot = transaction.get(scoreRef);
-
+            DocumentSnapshot playerSnapshot = transaction.get(playerRef);
             Score score;
             if (scoreSnapshot.exists()) {
                 score = scoreSnapshot.toObject(Score.class);
@@ -116,7 +119,9 @@ public class PostRepository extends BaseRepository<Post> {
                 score.setPosts(posts);
             }
 
+            Player player = playerSnapshot.toObject(Player.class);
             score.setPlayerId(post.getPlayerId());
+            score.setPlayer(player);
             transaction.set(postRef, post.toMap());
             transaction.set(scoreRef, score.toMap());
 
@@ -152,12 +157,36 @@ public class PostRepository extends BaseRepository<Post> {
         });
     }
 
+    /**
+     * Returns a LiveData<List<Score>> object containing all the scores associated with a particular QR code hash.
+     * scores contains player info and an array of qrcodes;
+     * @param hash the hash of the QR code to look up
+     * @return a LiveData<List<Score>> object containing all the scores associated with the specified QR code hash
+     */
+    public  LiveData<List<Score>> getScoreByQR(String hash) {
+        QRCode tmpCode = new QRCode();
+        tmpCode.setHash(hash);
+        Query query = getScoreCollection().whereArrayContains("posts", tmpCode);
+        return new FirebaseLiveData<>(query, Score.class);
+    }
+
+    /**
+     * Returns a LiveData<Score> object containing the score associated with a particular player ID.
+     *
+     * @param playerId the ID of the player whose score is to be looked up
+     * @return a LiveData<Score> object containing the score associated with the specified player ID
+     */
     public LiveData<Score> getScoreByPlayerId(String playerId) {
         DocumentReference scoreRef = getScoreCollection().document(playerId);
         return new FirebaseLiveEntity<>(scoreRef, Score.class);
 
     }
 
+    /**
+     * Returns a reference to the collection containing scores.
+     *
+     * @return a reference to the collection containing scores
+     */
     private CollectionReference getScoreCollection() {
         return scoreCol;
     }
