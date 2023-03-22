@@ -1,6 +1,7 @@
 package com.goblin.qrhunter.ui.post;
 
 
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.util.Log;
@@ -49,7 +50,9 @@ public class PostFragment extends Fragment {
             if(getArguments() == null) {
                 return binding.getRoot();
             }
-            this.post = getArguments().getSerializable(POST_FRAGMENT_POST_KEY, Post.class);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                this.post = getArguments().getSerializable(POST_FRAGMENT_POST_KEY, Post.class);
+            }
         }
         
         FirebaseUser usr = FirebaseAuth.getInstance().getCurrentUser();
