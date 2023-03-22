@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.goblin.qrhunter.Player;
 import com.goblin.qrhunter.Post;
@@ -69,6 +70,7 @@ public class OtherProfileFragment extends Fragment {
         binding.titleUsername.setText("User: " + username);
         binding.titleEmail.setText("Email: " + contactInfo);
         binding.titlePhone.setText("Phone: " + phone);
+        // (On-create)
         try {
             mViewModel.getPlayerByUsername(username);
             QRRecyclerAdapter adapter = new QRRecyclerAdapter();
@@ -90,6 +92,24 @@ public class OtherProfileFragment extends Fragment {
             Log.e(TAG, "onCreateView: ", e);
             Toast.makeText(getContext(), "Failed to load player", Toast.LENGTH_SHORT).show();
         }
+
+        // 1) Get all of the (searched) users' QR codes.
+        LinearLayoutManager llm = new LinearLayoutManager(this.getContext());
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        binding.listScannedQR.setLayoutManager(llm);
+        // 2) Set up the list of QR codes.
+        QRRecyclerAdapter qrAdapter = new QRRecyclerAdapter();
+        binding.listScannedQR.setAdapter(qrAdapter);
+
+        // 3) Listen for any changes in the user's QR codes & update accordingly.
+        mViewModel.getPlayerPosts().observe(getViewLifecycleOwner(), qrAdapter::setData);
+        mViewModel.getPlayerPosts().observe(getViewLifecycleOwner(), posts -> {
+            for (Post p: posts
+            ) {
+                Log.d(TAG, "onCreateView: updating: " + p.getId() );
+            }
+
+        });
 
         return binding.getRoot();
     }
