@@ -21,6 +21,7 @@ import androidx.navigation.Navigation;
 import com.goblin.qrhunter.Post;
 import com.goblin.qrhunter.QRCode;
 import com.goblin.qrhunter.R;
+import com.goblin.qrhunter.Score;
 import com.goblin.qrhunter.data.PostRepository;
 import com.goblin.qrhunter.databinding.FragmentHomeBinding;
 import com.google.firebase.auth.FirebaseAuth;
@@ -57,39 +58,33 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        homeViewModel.getScore().observe(getViewLifecycleOwner(), score -> {
+            if(score == null) {
+                score = new Score();
+            }
+            binding.titleHighestScoring.setText("Highest Scoring: " + score.getHighestScore());
+            binding.titleLowestScoring.setText("Lowest Scoring: " + score.getLowestScore());
+            binding.titleTotalScore.setText("Total score: " + score.getTotalScore());
+            binding.titleTotalQRCode.setText("Total Scanned: " + score.getQRCount());
 
-        // setup scores and post count
-        homeViewModel.getUserPosts().observe(getViewLifecycleOwner(), this::refresh);
-        List<Post> seedData = homeViewModel.getSeedList();
-        if( seedData != null) {
-            this.refresh(seedData);
-        }
+        });
 
         // Set up the navigation options as buttons
         NavController navController = Navigation.findNavController(container);
 
         // Navigate to the MapFragment when the Map button is clicked
-        binding.mapButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navController.navigate(R.id.action_navigation_home_to_mapFragment);
-            }
+        binding.mapButton.setOnClickListener(v -> {
+            navController.navigate(R.id.action_navigation_home_to_mapFragment);
         });
 
         // Navigate to the ScanFragment when the Scan button is clicked
-        binding.scanButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navController.navigate(R.id.action_navigation_home_to_scanFragment);
-            }
+        binding.scanButton.setOnClickListener(v -> {
+            navController.navigate(R.id.action_navigation_home_to_scanFragment);
         });
 
         // Navigate to the LeaderboardFragment when the Leaderboard button is clicked
-        binding.leaderboardButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navController.navigate(R.id.action_navigation_home_to_leaderboardFragment);
-            }
+        binding.leaderboardButton.setOnClickListener(v -> {
+            navController.navigate(R.id.action_navigation_home_to_leaderboardFragment);
         });
 
         return root;
@@ -127,9 +122,6 @@ public class HomeFragment extends Fragment {
                 qrCount = posts.size();
         }
 
-        binding.titleHighestScoring.setText("Highest Scoring: " + highScore);
-        binding.titleLowestScoring.setText("Lowest Scoring: " + lowScore);
-        binding.titleTotalScore.setText("Total score: " + totalScore);
-        binding.titleTotalQRCode.setText("Total Scanned: " + qrCount);
+
     }
 }

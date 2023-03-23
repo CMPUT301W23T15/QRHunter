@@ -59,6 +59,18 @@ public class DebugFragment extends Fragment {
                 }
              });
         });
+
+        binding.constPostBtn.setOnClickListener(v -> {
+            Task<Void> addTask = mViewModel.generateFixedPost();
+            addTask.addOnCompleteListener(task -> {
+                if(task.isSuccessful()) {
+                    Toast.makeText(getContext(), "Added post", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getContext(), "network connection error", Toast.LENGTH_SHORT).show();
+
+                }
+            });
+        });
         return binding.getRoot();
 
     }

@@ -85,7 +85,7 @@ public abstract class BaseRepository<T extends Entity> {
      * @param id The ID of the model object to delete.
      * @return A task indicating whether the operation was successful.
      */
-    public Task<Void> delete(String id) {
+    public Task<Void> delete(@NonNull String id) {
         return collectionRef.document(id).delete();
     }
 
@@ -95,7 +95,7 @@ public abstract class BaseRepository<T extends Entity> {
      * @param id The ID of the model object to get.
      * @return A task that returns the model object when it is complete.
      */
-    public Task<T> get(String id) {
+    public Task<T> get(@NonNull String id) {
         return getCollectionRef().document(id).get().continueWith(task -> {
             DocumentSnapshot document = task.getResult();
             if (document.exists()) {
@@ -115,7 +115,7 @@ public abstract class BaseRepository<T extends Entity> {
      * @param id The ID of the model object to get.
      * @return A  item as livedata.
      */
-    public LiveData<T> getAsLiveData(String id) {
+    public LiveData<T> getAsLiveData(@NonNull String id) {
         DocumentReference docRef = getCollectionRef().document(id);
         return new FirebaseLiveEntity<T>(docRef, type);
     }
@@ -129,7 +129,7 @@ public abstract class BaseRepository<T extends Entity> {
      * @return A LiveData object containing a list of all the items in the Firestore
      * collection that have a given field equal to a specific value.
      */
-    protected LiveData<List<T>> getWhereEqualTo(String field, Object value) {
+    protected LiveData<List<T>> getWhereEqualTo(@NonNull String field, Object value) {
         Query q =  getCollectionRef().whereEqualTo(field, value);
         return new FirebaseLiveData<>(q, type);
     }
@@ -140,7 +140,7 @@ public abstract class BaseRepository<T extends Entity> {
      * @param id the ID of the document to check.
      * @return a {@link Task} that on completes indicates if the item exists or not.
      */
-    public Task<Boolean> exists(String id) {
+    public Task<Boolean> exists(@NonNull String id) {
         return getCollectionRef().document(id).get().continueWith(task -> task.getResult().exists());
     }
 

@@ -6,6 +6,7 @@
 package com.goblin.qrhunter.ui.home;
 
 
+import android.content.Intent;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
@@ -13,8 +14,11 @@ import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.goblin.qrhunter.MainActivity;
 import com.goblin.qrhunter.Post;
+import com.goblin.qrhunter.Score;
 import com.goblin.qrhunter.data.PostRepository;
+import com.goblin.qrhunter.ui.welcome.WelcomeActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -35,6 +39,8 @@ public class HomeViewModel extends ViewModel {
     private int totalScore = 0;
     private int qrCount = 0;
 
+    private LiveData<Score> scoreLiveData;
+
     LiveData<List<Post>> postSource;
 
     private List<Post> seedList = new ArrayList<>();
@@ -46,13 +52,13 @@ public class HomeViewModel extends ViewModel {
     public HomeViewModel() {
         postDB = new PostRepository();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        assert user != null;
+        scoreLiveData = postDB.getScoreByPlayerId(user.getUid());
+    }
 
-        if (user != null) {
-            postSource = postDB.getPostByPlayer(user.getUid());
-        } else {
-            // Handle the case where the user is null, e.g., by setting postSource to an empty list
-            postSource = new MutableLiveData<>(new ArrayList<>());
-        }
+
+    public LiveData<Score> getScore() {
+        return scoreLiveData;
     }
 
     /**

@@ -125,5 +125,14 @@
     <action
         android:id="@+id/action_global_postFragment"
         app:destination="@id/postFragment" />
+    <fragment
+        android:id="@+id/alsoFragment"
+        android:name="com.goblin.qrhunter.ui.also.AlsoFragment"
+        android:label="fragment_also"
+        tools:layout="@layout/fragment_also" />
+
+    <action
+        android:id="@+id/action_global_alsoFragment"
+        app:destination="@id/alsoFragment" />
 
 </navigation>
