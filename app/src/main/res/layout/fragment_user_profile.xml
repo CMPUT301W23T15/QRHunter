@@ -6,10 +6,23 @@
     android:layout_height="match_parent"
     tools:context=".ui.scan.ScanFragment">
 
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imageView4"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="45dp"
+        android:src="@drawable/ic_profile_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/debug_button"
         android:layout_width="115dp"
         android:layout_height="48dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/rounded_style"
         android:backgroundTint="@color/white"
         android:fontFamily="@font/jetbrainsmono"
@@ -19,103 +32,77 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.907" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button_test_signout2"
-        android:layout_width="115dp"
-        android:layout_height="48dp"
-        android:background="@drawable/rounded_style"
-        android:backgroundTint="@color/teal_200"
-        android:fontFamily="@font/jetbrainsmono"
-        android:text="sign-out"
-        android:textColor="@color/black"
-        android:textSize="17dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.781" />
+        app:layout_constraintTop_toBottomOf="@+id/button_test_signout"
+        app:layout_constraintVertical_bias="0.186" />
 
     <TextView
         android:id="@+id/title_phone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:fontFamily="@font/jetbrainsmono"
-        android:text="Phone Number:"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Phone:"
         android:textColor="@color/black"
         android:textSize="22dp"
-        app:layout_constraintBottom_toTopOf="@+id/title_email"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.46"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title_username"
-        app:layout_constraintVertical_bias="0.434" />
+        app:layout_constraintTop_toBottomOf="@+id/title_username" />
 
     <TextView
         android:id="@+id/title_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="16dp"
         android:fontFamily="@font/jetbrainsmono"
         android:text="Username:"
         android:textColor="@color/black"
         android:textSize="25dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.357"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
 
     <TextView
         android:id="@+id/title_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="340dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="@font/jetbrainsmono"
         android:text="Email:"
         android:textColor="@color/black"
         android:textSize="22dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.306"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_phone" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button_edit_profile"
         android:layout_width="115dp"
         android:layout_height="48dp"
-        android:layout_marginBottom="28dp"
+        android:layout_marginTop="72dp"
         android:background="@drawable/rounded_style"
         android:backgroundTint="@color/lilac"
         android:fontFamily="@font/jetbrainsmono"
         android:text="Edit"
         android:textColor="@color/black"
         android:textSize="17dp"
-        app:layout_constraintBottom_toTopOf="@+id/button_test_signout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.997" />
+        app:layout_constraintTop_toBottomOf="@+id/title_email" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button_test_signout"
         android:layout_width="115dp"
         android:layout_height="48dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/rounded_style"
         android:backgroundTint="@color/teal_200"
         android:fontFamily="@font/jetbrainsmono"
         android:text="sign-out"
         android:textColor="@color/black"
         android:textSize="17dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.781" />
-
-
+        app:layout_constraintTop_toBottomOf="@+id/button_edit_profile" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

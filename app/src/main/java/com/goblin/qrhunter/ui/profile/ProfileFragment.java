@@ -68,7 +68,7 @@ public class ProfileFragment extends Fragment {
         mViewModel.getLivePlayer().observe(getViewLifecycleOwner(), player -> {
             Log.d(TAG, "onCreateView: ");
             if (player != null) {
-                binding.titleUsername.setText("Username " + player.getUsername());
+                binding.titleUsername.setText("Username: " + player.getUsername());
                 binding.titleEmail.setText("Email: " + player.getContactInfo());
                 binding.titlePhone.setText("Phone: " + player.getPhone());
                 binding.buttonEditProfile.setOnClickListener(v -> {
