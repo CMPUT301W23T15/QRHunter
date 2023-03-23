@@ -14,12 +14,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import com.goblin.qrhunter.Comment;
 import com.goblin.qrhunter.Post;
 import com.goblin.qrhunter.R;
 import com.goblin.qrhunter.data.CommentRepository;
 import com.goblin.qrhunter.databinding.FragmentPostBinding;
+import com.goblin.qrhunter.ui.also.AlsoFragment;
 import com.goblin.qrhunter.ui.listutil.commentRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -54,11 +56,11 @@ public class PostFragment extends Fragment {
                 this.post = getArguments().getSerializable(POST_FRAGMENT_POST_KEY, Post.class);
             }
         }
-        
+
+        assert this.post != null;
+
         FirebaseUser usr = FirebaseAuth.getInstance().getCurrentUser();
-        if(usr == null || this.post == null) {
-            return inflater.inflate(R.layout.fragment_error, container);
-        }
+
         commentDB = new CommentRepository();
 
         binding.postNameView.setText("Name: " + post.getName());
@@ -87,6 +89,12 @@ public class PostFragment extends Fragment {
                 binding.addCommentBtn.setVisibility(View.VISIBLE);
             });
 
+        });
+
+        binding.scannedByBtn.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putString(AlsoFragment.ALSO_FRAGMENT_QR_ARG, this.post.getCode().getHash());
+            Navigation.findNavController(v).navigate(R.id.action_global_alsoFragment, bundle);
         });
         return binding.getRoot();
     }

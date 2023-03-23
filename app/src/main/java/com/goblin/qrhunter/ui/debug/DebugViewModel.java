@@ -40,4 +40,18 @@ public class DebugViewModel extends ViewModel {
          return postDB.add(p1);
     }
 
+    public Task<Void> generateFixedPost() {
+        FirebaseUser usr = FirebaseAuth.getInstance().getCurrentUser();
+        if(usr == null) {
+            Log.d(TAG, "generatePosts: no loggedin user");
+            return Tasks.forCanceled();
+        }
+        String usrId = usr.getUid();
+        String rand = "hello";
+        QRCode code = new QRCode(rand);
+        Post p1 = new Post(rand, code, usrId);
+
+        return postDB.add(p1);
+    }
+
 }

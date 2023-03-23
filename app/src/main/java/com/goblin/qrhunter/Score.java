@@ -14,6 +14,7 @@ public class Score implements Entity {
     private List<QRCode> posts;
 
     private String playerId;
+    private Player player;
 
     public Score() {
         totalScore = 0;
@@ -51,6 +52,7 @@ public class Score implements Entity {
     }
 
 
+
     public List<QRCode> getPosts() {
         return posts;
     }
@@ -60,6 +62,14 @@ public class Score implements Entity {
         if (this.posts != null) {
             this.sortPosts();
         }
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 
     public String getPlayerId() {
@@ -156,6 +166,10 @@ public class Score implements Entity {
             put("qrcount", getQRCount());
             put("posts", getPosts());
         }};
+
+        if(this.player != null) {
+            map.put("player", this.player.toMap());
+        }
 
         return map;
     }

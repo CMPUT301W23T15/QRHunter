@@ -24,6 +24,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.goblin.qrhunter.data.PostRepository;
 import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.AuthResult;
@@ -55,6 +56,7 @@ public class PostRepoTest {
     PlayerRepository playerDB;
     FirebaseFirestore fireStore;
     FirebaseAuth fireAuth;
+    String playerId;
 
     FirebaseUser user;
 
@@ -66,7 +68,7 @@ public class PostRepoTest {
      * Setup firebase to use the emulated enviroment;
      */
     @Before
-    public void init() {
+    public void init() throws ExecutionException, InterruptedException {
         fireStore = FirebaseFirestore.getInstance();
         fireAuth = FirebaseAuth.getInstance();
         try {
@@ -87,6 +89,7 @@ public class PostRepoTest {
         fireStore.setFirestoreSettings(firestoreSettings);
         postDB = new PostRepository();
         playerDB = new PlayerRepository();
+        playerId = addWithRandomHelper();
     }
 
 
@@ -113,6 +116,16 @@ public class PostRepoTest {
         }
     }
 
+    @Test
+    public void addPostTest() {
+        QRCode qr = new QRCode(UUID.randomUUID().toString());
+        QRCode qr2 = new QRCode("hello");
+
+        Post post = new Post("tmp", qr, playerId);
+        postDB.add(post).addOnFailureListener(e -> fail(e.getLocalizedMessage()));
+        post.setCode(qr2);
+        postDB.add(post).addOnFailureListener(e -> fail(e.getLocalizedMessage()));
+    }
 
 //    Both tests test that there are top posts and there is a player with a specific Post
 //    need to go more in depth with getPostByPlayerTest moving forward
@@ -128,5 +141,6 @@ public class PostRepoTest {
         LiveData<List<Post>> posts = postDB.getPostByPlayer(playerId);
         assertNotNull(posts);
     }
+
 }
 
