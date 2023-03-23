@@ -22,6 +22,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.goblin.qrhunter.R;
+import com.goblin.qrhunter.ui.takephoto.TakePhotoActivity;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
@@ -66,6 +67,9 @@ public class ScanActivity extends AppCompatActivity {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     dialogInterface.dismiss();
+                    Intent intent = new Intent(ScanActivity.this, TakePhotoActivity.class);
+                    startActivity(intent);
+                    finish();
                 }
             });
             builder.show();

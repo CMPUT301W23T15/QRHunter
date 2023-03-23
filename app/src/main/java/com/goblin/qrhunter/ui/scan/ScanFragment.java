@@ -57,7 +57,7 @@ public class ScanFragment extends Fragment {
         binding = FragmentScanBinding.inflate(inflater, container, false);
         FirebaseUser usr = FirebaseAuth.getInstance().getCurrentUser();
 
-        disableConfirmBtn();
+//        disableConfirmBtn();
 
         scanActivityIntent = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
@@ -71,7 +71,7 @@ public class ScanFragment extends Fragment {
                             String qrString = result.getData().getStringExtra(ScanActivity.QR_CODE_STRING);
                             vModel.setQRCode(qrString);
                             Toast.makeText(this.getContext(), qrString, Toast.LENGTH_SHORT );
-                            enableConfirmBtn();
+//                            enableConfirmBtn();
 
                         }
                     }
@@ -83,9 +83,9 @@ public class ScanFragment extends Fragment {
 
         scanIntent = new Intent(this.getContext(), ScanActivity.class);
 
-        binding.buttonRetake.setOnClickListener(v -> {
-            launchScanner();
-        });
+//        binding.buttonRetake.setOnClickListener(v -> {
+//            launchScanner();
+//        });
 
         if(savedInstanceState == null) {
             launchScanner();
@@ -102,13 +102,13 @@ public class ScanFragment extends Fragment {
         scanActivityIntent.launch(scanIntent);
     }
 
-    public void disableConfirmBtn() {
-        binding.buttonConfirm.setAlpha(0.5f);
-        binding.buttonConfirm.setClickable(false);
-    }
-
-    public void enableConfirmBtn() {
-        binding.buttonConfirm.setAlpha(1);
-    }
+//    public void disableConfirmBtn() {
+//        binding.buttonConfirm.setAlpha(0.5f);
+//        binding.buttonConfirm.setClickable(false);
+//    }
+//
+//    public void enableConfirmBtn() {
+//        binding.buttonConfirm.setAlpha(1);
+//    }
 
 }
