@@ -51,6 +51,10 @@
 
         <activity android:name=".ui.scan.ScanActivity" />
         <activity android:name=".ui.welcome.WelcomeActivity" />
+        <activity
+            android:name="com.goblin.qrhunter.ui.takephoto.TakePhotoActivity"
+            />
+
         <!-- UNCOMMENT FOR MAPS API
         <meta-data
             android:name="com.google.android.geo.API_KEY"
