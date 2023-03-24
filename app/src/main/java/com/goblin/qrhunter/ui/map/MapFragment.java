@@ -1,7 +1,5 @@
 package com.goblin.qrhunter.ui.map;
 
-import androidx.lifecycle.ViewModelProvider;
-
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,10 +9,9 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 
 import com.goblin.qrhunter.R;
-import com.google.type.LatLng;
+import com.goblin.qrhunter.databinding.FragmentMapBinding;
 
 
 public class MapFragment extends Fragment /*implements OnMapReadyCallback*/ {
@@ -24,6 +21,8 @@ public class MapFragment extends Fragment /*implements OnMapReadyCallback*/ {
     // GoogleMap gMap;
     // FrameLayout map;
 
+    private FragmentMapBinding binding;
+
     public static MapFragment newInstance() {
         return new MapFragment();
     }
@@ -31,6 +30,9 @@ public class MapFragment extends Fragment /*implements OnMapReadyCallback*/ {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+
+
+
 
 
 //
