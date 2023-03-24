@@ -20,6 +20,7 @@ import com.google.type.LatLng;
 public class MapFragment extends Fragment /*implements OnMapReadyCallback*/ {
     // Attributes
     private MapViewModel mViewModel;
+//    private GoogleMap googleMap;
     // GoogleMap gMap;
     // FrameLayout map;
 
@@ -31,20 +32,46 @@ public class MapFragment extends Fragment /*implements OnMapReadyCallback*/ {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        //SupportMapFragment mapFragment = (SupportMapFragment) getParentFragmentManager().findFragmentById(R.id.map);
-        //mapFragment.getMapAsync(this);
+
+//
+//        View rootView = inflater.inflate(R.layout.fragment_map, container, false);
+//
+//        mapView = rootView.findViewById(R.id.map_view);
+//        mapView.onCreate(savedInstanceState);
+//
+//        mapView.getMapAsync(this);
         return inflater.inflate(R.layout.fragment_map, container, false);
     }
 
-    /*
-    @Override
-    public void onMapReady(@NonNull GoogleMap googleMap) {
-        this.gMap = googleMap;
-        LatLng mapEdmonton = new LatLng(53.48994954800136, -113.49469444957029);
-        this.gMap.addMarker(new MarkerOptions().position(mapEdmonton).title("Marker Edmonton"));
-        this.gMap.moveCamera(CameraUpdateFactory.newLatLng(mapEdmonton));
+    /*@Override
+    public void onResume() {
+        super.onResume();
+        mapView.onResume();
     }
-     */
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        mapView.onPause();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mapView.onDestroy();
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        mapView.onLowMemory();
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        this.googleMap = googleMap;
+        // Add markers, camera movement, and other map manipulation here
+    }
+*/
 
 }

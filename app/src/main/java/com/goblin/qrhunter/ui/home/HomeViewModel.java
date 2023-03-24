@@ -52,7 +52,11 @@ public class HomeViewModel extends ViewModel {
     public HomeViewModel() {
         postDB = new PostRepository();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        assert user != null;
+        if (user!=null){
+            postSource = postDB.getPostByPlayer(user.getUid());
+        }else{
+            postSource=new MutableLiveData<>(new ArrayList<>());
+        }
         scoreLiveData = postDB.getScoreByPlayerId(user.getUid());
     }
 
