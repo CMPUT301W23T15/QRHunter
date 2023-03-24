@@ -5,6 +5,7 @@
  */
 package com.goblin.qrhunter.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,13 +19,16 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import com.goblin.qrhunter.MainActivity;
 import com.goblin.qrhunter.Post;
 import com.goblin.qrhunter.QRCode;
 import com.goblin.qrhunter.R;
 import com.goblin.qrhunter.Score;
 import com.goblin.qrhunter.data.PostRepository;
 import com.goblin.qrhunter.databinding.FragmentHomeBinding;
+import com.goblin.qrhunter.ui.welcome.WelcomeActivity;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -51,12 +55,26 @@ public class HomeFragment extends Fragment {
      */
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        // Create a new instance of HomeViewModel
-        HomeViewModel homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+
 
         // Inflate the layout for this fragment using the FragmentHomeBinding
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        Intent welcomeIntent = new Intent(getContext(), WelcomeActivity.class);
+        if (currentUser == null || currentUser.getUid().isEmpty()) {
+            Log.d(TAG, "onStart: no user");
+            startActivity(welcomeIntent);
+        }
+
+
+        // Create a new instance of HomeViewModel
+        HomeViewModel homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+
+        binding.titleHighestScoring.setText("Highest Scoring: 0");
+        binding.titleLowestScoring.setText("Lowest Scoring: 0");
+        binding.titleTotalScore.setText("Total score: 0");
+        binding.titleTotalQRCode.setText("Total Scanned: 0");
 
         homeViewModel.getScore().observe(getViewLifecycleOwner(), score -> {
             if(score == null) {
@@ -100,28 +118,4 @@ public class HomeFragment extends Fragment {
         binding = null;
     }
 
-    private void refresh(List<Post> posts) {
-        if (posts == null || posts.isEmpty()) {
-            return;
-        }
-        int highScore = 0;
-        int lowScore = -1;
-        int totalScore = 0;
-        int qrCount = 0;
-            for (Post post : posts) {
-                if(post.getCode() != null) {
-                    int score = post.getCode().getScore();
-                    totalScore = totalScore + score;
-                    highScore = Math.max(score, highScore);
-                    if(lowScore < 0) {
-                        lowScore = score;
-                    }
-                    lowScore = Math.min(score, lowScore);
-                    Log.d("Adding", "HomeViewModel: " + post.getId());
-                }
-                qrCount = posts.size();
-        }
-
-
-    }
 }

@@ -55,6 +55,7 @@ public class HomeViewModel extends ViewModel {
         if (user!=null){
             postSource = postDB.getPostByPlayer(user.getUid());
         }else{
+
             postSource=new MutableLiveData<>(new ArrayList<>());
         }
         scoreLiveData = postDB.getScoreByPlayerId(user.getUid());
