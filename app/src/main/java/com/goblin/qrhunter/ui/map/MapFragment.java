@@ -44,7 +44,7 @@ public class MapFragment extends Fragment /*implements OnMapReadyCallback*/ {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_google_maps, container, false);
+        return inflater.inflate(R.layout.fragment_map, container, false);
     }
 
     @Override
