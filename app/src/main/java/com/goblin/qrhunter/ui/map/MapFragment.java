@@ -1,77 +1,60 @@
 package com.goblin.qrhunter.ui.map;
 
-import androidx.lifecycle.ViewModelProvider;
-
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
-
 import com.goblin.qrhunter.R;
-import com.google.type.LatLng;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 
 public class MapFragment extends Fragment /*implements OnMapReadyCallback*/ {
-    // Attributes
-    private MapViewModel mViewModel;
-//    private GoogleMap googleMap;
-    // GoogleMap gMap;
-    // FrameLayout map;
 
-    public static MapFragment newInstance() {
-        return new MapFragment();
-    }
+    private OnMapReadyCallback callback = new OnMapReadyCallback() {
 
+        /**
+         * Manipulates the map once available.
+         * This callback is triggered when the map is ready to be used.
+         * This is where we can add markers or lines, add listeners or move the camera.
+         * In this case, we just add a marker near Sydney, Australia.
+         * If Google Play services is not installed on the device, the user will be prompted to
+         * install it inside the SupportMapFragment. This method will only be triggered once the
+         * user has installed Google Play services and returned to the app.
+         */
+        @Override
+        public void onMapReady(GoogleMap googleMap) {
+            LatLng sydney = new LatLng(-34, 151);
+            googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+            googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        }
+    };
+
+    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-
-
-//
-//        View rootView = inflater.inflate(R.layout.fragment_map, container, false);
-//
-//        mapView = rootView.findViewById(R.id.map_view);
-//        mapView.onCreate(savedInstanceState);
-//
-//        mapView.getMapAsync(this);
         return inflater.inflate(R.layout.fragment_map, container, false);
     }
 
-    /*@Override
-    public void onResume() {
-        super.onResume();
-        mapView.onResume();
-    }
-
     @Override
-    public void onPause() {
-        super.onPause();
-        mapView.onPause();
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        SupportMapFragment mapFragment =
+                (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+        if (mapFragment != null) {
+            mapFragment.getMapAsync(callback);
+        }
     }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mapView.onDestroy();
-    }
-
-    @Override
-    public void onLowMemory() {
-        super.onLowMemory();
-        mapView.onLowMemory();
-    }
-
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        this.googleMap = googleMap;
-        // Add markers, camera movement, and other map manipulation here
-    }
-*/
 
 }
