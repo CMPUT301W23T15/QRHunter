@@ -13,7 +13,10 @@ import java.util.UUID;
 
 import android.location.Location;
 
+import com.firebase.geofire.GeoFireUtils;
+import com.firebase.geofire.GeoLocation;
 import com.goblin.qrhunter.data.Entity;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.util.UUID;
 
@@ -30,6 +33,10 @@ public class Post implements Entity, Serializable {
     private QRCode code;
     private String playerId;
 
+    private double lat;
+    private double lng;
+
+    private String geohash;
     /**
      * Creates a new Post instance with default values.
      * This constructor is required by Firebase.
@@ -79,7 +86,36 @@ public class Post implements Entity, Serializable {
         map.put("code", getCode());
         map.put("playerId", getPlayerId());
         map.put("postKey", getPostKey());
+        if(getGeoHash() != null) {
+            map.put("lat", getLat());
+            map.put("lng", getLng());
+            map.put("geohash", getGeoHash());
+        }
         return map;
+    }
+
+    public double getLat() {
+        return lat;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+        getGeoHash();
+    }
+
+    public double getLng() {
+        return lng;
+    }
+
+    public void setLng(double lng) {
+        this.lng = lng;
+        getGeoHash();
+    }
+
+
+    public String getGeoHash() {
+        geohash = GeoFireUtils.getGeoHashForLocation(new GeoLocation(getLat(), getLng()));
+        return geohash;
     }
 
     /**

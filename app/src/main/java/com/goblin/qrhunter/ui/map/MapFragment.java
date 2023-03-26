@@ -1,6 +1,7 @@
 package com.goblin.qrhunter.ui.map;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,18 +9,32 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
+import com.firebase.geofire.GeoLocation;
+import com.goblin.qrhunter.Post;
 import com.goblin.qrhunter.R;
+import com.goblin.qrhunter.databinding.FragmentMapBinding;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.OnMapsSdkInitializedCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.List;
 
 
 public class MapFragment extends Fragment /*implements OnMapReadyCallback*/ {
 
+    private String TAG="MapFragment";
+    private FragmentMapBinding binding;
+    private MapViewModel vModel;
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
 
         /**
@@ -33,9 +48,39 @@ public class MapFragment extends Fragment /*implements OnMapReadyCallback*/ {
          */
         @Override
         public void onMapReady(GoogleMap googleMap) {
-            LatLng sydney = new LatLng(-34, 151);
-            googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-            googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+            //TODO: get users location, this can be used as a fallback
+            LatLng yeg = new LatLng(53.5461, -113.4937);
+
+
+            googleMap.resetMinMaxZoomPreference();
+            googleMap.setMinZoomPreference(12);
+            googleMap.setMaxZoomPreference(18);
+            googleMap.addMarker(new MarkerOptions().position(yeg).title("Edmonton"));
+            googleMap.moveCamera(CameraUpdateFactory.newLatLng(yeg));
+
+            vModel.findNearby(yeg.latitude, yeg.longitude, 100000000)
+                    .observe(getViewLifecycleOwner(), posts -> {
+                        Log.d(TAG, "onMapReady: observing change in nearby posts ");
+                        if(posts != null ) {
+                            for (Post post: posts) {
+                                if(post != null) {
+                                    Log.d(TAG, "onMapReady: trying to add marker");
+                                    LatLng mark = new LatLng(post.getLat(), post.getLng());
+                                    Marker mk1 =  googleMap.addMarker(new MarkerOptions().position(mark).title(post.getName()));
+                                    if(mk1 == null) {
+                                        Log.d(TAG, "onMapReady: failed to add marker, returned null");
+
+                                    } else {
+                                        Log.d(TAG, "onMapReady: non null marker  name:" + mk1.getTitle());
+
+                                    }
+                                }
+
+                            }
+                        }
+                    });
+
+
         }
     };
 
@@ -44,17 +89,27 @@ public class MapFragment extends Fragment /*implements OnMapReadyCallback*/ {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_map, container, false);
+        vModel = new ViewModelProvider(this).get(MapViewModel.class);
+        binding = FragmentMapBinding.inflate(inflater, container, false);
+
+
+        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         SupportMapFragment mapFragment =
                 (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         if (mapFragment != null) {
             mapFragment.getMapAsync(callback);
         }
+
+
+
     }
+
+
 
 }
