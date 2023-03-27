@@ -7,16 +7,22 @@ package com.goblin.qrhunter.ui.summary;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.goblin.qrhunter.Post;
+import com.goblin.qrhunter.R;
 import com.goblin.qrhunter.databinding.FragmentSummaryBinding;
 import com.goblin.qrhunter.ui.listutil.QRRecyclerAdapter;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -65,9 +71,43 @@ public class SummaryFragment extends Fragment {
             }
 
         });
+        registerForContextMenu(binding.qrListView);
 
 
         return binding.getRoot();
+    }
+
+    @Override
+    public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v, @Nullable ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        getActivity().getMenuInflater().inflate(R.menu.long_press_menu, menu);
+    }
+
+    /**
+     * Brings up the context menu that can edit / delete the QR code. ONLY for summary fragment, as you don't want to
+     * delete / edit other user's QR codes.
+     * @param item The recyclerView item that was selected (long-pressed).
+     * @return
+     */
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            // When the optionEdit is selected...
+            case R.id.edit_QR_code:
+                Toast.makeText(getContext(), "Edit option selected", Toast.LENGTH_SHORT).show();
+                return true;
+
+            case R.id.delete_QR_code:
+                Toast.makeText(getContext(), "Delete option selected", Toast.LENGTH_SHORT).show();
+                // 1) Remove item from list
+                // 2) Update firestore.
+                // 3) Update adapter.
+
+                return true;
+
+            default:
+                return super.onContextItemSelected(item);
+        }
     }
 
     /**

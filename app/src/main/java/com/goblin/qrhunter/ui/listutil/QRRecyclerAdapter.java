@@ -8,7 +8,9 @@ package com.goblin.qrhunter.ui.listutil;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -24,7 +26,7 @@ import com.goblin.qrhunter.ui.post.PostFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-public class QRRecyclerAdapter extends RecyclerView.Adapter<QRRecyclerAdapter.QRViewHolder> {
+public class QRRecyclerAdapter extends RecyclerView.Adapter<QRRecyclerAdapter.QRViewHolder>{
 
     List<Post> mPosts = new ArrayList<>();
     String TAG = "QRRecyclerAdapter";
@@ -86,15 +88,10 @@ public class QRRecyclerAdapter extends RecyclerView.Adapter<QRRecyclerAdapter.QR
     /**
      * ViewHolder class for defining the view of each individual QR code item in the RecyclerView.
      */
-    public static class QRViewHolder extends RecyclerView.ViewHolder {
-
+    public static class QRViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
         String TAG = "QRRecyclerAdapter";
-
         private TextView mTitle;
         private TextView mPoints;
-
-
-
         /**
          * Constructs a new instance of QRViewHolder with the given view as the item view.
          *
@@ -105,6 +102,7 @@ public class QRRecyclerAdapter extends RecyclerView.Adapter<QRRecyclerAdapter.QR
 
             mTitle = itemView.findViewById(R.id.qr_name);
             mPoints = itemView.findViewById(R.id.qr_points);
+            itemView.setOnCreateContextMenuListener(this);
         }
 
         /**
@@ -116,6 +114,12 @@ public class QRRecyclerAdapter extends RecyclerView.Adapter<QRRecyclerAdapter.QR
             mTitle.setText(post.getName());
             Log.d(TAG, "bind: " + post.getName());
             mPoints.setText(String.valueOf(post.getCode().getScore()));
+        }
+
+        @Override
+        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+            // This method can just be blank. Otherwise it'll add extra options into the long-press.
+            ;
         }
     }
 }

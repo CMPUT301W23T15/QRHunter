@@ -5,8 +5,8 @@
         android:title="Edit QR Code" />
 
     <item
-        android:id="@+id/two"
-        android:title="Delete"/>
+        android:id="@+id/delete_QR_code"
+        android:title="Delete" />
 
 
 </menu>
