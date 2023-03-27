@@ -1,7 +1,14 @@
 package com.goblin.qrhunter.ui.takephoto;
 
+//import android.Manifest;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
+
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
@@ -12,6 +19,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.goblin.qrhunter.R;
 
@@ -19,6 +28,7 @@ public class TakePhotoActivity extends AppCompatActivity {
 
     // Define the pic id
     private static final int pic_id = 123;
+    private static final int REQUEST_CAMERA_PERMISSION = 1;
     // Define the button and imageview type variable
     Button camera_open_id;
     ImageView click_image_id;
@@ -28,7 +38,7 @@ public class TakePhotoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_scan);
+        setContentView(R.layout.fragment_takephoto);
 
         // By ID we can get each component which id is assigned in XML file get Buttons and imageview.
         camera_open_id = findViewById(R.id.camera_button);
@@ -39,10 +49,7 @@ public class TakePhotoActivity extends AppCompatActivity {
 
         // Camera_open button is for open the camera and add the setOnClickListener in this button
         camera_open_id.setOnClickListener(v -> {
-            // Create the camera_intent ACTION_IMAGE_CAPTURE it will open the camera for capture the image
-            Intent camera_intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            // Start the activity with camera_intent, and request pic id
-            startActivityForResult(camera_intent, pic_id);
+            checkCameraPermission();
         });
         confirm_id.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,6 +72,31 @@ public class TakePhotoActivity extends AppCompatActivity {
         });
 
     }
+    // Check if camera permission is granted, if not, request permission
+    private void checkCameraPermission() {
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA_PERMISSION);
+        } else {
+            openCamera();
+        }
+    }
+    // Open the camera for capture the image
+    private void openCamera() {
+        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(cameraIntent, pic_id);
+    }
+    // Handle the permission request result
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_CAMERA_PERMISSION) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                openCamera();
+            } else {
+                Toast.makeText(this, "Camera permission denied", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
 
     // This method will help to retrieve the image
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -77,4 +109,7 @@ public class TakePhotoActivity extends AppCompatActivity {
             click_image_id.setImageBitmap(photo);
         }
     }
+
+
+
 }

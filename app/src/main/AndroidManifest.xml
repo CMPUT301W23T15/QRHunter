@@ -4,16 +4,17 @@
 
     <uses-feature
         android:name="android.hardware.camera"
-        android:required="true" />
+        android:required="false" />
 
     <uses-permission android:name="android.permission.CAMERA" />
-
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+
 
 
 
@@ -32,7 +33,7 @@
             android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="${MAPS_API_KEY}" />
+            android:value="AIzaSyDeFev7yf0azZGEsiQK8fW8Q8D3cWzsM_I" />
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
@@ -59,6 +60,7 @@
         <activity android:name=".ui.scan.ScanActivity" />
         <activity android:name=".ui.welcome.WelcomeActivity" />
         <activity android:name="com.goblin.qrhunter.ui.takephoto.TakePhotoActivity" />
+
     </application>
 
 </manifest>
