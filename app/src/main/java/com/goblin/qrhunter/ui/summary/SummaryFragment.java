@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -35,6 +36,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class SummaryFragment extends Fragment {
     private SummaryViewModel mViewModel;
     private FragmentSummaryBinding binding;
+    private QRRecyclerAdapter qrAdapter;
     FirebaseFirestore db;
     String TAG = "SummaryFragment";
 
@@ -59,7 +61,7 @@ public class SummaryFragment extends Fragment {
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         binding.qrListView.setLayoutManager(llm);
         // create a qr list
-        QRRecyclerAdapter qrAdapter = new QRRecyclerAdapter();
+        qrAdapter = new QRRecyclerAdapter();
         binding.qrListView.setAdapter(qrAdapter);
 
         // listen for changes and update list
@@ -91,17 +93,19 @@ public class SummaryFragment extends Fragment {
      */
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
+        // Needs to get info about the listView. Store it into menuInfo.
         switch (item.getItemId()){
             // When the optionEdit is selected...
             case R.id.edit_QR_code:
                 Toast.makeText(getContext(), "Edit option selected", Toast.LENGTH_SHORT).show();
+                // Brings user to fragment to edit the tagged geo-location.
                 return true;
 
             case R.id.delete_QR_code:
                 Toast.makeText(getContext(), "Delete option selected", Toast.LENGTH_SHORT).show();
-                // 1) Remove item from list
+                // 1) Remove item from list // Don't think this is required either.
                 // 2) Update firestore.
-                // 3) Update adapter.
+                // 3) Update adapter // Actually don't need this because of line 67 already listening for changes.
 
                 return true;
 
