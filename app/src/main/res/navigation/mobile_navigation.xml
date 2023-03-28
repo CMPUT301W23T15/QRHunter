@@ -143,4 +143,8 @@
         android:id="@+id/action_global_alsoFragment"
         app:destination="@id/alsoFragment" />
 
+    <action
+        android:id="@+id/action_global_otherProfileFragment"
+        app:destination="@id/otherProfileFragment" />
+
 </navigation>

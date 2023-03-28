@@ -1,5 +1,6 @@
 package com.goblin.qrhunter.ui.also;
 
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,11 +8,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.goblin.qrhunter.Player;
 import com.goblin.qrhunter.R;
 import com.goblin.qrhunter.Score;
+import com.goblin.qrhunter.ui.profile.OtherProfileFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,11 +64,10 @@ public class AlsoRecyclerAdapter extends RecyclerView.Adapter<AlsoRecyclerAdapte
         holder.bind(score);
         holder.itemView.setOnClickListener(v -> {
             // TODO: navigate to player profile
-            /*
+
             Bundle bundle = new Bundle();
-            bundle.putSerializable(PostFragment.POST_FRAGMENT_POST_KEY, score);
-            Navigation.findNavController(v).navigate(R.id.action_global_postFragment, bundle);
-             */
+            bundle.putSerializable(OtherProfileFragment.PLAYER_ARG_KEY, score.getPlayer());
+            Navigation.findNavController(v).navigate(R.id.action_global_otherProfileFragment, bundle);
         });
     }
 
