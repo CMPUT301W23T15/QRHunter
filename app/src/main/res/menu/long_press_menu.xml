@@ -1,11 +1,13 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
-
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+>
     <item
         android:id="@+id/edit_QR_code"
-        android:title="Edit QR Code" />
+        android:title="Edit QR Code"
+        />
 
     <item
-        android:id="@+id/two"
+        android:id="@+id/delete_QR_code"
         android:title="Delete"/>
 
 
