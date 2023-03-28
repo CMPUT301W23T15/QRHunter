@@ -89,7 +89,7 @@ public class GetPlayersScoreUseCase {
 
     /**
      * Get the player total score based on player ID
-     * @param playerId
+     * @param playerId id of player to get score of
      * @return
      */
     public int getPlayerScore(String playerId) {

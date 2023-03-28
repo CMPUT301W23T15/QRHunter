@@ -1,39 +1,51 @@
 package com.goblin.qrhunter.ui.map;
 
+import android.annotation.SuppressLint;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
-import com.firebase.geofire.GeoLocation;
 import com.goblin.qrhunter.Post;
 import com.goblin.qrhunter.R;
 import com.goblin.qrhunter.databinding.FragmentMapBinding;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.OnMapsSdkInitializedCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-
-import java.util.List;
+import com.google.android.gms.tasks.Task;
 
 
 public class MapFragment extends Fragment /*implements OnMapReadyCallback*/ {
 
-    private String TAG="MapFragment";
+    private String TAG = "MapFragment";
     private FragmentMapBinding binding;
+
+    private ActivityResultLauncher<String[]> locationPermissionLauncher;
+    private FusedLocationProviderClient fusedLocationClient;
+    private GoogleMap map;
+
+    private NavController navController;
+
     private MapViewModel vModel;
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
 
@@ -49,41 +61,57 @@ public class MapFragment extends Fragment /*implements OnMapReadyCallback*/ {
         @Override
         public void onMapReady(GoogleMap googleMap) {
             //TODO: get users location, this can be used as a fallback
-            LatLng yeg = new LatLng(53.5461, -113.4937);
+            map = googleMap;
 
-
-            googleMap.resetMinMaxZoomPreference();
-            googleMap.setMinZoomPreference(12);
-            googleMap.setMaxZoomPreference(18);
-            googleMap.addMarker(new MarkerOptions().position(yeg).title("Edmonton"));
-            googleMap.moveCamera(CameraUpdateFactory.newLatLng(yeg));
-
-            vModel.findNearby(yeg.latitude, yeg.longitude, 100000000)
-                    .observe(getViewLifecycleOwner(), posts -> {
-                        Log.d(TAG, "onMapReady: observing change in nearby posts ");
-                        if(posts != null ) {
-                            for (Post post: posts) {
-                                if(post != null) {
-                                    Log.d(TAG, "onMapReady: trying to add marker");
-                                    LatLng mark = new LatLng(post.getLat(), post.getLng());
-                                    Marker mk1 =  googleMap.addMarker(new MarkerOptions().position(mark).title(post.getName()));
-                                    if(mk1 == null) {
-                                        Log.d(TAG, "onMapReady: failed to add marker, returned null");
-
-                                    } else {
-                                        Log.d(TAG, "onMapReady: non null marker  name:" + mk1.getTitle());
-
-                                    }
-                                }
-
-                            }
-                        }
-                    });
-
+            if (ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION)
+                    != PackageManager.PERMISSION_GRANTED) {
+                // Permission is not granted, request for the permission
+                locationPermissionLauncher.launch(new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION});
+            }
+            // Permission already granted, access the user's location
+            fusedLocationClient.getLastLocation().addOnCompleteListener(task -> {
+                handlePlot(googleMap, task);
+            });
 
         }
     };
 
+
+    public void handlePlot(GoogleMap googleMap, Task<Location> task) {
+        LatLng loc = new LatLng(53.5461, -113.4937);
+        String title = "Edmonton";
+        if (task.isSuccessful() && task.getResult() != null) {
+            loc = new LatLng(task.getResult().getLatitude(), task.getResult().getLongitude());
+            title = "Me";
+        }
+        googleMap.addMarker(new MarkerOptions().position(loc).title(title));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, 12.0f));
+
+        vModel.findNearby(loc.latitude, loc.longitude, 100000000)
+                .observe(getViewLifecycleOwner(), posts -> {
+                    Log.d(TAG, "onMapReady: observing change in nearby posts ");
+                    if (posts != null) {
+                        for (Post post : posts) {
+                            if (post != null) {
+                                Log.d(TAG, "onMapReady: trying to add marker");
+                                LatLng mark = new LatLng(post.getLat(), post.getLng());
+                                Marker mk1 = googleMap.addMarker(new MarkerOptions().position(mark).title(post.getName()));
+                                if (mk1 == null) {
+                                    Log.d(TAG, "onMapReady: failed to add marker, returned null");
+
+                                } else {
+                                    Log.d(TAG, "onMapReady: non null marker  name:" + mk1.getTitle());
+
+                                }
+                            }
+
+                        }
+                    }
+                });
+    }
+
+
+    @SuppressLint("MissingPermission")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -92,6 +120,24 @@ public class MapFragment extends Fragment /*implements OnMapReadyCallback*/ {
         vModel = new ViewModelProvider(this).get(MapViewModel.class);
         binding = FragmentMapBinding.inflate(inflater, container, false);
 
+        assert container != null;
+        navController = Navigation.findNavController(container);
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
+
+
+        locationPermissionLauncher = registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(), permissions -> {
+            if (permissions.get(android.Manifest.permission.ACCESS_FINE_LOCATION) != null && permissions.get(android.Manifest.permission.ACCESS_FINE_LOCATION)) {
+                // Permission granted, access the user's location
+                fusedLocationClient.getLastLocation().addOnCompleteListener(task -> {
+                    handlePlot(map, task);
+                });
+            } else {
+                // Permission denied, show a message or disable the location feature
+                Toast.makeText(getContext(), "Location permission denied", Toast.LENGTH_SHORT).show();
+                navController.popBackStack();
+            }
+        });
 
         return binding.getRoot();
     }
@@ -106,10 +152,6 @@ public class MapFragment extends Fragment /*implements OnMapReadyCallback*/ {
             mapFragment.getMapAsync(callback);
         }
 
-
-
     }
-
-
 
 }
