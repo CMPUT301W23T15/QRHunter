@@ -27,9 +27,11 @@ import com.goblin.qrhunter.QRCode;
 import com.goblin.qrhunter.R;
 import com.goblin.qrhunter.data.PostRepository;
 import com.goblin.qrhunter.databinding.FragmentScanBinding;
+import com.goblin.qrhunter.databinding.FragmentTakephotoBinding;
 //import com.google.android.gms.vision.Frame;
 //import com.google.android.gms.vision.barcode.Barcode;
 //import com.google.android.gms.vision.barcode.BarcodeDetector;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.journeyapps.barcodescanner.ScanContract;
@@ -52,12 +54,11 @@ public class ScanFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+
         vModel = new ViewModelProvider(this).get(ScanViewModel.class);
 
         binding = FragmentScanBinding.inflate(inflater, container, false);
         FirebaseUser usr = FirebaseAuth.getInstance().getCurrentUser();
-
-//        disableConfirmBtn();
 
         scanActivityIntent = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
@@ -71,8 +72,6 @@ public class ScanFragment extends Fragment {
                             String qrString = result.getData().getStringExtra(ScanActivity.QR_CODE_STRING);
                             vModel.setQRCode(qrString);
                             Toast.makeText(this.getContext(), qrString, Toast.LENGTH_SHORT );
-//                            enableConfirmBtn();
-
                         }
                     }
                     if(result.getResultCode() != Activity.RESULT_OK ) {
@@ -83,17 +82,14 @@ public class ScanFragment extends Fragment {
 
         scanIntent = new Intent(this.getContext(), ScanActivity.class);
 
-//        binding.buttonRetake.setOnClickListener(v -> {
-//            launchScanner();
-//        });
-
         if(savedInstanceState == null) {
             launchScanner();
         }
 
+
+
         return binding.getRoot();
     }
-
 
     public void launchScanner() {
         if (vModel == null) {
@@ -102,13 +98,8 @@ public class ScanFragment extends Fragment {
         scanActivityIntent.launch(scanIntent);
     }
 
-//    public void disableConfirmBtn() {
-//        binding.buttonConfirm.setAlpha(0.5f);
-//        binding.buttonConfirm.setClickable(false);
-//    }
-//
-//    public void enableConfirmBtn() {
-//        binding.buttonConfirm.setAlpha(1);
-//    }
-
 }
+
+
+
+

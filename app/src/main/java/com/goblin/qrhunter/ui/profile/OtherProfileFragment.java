@@ -33,6 +33,9 @@ public class OtherProfileFragment extends Fragment {
     private FragmentOtherProfileBinding binding;
 
     static public String PLAYER_ID_ARG_KEY = "playerId";
+
+    static public String PLAYER_ARG_KEY = "PLAYER_ARG";
+
     static public String PLAYER_USERNAME_ARG_KEY = "username";
     static public String PLAYER_PHONE_ARG_KEY = "phone";
     static public String PLAYER_CONTACT_INFO_ARG_KEY = "contactInfo";
@@ -63,9 +66,12 @@ public class OtherProfileFragment extends Fragment {
         mViewModel = new ViewModelProvider(this).get(OtherProfileViewModel.class);
 
         assert getArguments() != null;
-        String username = getArguments().getString(PLAYER_USERNAME_ARG_KEY);
-        String phone = getArguments().getString(PLAYER_PHONE_ARG_KEY);
-        String contactInfo = getArguments().getString(PLAYER_CONTACT_INFO_ARG_KEY);
+        Player player = getArguments().getSerializable(PLAYER_ARG_KEY, Player.class);
+        assert  player != null;
+
+        String username = player.getUsername();
+        String phone = player.getPhone();
+        String contactInfo = player.getContactInfo();
 
         binding.titleUsername.setText("User: " + username);
         binding.titleEmail.setText("Email: " + contactInfo);

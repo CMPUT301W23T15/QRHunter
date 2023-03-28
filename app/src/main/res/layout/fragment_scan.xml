@@ -1,67 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:backgroundTint="@color/lilac"
-    tools:context=".ui.takephoto.TakePhotoActivity">
-
-    <!-- add Camera Button to open the Camera -->
-
-    <!-- add ImageView to display the captured image -->
-    <Button
-        android:id="@+id/camera_button"
-        android:layout_width="114dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
-
-        android:backgroundTint="@color/lilac"
-        android:backgroundTintMode="add"
-        android:fontFamily="@font/jetbrainsmono"
-        android:text="Take Pic"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toTopOf="@+id/click_image"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/confirm_button"
-        android:layout_width="114dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="125dp"
-
-        android:backgroundTint="@color/lilac"
-        android:fontFamily="@font/jetbrainsmono"
-        android:text="Confirm"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toTopOf="@+id/click_image"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/camera_button"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5" />
-
-    <ImageView
-        android:id="@+id/click_image"
-        android:layout_width="350dp"
-        android:layout_height="450dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="70dp"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView_location"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="PHOTO OF OBJECT/LOCATION"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/click_image" />
-
+    android:layout_height="match_parent">
 
 </androidx.constraintlayout.widget.ConstraintLayout>

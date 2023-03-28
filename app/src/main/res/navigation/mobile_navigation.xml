@@ -66,14 +66,10 @@
             app:destination="@id/navigation_home" />
     </fragment>
     <fragment
-        android:id="@+id/scanFragment"
-        android:name="com.goblin.qrhunter.ui.scan.ScanFragment"
-        android:label="fragment_scan"
-        tools:layout="@layout/fragment_scan" >
-        <action
-            android:id="@+id/action_scanFragment_to_navigation_home"
-            app:destination="@id/navigation_home" />
-    </fragment>
+        android:id="@+id/takephotoFragment"
+        android:name="com.goblin.qrhunter.ui.takephoto.TakePhotoFragment"
+        android:label="fragment_takephoto"
+        tools:layout="@layout/fragment_takephoto" />
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.goblin.qrhunter.ui.profile.ProfileFragment"
@@ -130,9 +126,25 @@
         android:name="com.goblin.qrhunter.ui.also.AlsoFragment"
         android:label="fragment_also"
         tools:layout="@layout/fragment_also" />
+    <fragment
+        android:id="@+id/scanFragment"
+        android:name="com.goblin.qrhunter.ui.scan.ScanFragment"
+        android:label="Scan"
+        tools:layout="@layout/fragment_scan" >
+        <action
+            android:id="@+id/action_scanFragment_to_navigation_home"
+            app:destination="@id/navigation_home" />
+        <action
+            android:id="@+id/action_scanFragment_to_takephotoFragment"
+            app:destination="@id/takephotoFragment" />
+    </fragment>
 
     <action
         android:id="@+id/action_global_alsoFragment"
         app:destination="@id/alsoFragment" />
+
+    <action
+        android:id="@+id/action_global_otherProfileFragment"
+        app:destination="@id/otherProfileFragment" />
 
 </navigation>
