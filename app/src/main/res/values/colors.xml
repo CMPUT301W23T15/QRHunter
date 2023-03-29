@@ -9,4 +9,9 @@
     <color name="white">#FFFFFFFF</color>
     <color name="lilac">#D1C4E9</color>
     <color name="lightGreen">#81FDA7</color>
+
+    <color name="primary_1st">#344955</color>
+    <color name="primary_2nd">#232F34</color>
+    <color name="primary_3rd">#4A6572</color>
+    <color name="complementary">#FED8D0</color>
 </resources>
