@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "qrhunter-3089a"
-  }
+    "default": "qrhunter-3089a",
+    "prod": "qrhunter-prod"
+  },
+  "targets": {},
+  "etags": {}
 }

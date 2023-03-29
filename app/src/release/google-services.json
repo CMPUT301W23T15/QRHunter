@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "577046255666",
+    "project_id": "qrhunter-prod",
+    "storage_bucket": "qrhunter-prod.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:577046255666:android:de293ac5441c656a17842b",
+        "android_client_info": {
+          "package_name": "com.goblin.qrhunter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "577046255666-5m97u89ck6654aa9ersdj729cmjidjb7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRnTAZSXsAnpnRkHGaF6BWG9wd4vuK1gs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "577046255666-5m97u89ck6654aa9ersdj729cmjidjb7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

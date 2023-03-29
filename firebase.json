@@ -13,7 +13,10 @@
     "ui": {
       "enabled": true
     },
-    "singleProjectMode": true
+    "singleProjectMode": true,
+    "hosting": {
+      "port": 5000
+    }
   },
   "remoteconfig": {
     "template": "remoteconfig.template.json"
@@ -25,5 +28,17 @@
       "**/.*",
       "**/node_modules/**"
     ]
-  }
+  },
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "default",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log"
+      ]
+    }
+  ]
 }
