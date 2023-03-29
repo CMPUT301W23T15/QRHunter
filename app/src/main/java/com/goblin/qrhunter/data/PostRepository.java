@@ -3,13 +3,21 @@
  */
 package com.goblin.qrhunter.data;
 
+import android.location.Location;
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
+import com.firebase.geofire.GeoFireUtils;
+import com.firebase.geofire.GeoLocation;
+import com.firebase.geofire.GeoQueryBounds;
 import com.goblin.qrhunter.Player;
 import com.goblin.qrhunter.Post;
 import com.goblin.qrhunter.QRCode;
 import com.goblin.qrhunter.Score;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.firestore.CollectionReference;
@@ -17,6 +25,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -180,6 +189,69 @@ public class PostRepository extends BaseRepository<Post> {
         DocumentReference scoreRef = getScoreCollection().document(playerId);
         return new FirebaseLiveEntity<>(scoreRef, Score.class);
 
+    }
+
+    public LiveData<List<Post>> getNearBy(double lat, double lng, double radiusInM) {
+
+        Log.d(TAG, "getNearBy: started call");
+        MutableLiveData<List<Post>> liveNearbyPost = new MutableLiveData<>();
+        List<Post> postList = new ArrayList<>();
+        // Find cities within 50km of London
+        final GeoLocation center = new GeoLocation(lat, lng);
+        if(radiusInM < 1) {
+            radiusInM = 50 * 1000;
+        }
+
+// Each item in 'bounds' represents a startAt/endAt pair. We have to issue
+// a separate query for each pair. There can be up to 9 pairs of bounds
+// depending on overlap, but in most cases there are 4.
+        List<GeoQueryBounds> bounds = GeoFireUtils.getGeoHashQueryBounds(center, radiusInM);
+        final List<Task<QuerySnapshot>> tasks = new ArrayList<>();
+        for (GeoQueryBounds b : bounds) {
+            Query q = getCollectionRef()
+                    .orderBy("geohash")
+                    .startAt(b.startHash)
+                    .endAt(b.endHash);
+
+            tasks.add(q.get());
+        }
+
+// Collect all the query results together into a single list
+        double finalRadiusInM = radiusInM;
+        Tasks.whenAllComplete(tasks)
+                .addOnCompleteListener(t -> {
+                    List<DocumentSnapshot> matchingDocs = new ArrayList<>();
+                    Log.d(TAG, "getNearBy: oncomplete listener firing");
+                    for (Task<QuerySnapshot> task : tasks) {
+                        QuerySnapshot snap = task.getResult();
+                        for (DocumentSnapshot doc : snap.getDocuments()) {
+                            if(doc == null || doc.getDouble("lat") == null || doc.getDouble("lng") == null) {
+                                continue;
+                            }
+                            assert doc != null;
+                            double lat1 = doc.getDouble("lat");
+                            double lng1 = doc.getDouble("lng");
+
+                            // We have to filter out a few false positives due to GeoHash
+                            // accuracy, but most will match
+                            GeoLocation docLocation = new GeoLocation(lat1, lng1);
+                            double distanceInM = GeoFireUtils.getDistanceBetween(docLocation, center);
+                            if (distanceInM <= finalRadiusInM) {
+                                Log.d(TAG, "getNearBy: not filtered adding");
+                                matchingDocs.add(doc);
+                                Post post = doc.toObject(Post.class);
+                                if(post != null) {
+                                    postList.add(post);
+                                }
+                            }
+
+                        }
+                    }
+                    liveNearbyPost.postValue(postList);
+                    // matchingDocs contains the results
+                    // ...
+                });
+        return liveNearbyPost;
     }
 
     /**

@@ -63,7 +63,7 @@ public class ScanFragment extends Fragment {
         scanActivityIntent = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
-                    Log.d(TAG, "onCreateView: activitiy finshed");
+                    Log.d(TAG, "onCreateView: activity finished");
                     // Add same code that you want to add in onActivityResult method
                     if(result != null && result.getResultCode() == Activity.RESULT_OK) {
                         Log.d(TAG, "onCreateView: result okay");

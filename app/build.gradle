@@ -8,6 +8,8 @@ android {
     namespace 'com.goblin.qrhunter'
     compileSdk 33
 
+
+
     defaultConfig {
         applicationId "com.goblin.qrhunter"
         minSdk 33
@@ -67,6 +69,8 @@ dependencies {
     implementation  'com.google.android.gms:play-services-base:18.2.0'
     implementation  'com.google.android.gms:play-services-appindex:16.1.0'
     implementation 'com.google.android.gms:play-services-maps:18.1.0'
+    implementation "com.google.android.gms:play-services-location:21.0.1"
+
 
 
 //    Intent Tests
@@ -89,7 +93,7 @@ dependencies {
     implementation 'com.journeyapps:zxing-android-embedded:4.1.0'
 
 
-
+    implementation 'com.google.android.gms:play-services-maps:18.1.0'
 
     implementation 'com.firebase:geofire-android-common:3.2.0'
 
