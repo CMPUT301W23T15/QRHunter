@@ -19,14 +19,19 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.goblin.qrhunter.Post;
 import com.goblin.qrhunter.R;
 import com.goblin.qrhunter.databinding.FragmentSummaryBinding;
 import com.goblin.qrhunter.ui.listutil.QRRecyclerAdapter;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -37,6 +42,7 @@ public class SummaryFragment extends Fragment {
     private SummaryViewModel mViewModel;
     private FragmentSummaryBinding binding;
     private QRRecyclerAdapter qrAdapter;
+    private Post deletedPost;
     FirebaseFirestore db;
     String TAG = "SummaryFragment";
 
@@ -79,11 +85,11 @@ public class SummaryFragment extends Fragment {
         return binding.getRoot();
     }
 
-    @Override
-    public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v, @Nullable ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        getActivity().getMenuInflater().inflate(R.menu.long_press_menu, menu);
-    }
+//    @Override
+//    public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v, @Nullable ContextMenu.ContextMenuInfo menuInfo) {
+//        super.onCreateContextMenu(menu, v, menuInfo);
+//        getActivity().getMenuInflater().inflate(R.menu.long_press_menu, menu);
+//    }
 
     /**
      * Brings up the context menu that can edit / delete the QR code. ONLY for summary fragment, as you don't want to
@@ -93,7 +99,6 @@ public class SummaryFragment extends Fragment {
      */
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
-        // Needs to get info about the listView. Store it into menuInfo.
         switch (item.getItemId()){
             // When the optionEdit is selected...
             case R.id.edit_QR_code:
@@ -102,11 +107,10 @@ public class SummaryFragment extends Fragment {
                 return true;
 
             case R.id.delete_QR_code:
-                Toast.makeText(getContext(), "Delete option selected", Toast.LENGTH_SHORT).show();
-                // 1) Remove item from list // Don't think this is required either.
-                // 2) Update firestore.
-                // 3) Update adapter // Actually don't need this because of line 67 already listening for changes.
-
+                // BUG: Always returns the last object in the list as opposed to the one that's clicked.
+                deletedPost = qrAdapter.deletePost();
+                Toast.makeText(getContext(), deletedPost.getName(), Toast.LENGTH_SHORT).show();
+                // mViewModel.postDB.delete(deletedPost);
                 return true;
 
             default:
