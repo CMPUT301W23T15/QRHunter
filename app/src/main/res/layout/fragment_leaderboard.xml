@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/screen_background_color"
     tools:context=".ui.leaderboard.LeaderboardFragment">
 
     <TextView
@@ -47,16 +48,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.145" />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/button_rankBy_total_score"
         android:layout_width="280dp"
-        android:layout_height="60dp"
+        android:layout_height="80dp"
         android:layout_marginBottom="36dp"
-        android:background="@drawable/rounded_style"
-        android:backgroundTint="@color/lilac"
         android:fontFamily="@font/jetbrainsmono"
         android:text="TOTAL SCORE"
         android:textSize="17sp"
+        android:textColor="@color/black"
+        app:cornerRadius="15dp"
+        app:strokeWidth="2dp"
         app:layout_constraintBottom_toTopOf="@+id/button_rankBy_total_amount"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
@@ -78,15 +80,16 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.228" />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/button_rankBy_region"
         android:layout_width="280dp"
-        android:layout_height="60dp"
-        android:background="@drawable/rounded_style"
-        android:backgroundTint="@color/lilac"
+        android:layout_height="80dp"
         android:fontFamily="@font/jetbrainsmono"
         android:text="REGION"
         android:textSize="17sp"
+        android:textColor="@color/black"
+        app:cornerRadius="15dp"
+        app:strokeWidth="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
@@ -94,16 +97,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.652" />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/button_rankBy_total_amount"
         android:layout_width="280sp"
-        android:layout_height="60dp"
+        android:layout_height="80dp"
         android:layout_marginBottom="28dp"
-        android:background="@drawable/rounded_style"
-        android:backgroundTint="@color/lilac"
         android:fontFamily="@font/jetbrainsmono"
         android:text="TOTAL # OF QR CODES"
         android:textSize="17sp"
+        android:textColor="@color/black"
+        app:cornerRadius="15dp"
+        app:strokeWidth="2dp"
         app:layout_constraintBottom_toTopOf="@+id/button_rankBy_region"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"

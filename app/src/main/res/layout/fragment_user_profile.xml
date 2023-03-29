@@ -80,7 +80,7 @@
         android:layout_height="48dp"
         android:layout_marginTop="72dp"
         android:background="@drawable/rounded_style"
-        android:backgroundTint="@color/lilac"
+        android:backgroundTint="@color/complementary_lilac"
         android:fontFamily="@font/jetbrainsmono"
         android:text="Edit"
         android:textColor="@color/black"

@@ -5,9 +5,10 @@
     android:id="@+id/post_fragment_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/screen_background_color"
     tools:context=".ui.post.PostFragment">
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/post_name_view"
         android:layout_width="230sp"
         android:layout_height="wrap_content"
@@ -17,39 +18,41 @@
         android:text="TextView"
         android:textColor="@color/black"
         android:textSize="14sp"
-        android:backgroundTint="@color/lilac"
-        android:background="@drawable/button_rounded"
         android:clickable="false"
+        app:strokeWidth="2dp"
+        app:cornerRadius="15dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.google.android.material.button.MaterialButton
+        android:clickable="false"
         android:id="@+id/post_location_view"
         android:layout_width="230sp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/button_rounded"
-        android:backgroundTint="@color/lilac"
         android:fontFamily="@font/jetbrainsmono"
         android:text="TextView"
         android:textColor="@color/black"
         android:textSize="14sp"
+        app:strokeWidth="2dp"
+        app:cornerRadius="15dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/post_name_view" />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/scanned_by_btn"
-        android:layout_width="175dp"
+        android:layout_width="230dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/button_rounded"
-        android:backgroundTint="@color/lightGreen"
         android:fontFamily="@font/jetbrainsmono"
         android:text="also scanned by"
+        android:textColor="@color/black"
         android:textSize="16sp"
+        app:strokeWidth="2dp"
+        app:cornerRadius="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
