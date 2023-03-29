@@ -56,7 +56,6 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 
-
         // Inflate the layout for this fragment using the FragmentHomeBinding
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
