@@ -12,7 +12,7 @@ jobs:
         shell: bash
         env:
           maps_api_key: ${{secrets.MAPS_API_KEY}}
-        run: echo "MAPS_API_KEY=$maps_api_key" >> /home/runner/work/QRHunter/QRHunter/local.properties
+        run: echo MAPS_API_KEY="$maps_api_key" >> /home/runner/work/QRHunter/QRHunter/local.properties
 
       - uses: actions/checkout@v2
       - name: Cache firebase emulators
