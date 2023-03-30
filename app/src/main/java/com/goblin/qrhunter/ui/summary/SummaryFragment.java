@@ -7,31 +7,20 @@ package com.goblin.qrhunter.ui.summary;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.goblin.qrhunter.Post;
-import com.goblin.qrhunter.R;
 import com.goblin.qrhunter.databinding.FragmentSummaryBinding;
 import com.goblin.qrhunter.ui.listutil.QRRecyclerAdapter;
+import com.goblin.qrhunter.ui.listutil.QRRecyclerAdapterSummary;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -41,7 +30,7 @@ import java.util.List;
 public class SummaryFragment extends Fragment {
     private SummaryViewModel mViewModel;
     private FragmentSummaryBinding binding;
-    private QRRecyclerAdapter qrAdapter;
+    private QRRecyclerAdapterSummary qrAdapterSummary;
     private Post deletedPost;
     FirebaseFirestore db;
     String TAG = "SummaryFragment";
@@ -67,11 +56,11 @@ public class SummaryFragment extends Fragment {
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         binding.qrListView.setLayoutManager(llm);
         // create a qr list
-        qrAdapter = new QRRecyclerAdapter();
-        binding.qrListView.setAdapter(qrAdapter);
+        qrAdapterSummary = new QRRecyclerAdapterSummary();
+        binding.qrListView.setAdapter(qrAdapterSummary);
 
         // listen for changes and update list
-        mViewModel.getUserPosts().observe(getViewLifecycleOwner(), qrAdapter::setData);
+        mViewModel.getUserPosts().observe(getViewLifecycleOwner(), qrAdapterSummary::setData);
         mViewModel.getUserPosts().observe(getViewLifecycleOwner(), posts -> {
             for (Post p: posts
                  ) {
@@ -90,38 +79,6 @@ public class SummaryFragment extends Fragment {
 //        super.onCreateContextMenu(menu, v, menuInfo);
 //        getActivity().getMenuInflater().inflate(R.menu.long_press_menu, menu);
 //    }
-
-    /**
-     * Brings up the context menu that can edit / delete the QR code. ONLY for summary fragment, as you don't want to
-     * delete / edit other user's QR codes.
-     * @param item The recyclerView item that was selected (long-pressed).
-     * @return
-     */
-    @Override
-    public boolean onContextItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-            // When the optionEdit is selected...
-            case R.id.edit_QR_code:
-                Toast.makeText(getContext(), "Edit option selected", Toast.LENGTH_SHORT).show();
-                // Brings user to fragment to edit the tagged geo-location.
-                return true;
-
-            case R.id.delete_QR_code:
-                // BUG: Always returns the last object in the list as opposed to the one that's clicked.
-                deletedPost = qrAdapter.deletePost();
-                Toast.makeText(getContext(), deletedPost.getName(), Toast.LENGTH_SHORT).show();
-                // mViewModel.postDB.delete(deletedPost);
-                return true;
-
-            default:
-                return super.onContextItemSelected(item);
-        }
-    }
-
-    /**
-
-     Called when the view previously created by onCreateView has been detached from the fragment.
-     */
     @Override
     public void onDestroyView() {
         super.onDestroyView();

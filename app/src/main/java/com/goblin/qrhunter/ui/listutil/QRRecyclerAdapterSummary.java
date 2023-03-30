@@ -39,13 +39,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class QRRecyclerAdapter extends RecyclerView.Adapter<QRRecyclerAdapter.QRViewHolder> {
+public class QRRecyclerAdapterSummary extends RecyclerView.Adapter<QRRecyclerAdapterSummary.QRViewHolder> {
 
     List<Post> mPosts = new ArrayList<>();
     String TAG = "QRRecyclerAdapter";
     PostRepository postDB;
-
-
+    /** Uncomment code below if you want to check if current user == clicked qr code.
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String playerID;
+        playerID = user.getUid();
+        if (playerID.equals(post.getPlayerID()) { ... }
     /**
      * set the underlying data of the lists of posts
      *
@@ -90,6 +93,36 @@ public class QRRecyclerAdapter extends RecyclerView.Adapter<QRRecyclerAdapter.QR
             bundle.putSerializable(PostFragment.POST_FRAGMENT_POST_KEY, post);
             Navigation.findNavController(v).navigate(R.id.action_global_postFragment, bundle);
         });
+        // Checks if the click post matches the current user. If so, will show pop-up menu on long click.
+        // Set-up pop-up menu.
+        PopupMenu popupMenu = new PopupMenu(holder.itemView.getContext(), holder.itemView);
+        popupMenu.getMenuInflater().inflate(R.menu.long_press_menu, popupMenu.getMenu());
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                PopupMenu popupMenu = new PopupMenu(v.getContext(), v);
+
+                popupMenu.inflate(R.menu.long_press_menu);
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        // Handle menu item click
+                        switch (item.getItemId()) {
+                            case R.id.edit_QR_code:
+                                Toast.makeText(v.getContext(), "Edit option selected", Toast.LENGTH_SHORT).show();
+                                return true;
+                            case R.id.delete_QR_code: postDB = new PostRepository();
+                                postDB.delete(post);
+                                return true;
+                            default:
+                                return false;
+                            }
+                        }
+                    });
+                    popupMenu.show();
+                    return true;
+                }
+            });
     }
 
     /**
