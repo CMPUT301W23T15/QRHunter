@@ -5,7 +5,7 @@
     android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:backgroundTint="@color/lilac"
+    android:backgroundTint="@color/complementary_lilac"
     tools:context=".ui.takephoto.TakePhotoActivity">
 
     <!-- add Camera Button to open the Camera -->
@@ -18,7 +18,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
 
-        android:backgroundTint="@color/lilac"
+        android:backgroundTint="@color/complementary_lilac"
         android:backgroundTintMode="add"
         android:fontFamily="@font/jetbrainsmono"
         android:text="Take Pic"
@@ -49,7 +49,7 @@
         android:layout_height="48dp"
         android:layout_marginStart="125dp"
 
-        android:backgroundTint="@color/lilac"
+        android:backgroundTint="@color/complementary_lilac"
         android:fontFamily="@font/jetbrainsmono"
         android:text="Confirm"
         android:textColor="@color/black"

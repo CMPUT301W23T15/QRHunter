@@ -7,6 +7,16 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="lilac">#D1C4E9</color>
+
     <color name="lightGreen">#81FDA7</color>
+
+    <color name="primary_1st">#A5DBDD</color> <!-- Main theme color -->
+    <color name="primary_2nd">#407C87</color> <!-- What goes on top of primary_1st -->
+    <color name="primary_3rd">#D3E1E2</color> <!-- Things like buttons, small items, card views, etc. -->
+    <color name="screen_background_color">#EEF1F6</color> <!-- Screen background -->
+
+    <!-- Additional accent colors -->
+    <color name="complementary_lilac">#D1C4E9</color>
+    <color name="complementary_gray">#A5A5A5</color>
+
 </resources>

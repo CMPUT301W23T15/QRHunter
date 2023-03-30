@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="0dp"
+    android:background="@color/screen_background_color"
     tools:context=".ui.summary.SummaryFragment">
 
     <TextView

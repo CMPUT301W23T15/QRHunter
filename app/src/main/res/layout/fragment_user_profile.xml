@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.scan.ScanFragment">
+    tools:context=".ui.scan.ScanFragment"
+    android:background="@color/screen_background_color">
 
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -33,7 +34,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_test_signout"
-        app:layout_constraintVertical_bias="0.186" />
+        app:layout_constraintVertical_bias="0.108" />
 
     <TextView
         android:id="@+id/title_phone"
@@ -74,32 +75,32 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title_phone" />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/button_edit_profile"
-        android:layout_width="115dp"
-        android:layout_height="48dp"
+        android:layout_width="130dp"
+        android:layout_height="60dp"
         android:layout_marginTop="72dp"
-        android:background="@drawable/rounded_style"
-        android:backgroundTint="@color/lilac"
         android:fontFamily="@font/jetbrainsmono"
         android:text="Edit"
         android:textColor="@color/black"
         android:textSize="17dp"
+        app:strokeWidth="2dp"
+        app:cornerRadius="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title_email" />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/button_test_signout"
-        android:layout_width="115dp"
-        android:layout_height="48dp"
+        android:layout_width="130dp"
+        android:layout_height="60dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/rounded_style"
-        android:backgroundTint="@color/teal_200"
         android:fontFamily="@font/jetbrainsmono"
         android:text="sign-out"
         android:textColor="@color/black"
         android:textSize="17dp"
+        app:strokeWidth="2dp"
+        app:cornerRadius="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_edit_profile" />
