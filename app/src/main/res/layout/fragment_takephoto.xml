@@ -11,14 +11,12 @@
     <!-- add Camera Button to open the Camera -->
 
     <!-- add ImageView to display the captured image -->
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/camera_button"
         android:layout_width="114dp"
         android:layout_height="48dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
-
-        android:backgroundTint="@color/complementary_lilac"
         android:backgroundTintMode="add"
         android:fontFamily="@font/jetbrainsmono"
         android:text="Take Pic"
@@ -26,13 +24,12 @@
         app:layout_constraintBottom_toTopOf="@+id/click_image"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/retake_button"
         android:layout_width="114dp"
         android:layout_height="48dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
-        android:backgroundTint="@color/lilac"
         android:backgroundTintMode="add"
         android:fontFamily="@font/jetbrainsmono"
         android:text="Retake"
@@ -43,13 +40,11 @@
     app:layout_constraintTop_toTopOf="parent" />
 
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/confirm_button"
         android:layout_width="114dp"
         android:layout_height="48dp"
         android:layout_marginStart="125dp"
-
-        android:backgroundTint="@color/complementary_lilac"
         android:fontFamily="@font/jetbrainsmono"
         android:text="Confirm"
         android:textColor="@color/black"
