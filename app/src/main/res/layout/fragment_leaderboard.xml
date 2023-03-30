@@ -7,64 +7,82 @@
     android:background="@color/screen_background_color"
     tools:context=".ui.leaderboard.LeaderboardFragment">
 
-    <TextView
-        android:id="@+id/title_highest_score"
-        android:layout_width="wrap_content"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/box_holder"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/jetbrainsmono"
-        android:text="Highest Scoring QR Code:"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="16dp"
+        android:scrollbars="vertical"
+        app:cardCornerRadius="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.228"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.022" />
+        app:strokeColor="@color/black"
+        app:strokeWidth="2dp">
 
-    <TextView
-        android:id="@+id/title_ranking"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/jetbrainsmono"
-        android:text="Approximate Ranking:"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.161"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.085" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/primary_3rd">
+
+            <TextView
+                android:id="@+id/title_highest_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/jetbrainsmono"
+                android:text="Highest Scoring QR Code:"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/title_ranking"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:fontFamily="@font/jetbrainsmono"
+                android:text="Approximate Ranking:"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/title_highest_score" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
 
     <View
         android:id="@+id/divider"
-        android:layout_width="409dp"
+        android:layout_width="match_parent"
         android:layout_height="3dp"
         android:background="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="25dp"
+        app:layout_constraintBottom_toTopOf="@id/title_view_ranking"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.145" />
+        app:layout_constraintTop_toBottomOf="@id/box_holder" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_rankBy_total_score"
         android:layout_width="280dp"
         android:layout_height="80dp"
-        android:layout_marginBottom="36dp"
         android:fontFamily="@font/jetbrainsmono"
         android:text="TOTAL SCORE"
-        android:textSize="17sp"
         android:textColor="@color/black"
+        android:textSize="17sp"
+        android:layout_marginTop="25dp"
         app:cornerRadius="15dp"
-        app:strokeWidth="2dp"
-        app:layout_constraintBottom_toTopOf="@+id/button_rankBy_total_amount"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@id/title_view_ranking"
+        app:strokeWidth="2dp" />
 
     <TextView
         android:id="@+id/title_view_ranking"
@@ -74,11 +92,10 @@
         android:text="View Rankings by:"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="25dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.228" />
+        app:layout_constraintTop_toBottomOf="@id/divider" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_rankBy_region"
@@ -86,33 +103,30 @@
         android:layout_height="80dp"
         android:fontFamily="@font/jetbrainsmono"
         android:text="REGION"
-        android:textSize="17sp"
         android:textColor="@color/black"
+        android:textSize="17sp"
+        android:layout_marginTop="16dp"
         app:cornerRadius="15dp"
-        app:strokeWidth="2dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.652" />
+        app:layout_constraintTop_toBottomOf="@id/button_rankBy_total_amount"
+        app:strokeWidth="2dp"
+        tools:layout_editor_absoluteY="651dp" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_rankBy_total_amount"
         android:layout_width="280sp"
         android:layout_height="80dp"
-        android:layout_marginBottom="28dp"
         android:fontFamily="@font/jetbrainsmono"
         android:text="TOTAL # OF QR CODES"
-        android:textSize="17sp"
         android:textColor="@color/black"
+        android:textSize="17sp"
+        android:layout_marginTop="16dp"
         app:cornerRadius="15dp"
-        app:strokeWidth="2dp"
-        app:layout_constraintBottom_toTopOf="@+id/button_rankBy_region"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@id/button_rankBy_total_score"
+        app:strokeWidth="2dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
