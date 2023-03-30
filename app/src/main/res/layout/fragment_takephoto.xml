@@ -26,6 +26,22 @@
         app:layout_constraintBottom_toTopOf="@+id/click_image"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    <Button
+        android:id="@+id/retake_button"
+        android:layout_width="114dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:backgroundTint="@color/lilac"
+        android:backgroundTintMode="add"
+        android:fontFamily="@font/jetbrainsmono"
+        android:text="Retake"
+        android:textColor="@color/black"
+        android:visibility="invisible"
+    app:layout_constraintBottom_toTopOf="@+id/click_image"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
 
     <Button
         android:id="@+id/confirm_button"
