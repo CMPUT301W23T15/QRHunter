@@ -9,14 +9,15 @@
     android:layout_marginTop="10dp"
     android:layout_marginBottom="20dp"
     android:scrollbars="vertical"
-    app:cardCornerRadius="20dp"
+    app:cardCornerRadius="15dp"
     app:strokeColor="@color/black"
     app:strokeWidth="1dp">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/complementary">
 
         <TextView
             android:id="@+id/username_text_view"
