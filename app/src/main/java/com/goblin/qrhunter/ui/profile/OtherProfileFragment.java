@@ -3,11 +3,13 @@
  */
 package com.goblin.qrhunter.ui.profile;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -16,8 +18,10 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.bumptech.glide.Glide;
 import com.goblin.qrhunter.Player;
 import com.goblin.qrhunter.Post;
+import com.goblin.qrhunter.R;
 import com.goblin.qrhunter.databinding.FragmentOtherProfileBinding;
 import com.goblin.qrhunter.ui.listutil.QRRecyclerAdapter;
 
@@ -76,6 +80,15 @@ public class OtherProfileFragment extends Fragment {
         binding.titleUsername.setText("User: " + username);
         binding.titleEmail.setText("Email: " + contactInfo);
         binding.titlePhone.setText("Phone: " + phone);
+
+        String encodedUsername = Uri.encode(username);
+        ImageView profileImageView = binding.otherProfilePfp;
+
+        Glide.with(this)
+                .load("https://api.dicebear.com/6.x/avataaars/png?seed=" + encodedUsername)
+                .placeholder(R.drawable.ic_profile_24)
+                .into(profileImageView);
+
         // (On-create)
         try {
             mViewModel.getPlayerByUsername(username);
