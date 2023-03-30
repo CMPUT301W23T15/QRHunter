@@ -22,6 +22,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.goblin.qrhunter.MainActivity;
+import com.goblin.qrhunter.QRCode;
 import com.goblin.qrhunter.R;
 import com.goblin.qrhunter.ui.home.HomeFragment;
 import com.goblin.qrhunter.ui.takephoto.TakePhotoActivity;
@@ -55,10 +56,21 @@ public class ScanActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        //Log.d(TAG, "before " );
         if (intentResult.getContents() != null) {
             AlertDialog.Builder builder = new AlertDialog.Builder(ScanActivity.this);
-            builder.setTitle("Result");
-            builder.setMessage(intentResult.getContents());
+            builder.setTitle("Your QR code is worth:");
+            /*
+            Hash the content into score
+            TODO: Save it to database
+             */
+            QRCode qrCode = new QRCode(intentResult.getContents());
+            int score = qrCode.getScore();
+            Log.d(TAG, "QR code score: " + score);
+            builder.setMessage(String.valueOf(score));
+
+
+
             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
@@ -76,6 +88,8 @@ public class ScanActivity extends AppCompatActivity {
                                 }
                             })
                             .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                //QR hashed value is saved to database
+
                                 public void onClick(DialogInterface dialog, int id) {
                                     // navigate to another activity
                                     Intent intent = new Intent(ScanActivity.this, MainActivity.class);

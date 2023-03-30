@@ -33,6 +33,7 @@ public class TakePhotoActivity extends AppCompatActivity {
     Button camera_open_id;
     ImageView click_image_id;
     Button confirm_id;
+    Button retake_id;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -44,12 +45,16 @@ public class TakePhotoActivity extends AppCompatActivity {
         camera_open_id = findViewById(R.id.camera_button);
         click_image_id = findViewById(R.id.click_image);
         confirm_id=findViewById(R.id.confirm_button);
+        retake_id=findViewById(R.id.retake_button);
 
 
 
         // Camera_open button is for open the camera and add the setOnClickListener in this button
         camera_open_id.setOnClickListener(v -> {
             checkCameraPermission();
+            camera_open_id.setVisibility(View.INVISIBLE);
+            // Set the retake_button visibility to VISIBLE
+            retake_id.setVisibility(View.VISIBLE);
         });
         confirm_id.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,8 +71,23 @@ public class TakePhotoActivity extends AppCompatActivity {
                     // Get the image from the ImageView
                     BitmapDrawable bitmapDrawable = (BitmapDrawable) click_image_id.getDrawable();
                     Bitmap bitmap = bitmapDrawable.getBitmap();
-                    // Do something with the bitmap, such as saving it to a file or uploading it to a server
+                    // TODO: Do something with the bitmap, such as saving it to a file or uploading it to a server
+
+                    camera_open_id.setVisibility(View.INVISIBLE);
+                    // Set the retake_button visibility to VISIBLE
+                    retake_id.setVisibility(View.VISIBLE);
                 }
+            }
+        });
+        retake_id.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Set the click_image_id visibility to GONE
+//                click_image_id.setVisibility(View.GONE);
+                // Set the retake_button visibility to GONE
+                //retake_id.setVisibility(View.GONE);
+                // Open the camera for capture the image again
+                openCamera();
             }
         });
 
@@ -103,10 +123,12 @@ public class TakePhotoActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         // Match the request 'pic id with requestCode
         if (requestCode == pic_id) {
-            // BitMap is data structure of image file which store the image in memory
-            Bitmap photo = (Bitmap) data.getExtras().get("data");
-            // Set the image in imageview for display
-            click_image_id.setImageBitmap(photo);
+            if (resultCode == RESULT_OK) {
+                Bitmap photo = (Bitmap) data.getExtras().get("data");
+                click_image_id.setImageBitmap(photo);
+            } else if (resultCode == RESULT_CANCELED) {
+                Toast.makeText(this, "Picture was not taken", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
