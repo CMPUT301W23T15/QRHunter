@@ -19,67 +19,99 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <com.google.android.material.card.MaterialCardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/box_holder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:scrollbars="vertical"
+        app:layout_constraintTop_toBottomOf="@id/imageView4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:cardCornerRadius="20dp"
+        app:strokeColor="@color/black"
+        app:strokeWidth="1dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/primary_3rd">
+
+            <TextView
+                android:id="@+id/title_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:fontFamily="@font/jetbrainsmono"
+                android:text="Username:"
+                android:textColor="@color/black"
+                android:textSize="25dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/title_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/jetbrainsmono"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="Phone:"
+                android:textColor="@color/black"
+                android:textSize="22dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/title_username" />
+
+
+            <TextView
+                android:id="@+id/title_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:fontFamily="@font/jetbrainsmono"
+                android:text="Email:"
+                android:textColor="@color/black"
+                android:textSize="22dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/title_phone"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/debug_button"
         android:layout_width="115dp"
         android:layout_height="48dp"
-        android:layout_marginTop="20dp"
         android:background="@drawable/rounded_style"
         android:backgroundTint="@color/white"
         android:fontFamily="@font/jetbrainsmono"
         android:text="debug"
         android:textColor="@color/black"
         android:textSize="17dp"
+        android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_test_signout"
-        app:layout_constraintVertical_bias="0.108" />
-
-    <TextView
-        android:id="@+id/title_phone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/jetbrainsmono"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="Phone:"
-        android:textColor="@color/black"
-        android:textSize="22dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title_username" />
-
-    <TextView
-        android:id="@+id/title_username"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_marginStart="16dp"
-        android:fontFamily="@font/jetbrainsmono"
-        android:text="Username:"
-        android:textColor="@color/black"
-        android:textSize="25dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
-
-    <TextView
-        android:id="@+id/title_email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/jetbrainsmono"
-        android:text="Email:"
-        android:textColor="@color/black"
-        android:textSize="22dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title_phone" />
+        app:layout_constraintTop_toBottomOf="@id/button_test_signout"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_edit_profile"
         android:layout_width="130dp"
         android:layout_height="60dp"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="50dp"
         android:fontFamily="@font/jetbrainsmono"
         android:text="Edit"
         android:textColor="@color/black"
@@ -88,7 +120,7 @@
         app:cornerRadius="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title_email" />
+        app:layout_constraintTop_toBottomOf="@+id/box_holder" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_test_signout"

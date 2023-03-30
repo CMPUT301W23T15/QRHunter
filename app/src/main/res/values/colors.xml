@@ -10,13 +10,25 @@
 
     <color name="lightGreen">#81FDA7</color>
 
-    <color name="primary_1st">#A5DBDD</color> <!-- Main theme color -->
-    <color name="primary_2nd">#407C87</color> <!-- What goes on top of primary_1st -->
-    <color name="primary_3rd">#D3E1E2</color> <!-- Things like buttons, small items, card views, etc. -->
-    <color name="screen_background_color">#EEF1F6</color> <!-- Screen background -->
+    <!-- Main color schema -->
+    <color name="primary_1st">#B0C6D7</color> <!-- Main theme color (somewhat light) -->
+    <color name="primary_2nd">#505980</color> <!-- What goes on top of primary_1st (darkest) -->
+    <color name="primary_3rd">#C6E0E4</color> <!-- Things like buttons, small items, card views, etc. (lightest)-->
+    <color name="screen_background_color">#EDEBE3</color> <!-- Screen background -->
+
+    <!-- Text color schema -->
+    <color name="primary_text_color">#212121</color>
+    <color name="secondary_text_color">#757575</color>
+
 
     <!-- Additional accent colors -->
     <color name="complementary_lilac">#D1C4E9</color>
     <color name="complementary_gray">#A5A5A5</color>
+
+    <!-- Some colour schemas: (primary_1st, primary_2nd, primary_3rd, screen_background_color)
+    Deep Clear Ocean: #A5DBDD, #407C87, #D3E1E2, #EEF1F6
+    Helado: #38B4D0, #FAC7C3, #A9E2F5, #FFF7EC
+    Winter: #B0C6D7, #505980, #C6E0E4 or #B8B8B8, #EDEBE3
+    -->
 
 </resources>
