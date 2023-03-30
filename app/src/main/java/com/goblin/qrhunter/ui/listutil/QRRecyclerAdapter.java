@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +22,7 @@ import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.goblin.qrhunter.Post;
 import com.goblin.qrhunter.R;
 import com.goblin.qrhunter.ui.post.PostFragment;
@@ -37,6 +39,7 @@ public class QRRecyclerAdapter extends RecyclerView.Adapter<QRRecyclerAdapter.QR
 
     /**
      * set the underlying data of the lists of posts
+     *
      * @param posts post of the user to display.
      */
     public void setData(List<Post> posts) {
@@ -50,7 +53,7 @@ public class QRRecyclerAdapter extends RecyclerView.Adapter<QRRecyclerAdapter.QR
     /**
      * Called when RecyclerView needs a new ViewHolder of the given type to represent an item.
      *
-     * @param parent the parent view group
+     * @param parent   the parent view group
      * @param viewType the type of the view
      * @return a new QRViewHolder instance
      */
@@ -64,7 +67,7 @@ public class QRRecyclerAdapter extends RecyclerView.Adapter<QRRecyclerAdapter.QR
     /**
      * Called by RecyclerView to display the data at the specified position.
      *
-     * @param holder the ViewHolder which should be updated
+     * @param holder   the ViewHolder which should be updated
      * @param position the position of the item within the adapter's data set
      */
     @Override
@@ -95,9 +98,10 @@ public class QRRecyclerAdapter extends RecyclerView.Adapter<QRRecyclerAdapter.QR
 
     /**
      * Returns a 'post' object to the main fragment. (This method can be called by SummaryFragment.java).
+     *
      * @return a 'post' object to be deleted.
      */
-    public Post deletePost(){
+    public Post deletePost() {
         return clickedPost;
     }
 
@@ -108,6 +112,8 @@ public class QRRecyclerAdapter extends RecyclerView.Adapter<QRRecyclerAdapter.QR
         String TAG = "QRRecyclerAdapter";
         private TextView mTitle;
         private TextView mPoints;
+        private ImageView avatarImageView;
+
         /**
          * Constructs a new instance of QRViewHolder with the given view as the item view.
          *
@@ -119,6 +125,7 @@ public class QRRecyclerAdapter extends RecyclerView.Adapter<QRRecyclerAdapter.QR
             mTitle = itemView.findViewById(R.id.qr_name);
             mPoints = itemView.findViewById(R.id.qr_points);
             itemView.setOnCreateContextMenuListener(this);
+            avatarImageView = itemView.findViewById(R.id.qr_list_item_icon);
         }
 
         /**
@@ -130,15 +137,23 @@ public class QRRecyclerAdapter extends RecyclerView.Adapter<QRRecyclerAdapter.QR
             mTitle.setText(post.getName()); // mTitle is the name of the post.
             Log.d(TAG, "bind: " + post.getName());
             mPoints.setText(String.valueOf(post.getCode().getScore()));
+
+            String hash = post.getCode().getHash();
+            Glide.with(itemView)
+                    .load("https://api.dicebear.com/6.x/bottts-neutral/png?seed=" + hash)
+                    .placeholder(R.drawable.baseline_qr_code_50)
+                    .into(avatarImageView);
         }
+
 
         /**
          * Creates a floating context menu. Also loads in options.
-         * @param menu The context menu that is being built
-         * @param view The view for which the context menu is being built
+         *
+         * @param menu     The context menu that is being built
+         * @param view     The view for which the context menu is being built
          * @param menuInfo Extra information about the item for which the
-         *            context menu should be shown. This information will vary
-         *            depending on the class of v.
+         *                 context menu should be shown. This information will vary
+         *                 depending on the class of v.
          */
         @Override
         public void onCreateContextMenu(ContextMenu menu, View view, ContextMenu.ContextMenuInfo menuInfo) {
