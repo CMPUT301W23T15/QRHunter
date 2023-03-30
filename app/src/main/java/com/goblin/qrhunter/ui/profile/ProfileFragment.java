@@ -7,11 +7,13 @@
 package com.goblin.qrhunter.ui.profile;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,6 +23,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import com.bumptech.glide.Glide;
 import com.goblin.qrhunter.Player;
 import com.goblin.qrhunter.R;
 import com.goblin.qrhunter.databinding.FragmentUserProfileBinding;
@@ -71,6 +74,16 @@ public class ProfileFragment extends Fragment {
                 binding.titleUsername.setText("Username: " + player.getUsername());
                 binding.titleEmail.setText("Email: " + player.getContactInfo());
                 binding.titlePhone.setText("Phone: " + player.getPhone());
+
+                String username = player.getUsername();
+                String encodedUsername = Uri.encode(username);
+                ImageView profileImageView = binding.imageView4;
+
+                Glide.with(this)
+                        .load("https://api.dicebear.com/6.x/avataaars/png?seed=" + encodedUsername)
+                        .placeholder(R.drawable.ic_profile_24)
+                        .into(profileImageView);
+
                 binding.buttonEditProfile.setOnClickListener(v -> {
                     EditProfileDialogFragment dialog = EditProfileDialogFragment.newInstance(player);
                     dialog.show(getChildFragmentManager(), "EditProfileDialogFragment");
