@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -90,38 +91,6 @@ public class SummaryFragment extends Fragment {
 //        super.onCreateContextMenu(menu, v, menuInfo);
 //        getActivity().getMenuInflater().inflate(R.menu.long_press_menu, menu);
 //    }
-
-    /**
-     * Brings up the context menu that can edit / delete the QR code. ONLY for summary fragment, as you don't want to
-     * delete / edit other user's QR codes.
-     * @param item The recyclerView item that was selected (long-pressed).
-     * @return
-     */
-    @Override
-    public boolean onContextItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-            // When the optionEdit is selected...
-            case R.id.edit_QR_code:
-                Toast.makeText(getContext(), "Edit option selected", Toast.LENGTH_SHORT).show();
-                // Brings user to fragment to edit the tagged geo-location.
-                return true;
-
-            case R.id.delete_QR_code:
-                // BUG: Always returns the last object in the list as opposed to the one that's clicked.
-                deletedPost = qrAdapter.deletePost();
-                Toast.makeText(getContext(), deletedPost.getName(), Toast.LENGTH_SHORT).show();
-                // mViewModel.postDB.delete(deletedPost);
-                return true;
-
-            default:
-                return super.onContextItemSelected(item);
-        }
-    }
-
-    /**
-
-     Called when the view previously created by onCreateView has been detached from the fragment.
-     */
     @Override
     public void onDestroyView() {
         super.onDestroyView();

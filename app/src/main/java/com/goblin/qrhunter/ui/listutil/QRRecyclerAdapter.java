@@ -15,17 +15,23 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.goblin.qrhunter.Post;
 import com.goblin.qrhunter.R;
+import com.goblin.qrhunter.data.PostRepository;
 import com.goblin.qrhunter.ui.post.PostFragment;
+import com.goblin.qrhunter.ui.summary.SummaryFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +40,7 @@ public class QRRecyclerAdapter extends RecyclerView.Adapter<QRRecyclerAdapter.QR
 
     List<Post> mPosts = new ArrayList<>();
     String TAG = "QRRecyclerAdapter";
-    private Post clickedPost; // Keeps track of what object you clicked.
+    PostRepository postDB;
 
 
     /**
@@ -72,18 +78,49 @@ public class QRRecyclerAdapter extends RecyclerView.Adapter<QRRecyclerAdapter.QR
      */
     @Override
     public void onBindViewHolder(QRViewHolder holder, int position) {
+        // "post" = Will always be the post that you click.
         Post post = mPosts.get(position);
-        clickedPost = post;
         holder.bind(post);
+
+        // Set-up pop-up menu.
+        PopupMenu popupMenu = new PopupMenu(holder.itemView.getContext(), holder.itemView);
+        popupMenu.getMenuInflater().inflate(R.menu.long_press_menu, popupMenu.getMenu());
+
         holder.itemView.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             bundle.putSerializable(PostFragment.POST_FRAGMENT_POST_KEY, post);
             Navigation.findNavController(v).navigate(R.id.action_global_postFragment, bundle);
         });
-//        holder.itemView.setOnLongClickListener(v -> {
-//            Toast.makeText(v.getContext(), post.getName(), Toast.LENGTH_SHORT).show();
-//            return true;
-//        });
+        // Long-click: Bring up pop-up menu.
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                PopupMenu popupMenu = new PopupMenu(v.getContext(), v);
+
+                popupMenu.inflate(R.menu.long_press_menu);
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        // Handle menu item click
+                        switch (item.getItemId()) {
+                            case R.id.edit_QR_code:
+                                Toast.makeText(v.getContext(), "Edit option selected", Toast.LENGTH_SHORT).show();
+                                return true;
+                            case R.id.delete_QR_code:
+                                Toast.makeText(v.getContext(), post.getName(), Toast.LENGTH_SHORT).show();
+                                postDB = new PostRepository();
+                                postDB.delete(post);
+
+                                return true;
+                            default:
+                                return false;
+                        }
+                    }
+                });
+                popupMenu.show();
+                return true;
+            }
+        });
     }
 
     /**
@@ -95,20 +132,10 @@ public class QRRecyclerAdapter extends RecyclerView.Adapter<QRRecyclerAdapter.QR
     public int getItemCount() {
         return mPosts.size();
     }
-
-    /**
-     * Returns a 'post' object to the main fragment. (This method can be called by SummaryFragment.java).
-     *
-     * @return a 'post' object to be deleted.
-     */
-    public Post deletePost() {
-        return clickedPost;
-    }
-
     /**
      * ViewHolder class for defining the view of each individual QR code item in the RecyclerView.
      */
-    public static class QRViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
+    public static class QRViewHolder extends RecyclerView.ViewHolder {
         String TAG = "QRRecyclerAdapter";
         private TextView mTitle;
         private TextView mPoints;
@@ -124,7 +151,6 @@ public class QRRecyclerAdapter extends RecyclerView.Adapter<QRRecyclerAdapter.QR
 
             mTitle = itemView.findViewById(R.id.qr_name);
             mPoints = itemView.findViewById(R.id.qr_points);
-            itemView.setOnCreateContextMenuListener(this);
             avatarImageView = itemView.findViewById(R.id.qr_list_item_icon);
         }
 
@@ -144,24 +170,5 @@ public class QRRecyclerAdapter extends RecyclerView.Adapter<QRRecyclerAdapter.QR
                     .placeholder(R.drawable.baseline_qr_code_50)
                     .into(avatarImageView);
         }
-
-
-        /**
-         * Creates a floating context menu. Also loads in options.
-         *
-         * @param menu     The context menu that is being built
-         * @param view     The view for which the context menu is being built
-         * @param menuInfo Extra information about the item for which the
-         *                 context menu should be shown. This information will vary
-         *                 depending on the class of v.
-         */
-        @Override
-        public void onCreateContextMenu(ContextMenu menu, View view, ContextMenu.ContextMenuInfo menuInfo) {
-            menu.setHeaderTitle("Select an action");
-            menu.add(Menu.NONE, R.id.edit_QR_code, Menu.NONE, "Edit");
-            menu.add(Menu.NONE, R.id.delete_QR_code, Menu.NONE, "Delete");
-        }
-
-
     }
 }
