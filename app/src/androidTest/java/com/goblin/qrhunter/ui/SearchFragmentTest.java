@@ -21,7 +21,6 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
-import java.security.Key;
 
 public class SearchFragmentTest {
     private Solo solo;
@@ -67,7 +66,7 @@ public class SearchFragmentTest {
 
 
     @Test
-    public void SearchSuccessTest(){
+    public void SearchSuccessTest() {
         solo.assertCurrentActivity("wrong activity", MainActivity.class);
         solo.clickOnView(solo.getView(R.id.navigation_search));
         assertTrue(solo.waitForText("Search for other players"));

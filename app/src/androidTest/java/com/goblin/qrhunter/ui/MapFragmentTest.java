@@ -54,6 +54,13 @@ public class MapFragmentTest {
         solo.assertCurrentActivity("wrong activity", MainActivity.class);
         solo.clickOnView(solo.getView(R.id.map_button));
         solo.sleep(3000);
+        solo.scrollToSide(Solo.RIGHT);
+
+        solo.sleep(1000);
+        for (int i =0; i<5; i++){
+            solo.clickOnView(solo.getView(R.id.map));
+        }
+
         solo.goBack();
     }
 }
