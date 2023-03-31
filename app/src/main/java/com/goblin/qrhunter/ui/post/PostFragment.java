@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -16,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import com.bumptech.glide.Glide;
 import com.goblin.qrhunter.Comment;
 import com.goblin.qrhunter.Post;
 import com.goblin.qrhunter.R;
@@ -66,6 +68,14 @@ public class PostFragment extends Fragment {
         binding.postNameView.setText("Name: " + post.getName());
         // TODO: add location
         binding.postLocationView.setText("Location: ");
+
+        String hash = post.getCode().getHash();
+        ImageView avatarImageView = binding.postCodeImg;
+
+        Glide.with(this)
+                .load("https://api.dicebear.com/6.x/bottts-neutral/png?seed=" + hash)
+                .placeholder(R.drawable.baseline_qr_code_50)
+                .into(avatarImageView);
 
         commentRecyclerAdapter adapter = new commentRecyclerAdapter();
         binding.postCommentList.setAdapter(adapter);

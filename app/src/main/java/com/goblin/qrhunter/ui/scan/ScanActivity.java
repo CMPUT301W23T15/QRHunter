@@ -22,9 +22,11 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.goblin.qrhunter.MainActivity;
+import com.goblin.qrhunter.QRCode;
 import com.goblin.qrhunter.R;
 import com.goblin.qrhunter.ui.home.HomeFragment;
 import com.goblin.qrhunter.ui.takephoto.TakePhotoActivity;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
@@ -38,6 +40,7 @@ public class ScanActivity extends AppCompatActivity {
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int MY_PERMISSIONS_REQUEST_CAMERA = 2;
     public static String QR_CODE_STRING = "QR_CODE_STRING";
+    FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,10 +58,23 @@ public class ScanActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        //Log.d(TAG, "before " );
         if (intentResult.getContents() != null) {
             AlertDialog.Builder builder = new AlertDialog.Builder(ScanActivity.this);
-            builder.setTitle("Result");
-            builder.setMessage(intentResult.getContents());
+            builder.setTitle("Your QR code is worth:");
+            /*
+            Hash the content into score
+            TODO: Save it to database
+             */
+            QRCode qrCode = new QRCode(intentResult.getContents());
+            int qrscore = qrCode.getScore();
+            String qrname = qrCode.NameGenerator();
+            Log.d(TAG, "QR code score: " + qrscore);
+            builder.setMessage(String.valueOf(qrscore));
+
+
+
+
             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
@@ -76,6 +92,8 @@ public class ScanActivity extends AppCompatActivity {
                                 }
                             })
                             .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                //QR hashed value is saved to database
+
                                 public void onClick(DialogInterface dialog, int id) {
                                     // navigate to another activity
                                     Intent intent = new Intent(ScanActivity.this, MainActivity.class);
