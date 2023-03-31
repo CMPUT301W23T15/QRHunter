@@ -34,11 +34,13 @@ import com.goblin.qrhunter.databinding.FragmentTakephotoBinding;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.journeyapps.barcodescanner.ScanContract;
 import com.journeyapps.barcodescanner.ScanIntentResult;
 import com.journeyapps.barcodescanner.ScanOptions;
 
 public class ScanFragment extends Fragment {
+    //not used
 
     private String TAG = "ScanFragment";
     private ScanViewModel vModel;
@@ -46,6 +48,7 @@ public class ScanFragment extends Fragment {
     Intent scanIntent;
 
     private FragmentScanBinding binding;
+    FirebaseFirestore db;
 
     public static ScanFragment newInstance() {
         return new ScanFragment();

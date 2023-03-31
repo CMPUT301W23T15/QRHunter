@@ -28,6 +28,7 @@ public class Player implements Entity, Serializable {
 
 
     private int totalScore;
+    private int rank;
 
     /**
      * Constructs an empty player object.
@@ -48,6 +49,13 @@ public class Player implements Entity, Serializable {
         setUsername(username);
         setContactInfo(contactInfo);
     }
+    public Player(String username, int totalScore) {
+
+        setUsername(username);
+        setTotalScore(totalScore);
+        //setRank(rank);
+
+    }
 
 
 
@@ -66,6 +74,8 @@ public class Player implements Entity, Serializable {
         setPhone(phone);
         setProfileURI(profilePicURL);
     }
+
+
 
     /**
      * Returns a map representation of the player object for serialization.
@@ -164,6 +174,8 @@ public class Player implements Entity, Serializable {
     public int getTotalScore() {
         return totalScore;
     }
+
+    public void setTotalScore(int totalScore1){this.totalScore=totalScore1;}
     /**
      * Adds points to the player's total score.
      * @param points The points to add to the player's total score.
@@ -172,6 +184,8 @@ public class Player implements Entity, Serializable {
         totalScore += points;
     }
 
+
+    public void setRank(int rank){this.rank=rank;};
     /**
      * Creates a new Player object that is a copy of the given Player object.
      *
@@ -188,4 +202,7 @@ public class Player implements Entity, Serializable {
         return newPlayer;
     }
 
+    public int getRank() {
+        return rank;
+    }
 }
