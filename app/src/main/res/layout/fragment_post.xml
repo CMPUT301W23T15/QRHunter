@@ -122,6 +122,10 @@
             android:contentDescription="@string/add_comment_btn"
             android:src="@drawable/baseline_add_24"
             android:backgroundTint="@color/complementary_lilac"
+            android:layout_marginStart="4dp"
+            app:backgroundTint="@color/black"
+            app:borderWidth="2dp"
+            app:layout_constraintStart_toEndOf="@id/textInputLayout2"
             app:layout_constraintBottom_toBottomOf="@+id/textInputLayout2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/textInputLayout2" />
