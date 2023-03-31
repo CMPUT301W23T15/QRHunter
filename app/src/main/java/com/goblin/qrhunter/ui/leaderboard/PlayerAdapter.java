@@ -1,13 +1,16 @@
 package com.goblin.qrhunter.ui.leaderboard;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.goblin.qrhunter.Player;
 import com.goblin.qrhunter.R;
 
@@ -56,8 +59,13 @@ public class PlayerAdapter extends BaseAdapter {
         nameTextView.setText(player.getUsername());
         scoreTextView.setText(Integer.toString(player.getTotalScore()));
 
+        String encodedUsername = Uri.encode(player.getUsername());
+        ImageView avatarImageView = view.findViewById(R.id.player_icon_image);
 
-
+        Glide.with(context)
+                .load("https://api.dicebear.com/6.x/avataaars/png?seed=" + encodedUsername)
+                .placeholder(R.drawable.ic_profile_24)
+                .into(avatarImageView);
 
         return view;
     }
