@@ -16,7 +16,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/primary_3rd">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/player_icon_image"
@@ -26,6 +27,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:src="@drawable/ic_profile_24"
+            app:civ_border_width="2dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

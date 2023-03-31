@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="16dp">
 
@@ -48,14 +48,15 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="16dp"/>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/button_save"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Save"
-        android:background="@drawable/button_rounded"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="18sp"
-        android:padding="12dp" />
+        android:padding="12dp"
+        app:cornerRadius="15dp"
+        app:strokeWidth="2dp"/>
 
 </LinearLayout>

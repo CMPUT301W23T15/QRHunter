@@ -93,7 +93,6 @@ public class QRRecyclerAdapterSummary extends RecyclerView.Adapter<QRRecyclerAda
             bundle.putSerializable(PostFragment.POST_FRAGMENT_POST_KEY, post);
             Navigation.findNavController(v).navigate(R.id.action_global_postFragment, bundle);
         });
-        // Checks if the click post matches the current user. If so, will show pop-up menu on long click.
         // Set-up pop-up menu.
         PopupMenu popupMenu = new PopupMenu(holder.itemView.getContext(), holder.itemView);
         popupMenu.getMenuInflater().inflate(R.menu.long_press_menu, popupMenu.getMenu());
@@ -111,7 +110,8 @@ public class QRRecyclerAdapterSummary extends RecyclerView.Adapter<QRRecyclerAda
                             case R.id.edit_QR_code:
                                 Toast.makeText(v.getContext(), "Edit option selected", Toast.LENGTH_SHORT).show();
                                 return true;
-                            case R.id.delete_QR_code: postDB = new PostRepository();
+                            case R.id.delete_QR_code:
+                                postDB = new PostRepository();
                                 postDB.delete(post);
                                 return true;
                             default:
