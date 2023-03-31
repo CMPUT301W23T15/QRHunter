@@ -69,19 +69,19 @@ public class commentRecyclerAdapter extends RecyclerView.Adapter<commentRecycler
         // If so, they get access to a pop-up menu that can delete the comment.
         if (playerID.equals(comment.getPlayerId())){
             PopupMenu popupMenu = new PopupMenu(holder.itemView.getContext(), holder.itemView);
-            popupMenu.getMenuInflater().inflate(R.menu.long_press_menu, popupMenu.getMenu());
+            popupMenu.getMenuInflater().inflate(R.menu.long_press_comment_menu, popupMenu.getMenu());
             holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
                     PopupMenu popupMenu = new PopupMenu(v.getContext(), v);
 
-                    popupMenu.inflate(R.menu.long_press_menu);
+                    popupMenu.inflate(R.menu.long_press_comment_menu);
                     popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                         @Override
                         public boolean onMenuItemClick(MenuItem item) {
                             // Handle menu item click
                             switch (item.getItemId()) {
-                                case R.id.delete_QR_code:
+                                case R.id.delete_comment:
                                     commentDB = new CommentRepository();
                                     commentDB.delete(comment.getId());
                                     return true;
