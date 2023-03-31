@@ -26,6 +26,7 @@ import com.goblin.qrhunter.QRCode;
 import com.goblin.qrhunter.R;
 import com.goblin.qrhunter.ui.home.HomeFragment;
 import com.goblin.qrhunter.ui.takephoto.TakePhotoActivity;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
@@ -39,6 +40,7 @@ public class ScanActivity extends AppCompatActivity {
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int MY_PERMISSIONS_REQUEST_CAMERA = 2;
     public static String QR_CODE_STRING = "QR_CODE_STRING";
+    FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,9 +67,11 @@ public class ScanActivity extends AppCompatActivity {
             TODO: Save it to database
              */
             QRCode qrCode = new QRCode(intentResult.getContents());
-            int score = qrCode.getScore();
-            Log.d(TAG, "QR code score: " + score);
-            builder.setMessage(String.valueOf(score));
+            int qrscore = qrCode.getScore();
+            String qrname = qrCode.NameGenerator();
+            Log.d(TAG, "QR code score: " + qrscore);
+            builder.setMessage(String.valueOf(qrscore));
+
 
 
 

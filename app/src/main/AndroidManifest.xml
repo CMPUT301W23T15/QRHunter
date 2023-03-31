@@ -60,6 +60,7 @@
             android:stateNotNeeded="true"
             android:theme="@style/zxing_CaptureTheme" />
         <activity android:name=".ui.scan.ScanActivity" />
+
         <activity android:name=".ui.welcome.WelcomeActivity" />
         <activity android:name="com.goblin.qrhunter.ui.takephoto.TakePhotoActivity" />
     </application>
