@@ -1,9 +1,11 @@
 package com.goblin.qrhunter.ui.search;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -11,6 +13,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.bumptech.glide.Glide;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.goblin.qrhunter.Player;
@@ -41,6 +44,15 @@ public class playerSearchAdapter extends FirestoreRecyclerAdapter<Player, player
         holder.username.setText(model.getUsername());
         holder.email.setText(model.getContactInfo());
         holder.phone.setText(model.getPhone());
+
+        String encodedUsername = Uri.encode(username);
+        ImageView avatarImageView = holder.itemView.findViewById(R.id.player_icon_image);
+
+        Glide.with(holder.itemView.getContext())
+                .load("https://api.dicebear.com/6.x/avataaars/png?seed=" + encodedUsername)
+                .placeholder(R.drawable.ic_profile_24) // Replace with your actual placeholder
+                .into(avatarImageView);
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
