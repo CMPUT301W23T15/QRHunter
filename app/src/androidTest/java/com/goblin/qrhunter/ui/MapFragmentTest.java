@@ -50,7 +50,7 @@ public class MapFragmentTest {
      * Needs more work !!!!
      */
     @Test
-    public void MapTestOpen(){
+    public void MapOpenTest(){
         solo.assertCurrentActivity("wrong activity", MainActivity.class);
         solo.clickOnView(solo.getView(R.id.map_button));
         solo.sleep(3000);

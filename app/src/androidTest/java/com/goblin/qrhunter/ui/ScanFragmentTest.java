@@ -18,7 +18,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
-public class ScanFragementTest {
+public class ScanFragmentTest {
     private Solo solo;
     private String username_test_value = "user49394473";
     @Rule

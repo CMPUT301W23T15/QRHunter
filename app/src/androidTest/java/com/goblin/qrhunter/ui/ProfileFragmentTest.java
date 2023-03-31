@@ -52,7 +52,7 @@ public class ProfileFragmentTest{
     }
 
     @Test
-    public void CheckProfile(){
+    public void ProfileLogIOEditTest(){
         solo.assertCurrentActivity("Wrong activity", MainActivity.class);
         solo.clickOnView(solo.getView(R.id.profile_button));
         solo.sleep(1000);
@@ -84,7 +84,7 @@ public class ProfileFragmentTest{
      * Test to ensure if user will enter the proper format our app wants
      */
     @Test
-    public void FaultyEditProfile(){
+    public void FaultyEditProfilePhoneTest(){
 //        too short
         solo.assertCurrentActivity("Wrong activity", MainActivity.class);
         solo.clickOnView(solo.getView(R.id.profile_button));
@@ -109,7 +109,7 @@ public class ProfileFragmentTest{
         solo.goBack();
     }
     @Test
-    public void FaultyEditProfileEmail() {
+    public void FaultyEditProfileEmailTest() {
 //        too short
         solo.assertCurrentActivity("Wrong activity", MainActivity.class);
         solo.clickOnView(solo.getView(R.id.profile_button));
