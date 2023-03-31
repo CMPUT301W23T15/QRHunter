@@ -4,6 +4,8 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+import android.util.Log;
+
 import com.goblin.qrhunter.QRCode;
 
 import java.security.NoSuchAlgorithmException;
@@ -15,10 +17,27 @@ import java.util.Map;
  *
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
+
+
+/**
+ * Going to refactor this so it will look similar to other tests using a mock object
+ * also going to test the other methods used by this class
+ */
 public class QRCodeUnitTest {
+
+    private QRCode qrCode;
+
+    public QRCode MockQRCode(){
+        qrCode = new QRCode("hello world");
+        return qrCode;
+    }
+
+    /**
+     * also tests getScore(has calculateScore), setHash, getHash
+     */
     @Test
     public void testCalculateScore() throws NoSuchAlgorithmException {
-        QRCode qr = new QRCode("hello world!");
+        qrCode = MockQRCode();
         Map<Integer, String> testcases = new HashMap<>() {{
             put(20, "00");
             put(400, "000");
@@ -38,9 +57,29 @@ public class QRCodeUnitTest {
 
         }};
         testcases.forEach((score, hash) -> {
-            qr.setHash(hash);
-            assertEquals((Integer) score, (Integer) qr.getScore());
+            qrCode.setHash(hash);
+            assertNotNull(qrCode.getHash());
+            assertEquals(score, (Integer) qrCode.getScore());
         });
 
     }
+
+    @Test
+    public void NameGeneratorTest() throws NumberFormatException{
+        qrCode = MockQRCode();
+        String hash = qrCode.getHash();
+        assertNotNull(hash);
+        String name = qrCode.NameGenerator();
+        assertNotNull(name);
+//        manually went to see what name was
+        assertEquals(name, "Dazzling-Magenta-Archen");
+    }
+
+    @Test
+    public void equalsTest(){
+        qrCode = MockQRCode();
+        QRCode qrCode1 = MockQRCode();
+        assertTrue(qrCode.equals(qrCode1));
+    }
+
 }
