@@ -98,22 +98,6 @@
         app:layout_constraintTop_toBottomOf="@id/divider" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/button_rankBy_region"
-        android:layout_width="280dp"
-        android:layout_height="80dp"
-        android:fontFamily="@font/jetbrainsmono"
-        android:text="REGION"
-        android:textColor="@color/black"
-        android:textSize="17sp"
-        android:layout_marginTop="16dp"
-        app:cornerRadius="15dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button_rankBy_total_amount"
-        app:strokeWidth="2dp"
-        tools:layout_editor_absoluteY="651dp" />
-
-    <com.google.android.material.button.MaterialButton
         android:id="@+id/button_rankBy_total_amount"
         android:layout_width="280sp"
         android:layout_height="80dp"
