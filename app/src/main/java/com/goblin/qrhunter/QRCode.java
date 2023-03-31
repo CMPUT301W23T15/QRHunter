@@ -256,17 +256,30 @@ public class QRCode implements Serializable {
                 "Glastrier", "Spectrier", "Calyrex", "Wyrdeer", "Kleavor", "Ursaluna", "Basculegion",
                 "Sneasler", "Overqwil", "Enamorus");
 
-        int index1 = (Integer.parseInt(hash.substring(0, 8), 16) % colors.size());
-        int index2 = (Integer.parseInt(hash.substring(8, 16), 16) % adjectives.size());
-        int index3 = (Integer.parseInt(hash.substring(16, 24), 16) % pokemons.size());
+        int index1 = (int) (Long.parseLong(hash.substring(0, 8), 16) % adjectives.size());
+        int index2 = (int) (Long.parseLong(hash.substring(8, 16), 16) % pokemons.size());
+        int index3 = (int) (Long.parseLong(hash.substring(16, 24), 16) % colors.size());
 
-        String color = colors.get(index1);
-        String adjective = adjectives.get(index2);
-        String pokemon = pokemons.get(index3);
+        String adjective = adjectives.get(index1);
+        String pokemon = pokemons.get(index2);
+        String color = colors.get(index3);
 
-        String qrName = adjective + " " + color + " " + pokemon;
+        String qrName = String.format("%s-%s-%s", adjective,color, pokemon);
         return qrName;
 
+        /*
+         * IF SPACE NOT ENOUGH -> we'll use number instead
+         * code below for it:
+         */
+//        int index1 = (int) (Long.parseLong(hash.substring(0, 8), 16) % adjectives.size());
+//        int index2 = (int) (Long.parseLong(hash.substring(8, 16), 16) % pokemons.size());
+//        int uniqueNumber = (int) (Long.parseLong(hash.substring(16, 24), 16) % 1000) + 1;
+//
+//        String adjective = adjectives.get(index1);
+//        String pokemon = pokemons.get(index2);
+//
+//        String qrName = String.format("%s-%s-%03d", adjective, pokemon, uniqueNumber);
+//        return qrName;
     }
 
     /**

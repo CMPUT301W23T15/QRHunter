@@ -81,4 +81,31 @@ public class PlayerUnitTest {
         int addTest = player.getTotalScore();
         assertEquals(addTest, points);
     }
+
+//    new methods -> phone
+    @Test
+    public void getPhoneTest(){
+        player = MockPlayer();
+        assertEquals(player.getPhone(), "Phone");
+    }
+
+    @Test
+    public void setPhoneTest(){
+        player = MockPlayer();
+        String newPhone = "780-888-9999";
+        player.setPhone(newPhone);
+        assertEquals(player.getPhone(), newPhone);
+    }
+
+    @Test
+    public void copyPlayerTests(){
+        player = MockPlayer();
+        Player player1 = Player.copy(player);
+        assertEquals(player1.getId(), player.getId());
+        assertEquals(player1.getUsername(), player.getUsername());
+        assertEquals(player1.getContactInfo(), player.getContactInfo());
+        assertEquals(player1.getPhone(), player.getPhone());
+        assertEquals(player1.getProfileURI(), player.getProfileURI());
+    }
+
 }

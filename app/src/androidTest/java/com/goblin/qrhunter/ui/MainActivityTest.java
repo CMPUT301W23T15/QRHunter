@@ -3,10 +3,12 @@ import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import android.app.Activity;
 import android.view.KeyEvent;
+import android.view.View;
 import android.widget.EditText;
 
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -68,6 +70,35 @@ public class MainActivityTest {
         solo.sleep(1000);
     }
 
+    /**
+     * Test to ensure if user will enter the proper format our app wants
+     */
+    @Test
+    public void FaultyEditProfile(){
+//        too short
+        solo.assertCurrentActivity("Wrong activity", MainActivity.class);
+        solo.clickOnView(solo.getView(R.id.profile_button));
+        solo.sleep(1000);
+        solo.clickOnButton("Edit");
+        solo.enterText((EditText) solo.getView(R.id.dialog_edit_phone_number), "780");
+        solo.sleep(1000);
+        solo.clickOnView(solo.getView(R.id.button_save));
+        solo.sleep(2000);
+        assertTrue(solo.waitForText("Phone number must be between 7 and 15 characters"));
+        solo.sleep(1000);
+        solo.goBack();
+
+
+        solo.clickOnButton("Edit");
+        solo.enterText((EditText) solo.getView(R.id.dialog_edit_phone_number), "1234567891234567");
+        solo.sleep(1000);
+        solo.clickOnView(solo.getView(R.id.button_save));
+        solo.sleep(2000);
+        assertTrue(solo.waitForText("Phone number must be between 7 and 15 characters"));
+        solo.goBack();
+        solo.goBack();
+    }
+
     @Test
     public void CheckLeaderBoards(){
         solo.assertCurrentActivity("Wrong activity", MainActivity.class);
@@ -81,6 +112,7 @@ public class MainActivityTest {
 
     @Test
 //    the camera is a third party access so just make sure for now that when clicked it does in fact pull up camera
+//    will do a sperate test for scan activity
     public void CheckCamera(){
         solo.assertCurrentActivity("wrong activity", MainActivity.class);
         solo.clickOnView(solo.getView(R.id.scan_button));
@@ -98,7 +130,22 @@ public class MainActivityTest {
     }
 
     @Test
-    public void CheckNavigationSearch(){
+    public void CheckNavigationSearchFaulty(){
+        solo.assertCurrentActivity("wrong activity", MainActivity.class);
+        solo.clickOnView(solo.getView(R.id.navigation_search));
+        assertTrue(solo.waitForText("Search for other players"));
+        solo.clickOnView(solo.getView(R.id.player_search));
+        solo.sendKey(KeyEvent.KEYCODE_N);
+        solo.sendKey(KeyEvent.KEYCODE_O);
+        solo.sendKey(KeyEvent.KEYCODE_N);
+        solo.sendKey(KeyEvent.KEYCODE_E);
+        solo.sendKey(KeyEvent.KEYCODE_ENTER);
+        solo.sleep(1000);
+    }
+
+
+    @Test
+    public void CheckNavigationSearchSuccess(){
         solo.assertCurrentActivity("wrong activity", MainActivity.class);
         solo.clickOnView(solo.getView(R.id.navigation_search));
         assertTrue(solo.waitForText("Search for other players"));
