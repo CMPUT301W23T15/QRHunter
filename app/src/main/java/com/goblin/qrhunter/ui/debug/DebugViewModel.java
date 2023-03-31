@@ -35,7 +35,7 @@ public class DebugViewModel extends ViewModel {
         String usrId = usr.getUid();
         String rand = UUID.randomUUID().toString();
         QRCode code = new QRCode(rand);
-        Post p1 = new Post(rand, code, usrId);
+        Post p1 = new Post("", code, usrId);
         double yegLat = 53.5461;
         double yegLng = -113.323975;
         double locLat = yegLat - 2 * Math.random();
