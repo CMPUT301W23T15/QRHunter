@@ -98,7 +98,7 @@ public class AlsoRecyclerAdapter extends RecyclerView.Adapter<AlsoRecyclerAdapte
          */
         public AlsoViewHolder(View itemView) {
             super(itemView);
-            usernameTxtView = itemView.findViewById(R.id.username_text_view);
+            usernameTxtView = itemView.findViewById(R.id.user_comment);
 
         }
 

@@ -34,16 +34,37 @@
             app:srcCompat="@drawable/ic_profile_24" />
 
         <TextView
-            android:id="@+id/username_text_view"
+            android:id="@+id/user_comment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:text="TextView"
+            android:layout_marginStart="16dp"
             android:fontFamily="@font/jetbrainsmono"
+            android:text="Comment"
             android:textColor="@color/black"
+            android:textSize="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/player_icon_image"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.5" />
+            app:layout_constraintTop_toTopOf="parent" />
+        <!--
+        <TextView
+            android:id="@+id/who_commented"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/jetbrainsmono"
+            android:text="Who Commented:"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toTopOf="@id/user_comment"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@id/player_icon_image"
+            app:layout_constraintTop_toTopOf="parent" />
+            -->
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>
