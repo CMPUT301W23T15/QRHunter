@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class RankinglistTotalViewModel extends ViewModel {
+public class RankingListTotalViewModel extends ViewModel {
     private final MutableLiveData<String> mText;
     private CollectionReference playerCollection;
     private CollectionReference scoresCollection;
@@ -27,7 +27,7 @@ public class RankinglistTotalViewModel extends ViewModel {
 
     private MutableLiveData<Map<String, Integer>> playerScores;
 
-    public RankinglistTotalViewModel() {
+    public RankingListTotalViewModel() {
         mText = new MutableLiveData<>();
         PlayerRepository playerRepository = new PlayerRepository();
         playerCollection = playerRepository.getCollectionRef();

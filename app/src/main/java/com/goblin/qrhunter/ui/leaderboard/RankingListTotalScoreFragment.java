@@ -1,40 +1,23 @@
 package com.goblin.qrhunter.ui.leaderboard;
 
-import static android.content.ContentValues.TAG;
-
 import android.os.Bundle;
 import android.util.Log;
-import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.collection.ArraySet;
-import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.goblin.qrhunter.MainActivity;
 import com.goblin.qrhunter.Player;
-import com.goblin.qrhunter.Post;
 import com.goblin.qrhunter.R;
 import com.goblin.qrhunter.databinding.FragmentRankbytotalscoreBinding;
-import com.goblin.qrhunter.databinding.FragmentSearchBinding;
-import com.goblin.qrhunter.domain.GetPlayersScoreUseCase;
-import com.goblin.qrhunter.ui.search.SearchViewModel;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -42,26 +25,24 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import android.util.Log;
 
 
-public class RankinglistTotalscoreFragment extends Fragment {
+public class RankingListTotalScoreFragment extends Fragment {
 
    // private GetPlayersScoreUseCase getPlayersScoreUseCase;
    private static final String TAG = "RankinglistTotalFrag";
 
     private ListView ranklist_view;
-    private RankinglistTotalViewModel viewModel;
+    private RankingListTotalViewModel viewModel;
     NavController navController;
     private FragmentRankbytotalscoreBinding binding;
 
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        viewModel = new ViewModelProvider(this).get(RankinglistTotalViewModel.class);
+        viewModel = new ViewModelProvider(this).get(RankingListTotalViewModel.class);
         navController = Navigation.findNavController(container);
 
 

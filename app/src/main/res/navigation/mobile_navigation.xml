@@ -89,7 +89,7 @@
 
     <fragment
         android:id="@+id/rankingListTotalscoreFragment"
-        android:name="com.goblin.qrhunter.ui.leaderboard.RankinglistTotalscoreFragment"
+        android:name="com.goblin.qrhunter.ui.leaderboard.RankingListTotalScoreFragment"
         android:label="fragment_rankinglistTotalscore"
         tools:layout="@layout/fragment_rankbytotalscore" >
 

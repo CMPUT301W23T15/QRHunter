@@ -19,7 +19,6 @@ import androidx.navigation.Navigation;
 import com.goblin.qrhunter.Player;
 import com.goblin.qrhunter.R;
 import com.goblin.qrhunter.databinding.FragmentRankbytotalamountBinding;
-import com.goblin.qrhunter.databinding.FragmentRankbytotalscoreBinding;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -31,17 +30,21 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * This class is responsible for displaying a rank list
+ * It uses the RankingListTotalViewModel class to manage the data and logic behind the view.
+ */
 public class RankingListTotalAmountFragment extends Fragment {
     private static final String TAG = "RankingListTotalAmountFragment";
     private ListView rankListView;
     private TextView textView;
-    private RankinglistTotalViewModel viewModel;
+    private RankingListTotalViewModel viewModel;
     NavController navController;
     private FragmentRankbytotalamountBinding binding;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        viewModel = new ViewModelProvider(this).get(RankinglistTotalViewModel.class);
+        viewModel = new ViewModelProvider(this).get(RankingListTotalViewModel.class);
         navController = Navigation.findNavController(container);
         List<Player> players = new ArrayList<>();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
