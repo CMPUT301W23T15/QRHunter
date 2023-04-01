@@ -1,24 +1,38 @@
 package com.goblin.qrhunter.ui.listutil;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.goblin.qrhunter.Comment;
+import com.goblin.qrhunter.Player;
 import com.goblin.qrhunter.R;
 import com.goblin.qrhunter.data.CommentRepository;
-import com.goblin.qrhunter.data.PostRepository;
+import com.goblin.qrhunter.data.PlayerRepository;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import org.checkerframework.common.returnsreceiver.qual.This;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Objects;
 
 
 public class commentRecyclerAdapter extends RecyclerView.Adapter<commentRecyclerAdapter.commentViewHolder> {
@@ -63,8 +77,10 @@ public class commentRecyclerAdapter extends RecyclerView.Adapter<commentRecycler
     @Override
     public void onBindViewHolder(commentViewHolder holder, int position) {
         Comment comment = mComments.get(position);
-        holder.bind(comment);
         String playerID = comment.getPlayerId();
+        FirebaseUser usr = FirebaseAuth.getInstance().getCurrentUser();
+        playerID = usr.getUid();
+        holder.bind(comment, playerID); // Binds the comment, and the user ID of the commenter to that post.
         // Check if the current player ID actually left that comment.
         // If so, they get access to a pop-up menu that can delete the comment.
         if (playerID.equals(comment.getPlayerId())){
@@ -114,6 +130,7 @@ public class commentRecyclerAdapter extends RecyclerView.Adapter<commentRecycler
 
        private final String TAG = "commentViewHolder";
        private final TextView mCommentNameView;
+       //private final TextView mWhoCommentedView;
 
         /**
          * Constructs a new instance of commentViewHolder with the given view as the item view.
@@ -122,7 +139,8 @@ public class commentRecyclerAdapter extends RecyclerView.Adapter<commentRecycler
          */
         public commentViewHolder(View itemView) {
             super(itemView);
-            mCommentNameView = itemView.findViewById(R.id.username_text_view);
+            mCommentNameView = itemView.findViewById(R.id.user_comment);
+            //mWhoCommentedView = itemView.findViewById(R.id.who_commented);
         }
 
         /**
@@ -130,8 +148,33 @@ public class commentRecyclerAdapter extends RecyclerView.Adapter<commentRecycler
          *
          * @param comment the comment object to bind
          */
-        public void bind(Comment comment) {
+        public void bind(Comment comment, String whoCommented) {
+            /* Once the username can be set to a display name. Uncomment below delete the line: "mWhoCommentedView.setText(whoCommented);"
+            FirebaseUser usr = FirebaseAuth.getInstance().getCurrentUser();
+            mWhoCommentedView.setText(usr.getDisplayName());
+             */
+
             mCommentNameView.setText(comment.getText());
+//            FirebaseFirestore db = FirebaseFirestore.getInstance();
+//            DocumentReference docRef = db.collection("players").document(whoCommented);
+//            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//                @Override
+//                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                    if (task.isSuccessful()) {
+//                        DocumentSnapshot document = task.getResult();
+//                        if (document.exists()) {
+//                            Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+//                            // ADDS THE COMMENTER'S USERNAME TO THE COMMENT:
+//                            mWhoCommentedView.setText(document.getString("username"));
+//
+//                        } else {
+//                            Log.d(TAG, "No such document");
+//                        }
+//                    } else {
+//                        Log.d(TAG, "get failed with ", task.getException());
+//                    }
+//                }
+//            });
         }
     }
 }
