@@ -19,12 +19,19 @@ import java.util.List;
 public class PlayerAdapter extends BaseAdapter {
     private Context context;
     private List<Player> playerList;
+    private String mode = "score";
 
     public PlayerAdapter(Context context, List<Player> playerList) {
-
         this.context = context;
         this.playerList = playerList;
     }
+
+    public PlayerAdapter(Context context, List<Player> playerList, String mode) {
+        this.context = context;
+        this.playerList = playerList;
+        this.mode = mode;
+    }
+
     @Override
     public int getCount() {
         return playerList.size();
@@ -51,10 +58,13 @@ public class PlayerAdapter extends BaseAdapter {
             view = inflater.inflate(R.layout.player_ranking_content, null);
         }
         // Set the player's rank, name, and score in the view
-
         TextView rankTextView = view.findViewById(R.id.player_rank);
         TextView nameTextView = view.findViewById(R.id.player_name);
         TextView scoreTextView = view.findViewById(R.id.player_score);
+        if (mode.equals("amount")) {
+            TextView scoreTitleTextView = view.findViewById(R.id.player_score_text);
+            scoreTitleTextView.setText("Total Amount:");
+        }
         rankTextView.setText(Integer.toString(player.getRank()));
         nameTextView.setText(player.getUsername());
         scoreTextView.setText(Integer.toString(player.getTotalScore()));
@@ -69,4 +79,5 @@ public class PlayerAdapter extends BaseAdapter {
 
         return view;
     }
+
 }
