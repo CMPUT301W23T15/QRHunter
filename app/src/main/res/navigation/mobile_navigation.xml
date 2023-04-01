@@ -55,6 +55,9 @@
         <action
             android:id="@+id/action_leaderboardFragment_to_navigation_rankingListTotalscore"
             app:destination="@id/rankingListTotalscoreFragment" />
+        <action
+            android:id="@+id/action_leaderboardFragment_to_navigation_rankingListTotalAmount"
+            app:destination="@id/rankingListTotalAmountFragment" />
     </fragment>
     <fragment
         android:id="@+id/mapFragment"
@@ -89,6 +92,14 @@
         android:name="com.goblin.qrhunter.ui.leaderboard.RankinglistTotalscoreFragment"
         android:label="fragment_rankinglistTotalscore"
         tools:layout="@layout/fragment_rankbytotalscore" >
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/rankingListTotalAmountFragment"
+        android:name="com.goblin.qrhunter.ui.leaderboard.RankingListTotalAmountFragment"
+        android:label="fragment_rankinglistTotalAmount"
+        tools:layout="@layout/fragment_rankbytotalamount" >
 
     </fragment>
 
