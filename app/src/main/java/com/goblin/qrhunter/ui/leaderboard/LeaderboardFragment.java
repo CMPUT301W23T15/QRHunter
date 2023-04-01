@@ -58,6 +58,13 @@ public class LeaderboardFragment extends Fragment {
             }
         });
 
+        binding.buttonRankByTotalAmount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                navController.navigate(R.id.action_leaderboardFragment_to_navigation_rankingListTotalAmount);
+            }
+        });
+
         return binding.getRoot();
     }
 }
