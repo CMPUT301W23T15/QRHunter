@@ -48,7 +48,7 @@ public class LeaderBoardFragmentTest {
     }
 
     @Test
-    public void LeaderBoardsTest(){
+    public void TotalScoreTest(){
         solo.assertCurrentActivity("Wrong activity", MainActivity.class);
         solo.clickOnView(solo.getView(R.id.leaderboard_button));
         solo.sleep(1000);
@@ -60,4 +60,23 @@ public class LeaderBoardFragmentTest {
         solo.goBack();
         solo.goBack();
     }
+
+    @Test
+    public void TotalQRNumberTest(){
+        solo.assertCurrentActivity("Wrong activity", MainActivity.class);
+        solo.clickOnView(solo.getView(R.id.leaderboard_button));
+        solo.sleep(1000);
+        solo.clickOnButton("TOTAL # OF QR CODES");
+        solo.sleep(2000);
+        for (int i =0; i<2; i++){
+            solo.scrollDown();
+            solo.sleep(2000);
+        }
+        solo.sleep(2000);
+        solo.scrollUp();
+        solo.sleep(1500);
+        solo.goBack();
+        solo.goBack();
+    }
+
 }
