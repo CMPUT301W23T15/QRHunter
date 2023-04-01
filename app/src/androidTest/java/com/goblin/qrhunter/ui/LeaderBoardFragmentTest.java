@@ -1,6 +1,7 @@
 package com.goblin.qrhunter.ui;
 
 import android.app.Activity;
+import android.widget.ScrollView;
 
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
@@ -53,6 +54,9 @@ public class LeaderBoardFragmentTest {
         solo.sleep(1000);
         solo.clickOnButton("TOTAL SCORE");
         solo.sleep(2000);
+        solo.scrollDown();
+        solo.sleep(1000);
+        solo.scrollUp();
         solo.goBack();
         solo.goBack();
     }
