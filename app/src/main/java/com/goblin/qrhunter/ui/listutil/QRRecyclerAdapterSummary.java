@@ -107,9 +107,6 @@ public class QRRecyclerAdapterSummary extends RecyclerView.Adapter<QRRecyclerAda
                     public boolean onMenuItemClick(MenuItem item) {
                         // Handle menu item click
                         switch (item.getItemId()) {
-                            case R.id.edit_QR_code:
-                                Toast.makeText(v.getContext(), "Edit option selected", Toast.LENGTH_SHORT).show();
-                                return true;
                             case R.id.delete_QR_code:
                                 postDB = new PostRepository();
                                 postDB.delete(post);
