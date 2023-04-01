@@ -9,6 +9,8 @@ import com.goblin.qrhunter.MainActivity;
 import com.goblin.qrhunter.Player;
 import com.goblin.qrhunter.R;
 import com.goblin.qrhunter.data.PlayerRepository;
+import com.goblin.qrhunter.ui.scan.ScanActivity;
+import com.goblin.qrhunter.ui.takephoto.TakePhotoActivity;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
 import com.robotium.solo.Solo;
@@ -47,14 +49,42 @@ public class ScanFragmentTest {
     }
 
     @Test
-//    the camera is a third party access so just make sure for now that when clicked it does in fact pull up camera
-//    will do a sperate test for scan activity
-    public void ScanTest(){
+    public void ScannerOpenTest(){
         solo.assertCurrentActivity("wrong activity", MainActivity.class);
         solo.clickOnView(solo.getView(R.id.scan_button));
+        solo.assertCurrentActivity("Wrong", ScanActivity.class);
         solo.sleep(2000);
         solo.goBack();
-        solo.goBack();
     }
+
+    /**
+     * Scanner flow test to scan a qr code and take picture
+     * You will have 10 seconds to scan a qr code, or app will exit
+     * and pass either way showing a toast for nothing scanned.
+     * TODO: find a way for camera to take picture, and proceed with the flow
+     */
+    @Test
+    public void ScannerFlowTest(){
+        solo.assertCurrentActivity("wrong activity", MainActivity.class);
+        solo.clickOnView(solo.getView(R.id.scan_button));
+        solo.assertCurrentActivity("Wrong", ScanActivity.class);
+//        10 seconds to scan a qr code for test
+        solo.sleep(1000*10);
+        if (solo.waitForText("Your QR code is worth:")){
+            solo.clickOnButton("OK");
+            solo.sleep(2000);
+            solo.waitForText("Do you want to take a photo");
+            solo.clickOnButton("Yes");
+            solo.sleep(1000);
+            solo.clickOnView(solo.getView(R.id.camera_button));
+            solo.sleep(2000);
+            solo.assertCurrentActivity("should be in photo", TakePhotoActivity.class);
+//            find way to click on take photo!!!!!
+
+        }
+        else solo.goBack();
+    }
+
+
 
 }
