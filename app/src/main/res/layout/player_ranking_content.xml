@@ -120,7 +120,7 @@
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView3"
+            app:layout_constraintStart_toEndOf="@+id/player_score_text"
             app:layout_constraintTop_toBottomOf="@+id/player_name" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
