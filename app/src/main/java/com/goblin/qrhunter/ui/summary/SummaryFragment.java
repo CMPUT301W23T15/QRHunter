@@ -79,6 +79,10 @@ public class SummaryFragment extends Fragment {
 //        super.onCreateContextMenu(menu, v, menuInfo);
 //        getActivity().getMenuInflater().inflate(R.menu.long_press_menu, menu);
 //    }
+
+    /**
+     * Gets rid of view when the view is exited.
+     */
     @Override
     public void onDestroyView() {
         super.onDestroyView();

@@ -47,6 +47,13 @@ public class ScanActivity extends AppCompatActivity {
     public static String QR_CODE_STRING = "QR_CODE_STRING";
     FirebaseFirestore db;
 
+    /**
+     * OnCreate to set up the QR code scanner.
+     * @param savedInstanceState If the activity is being re-initialized after
+     *     previously being shut down then this Bundle contains the data it most
+     *     recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.</i></b>
+     *
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +67,17 @@ public class ScanActivity extends AppCompatActivity {
         intentIntegrator.initiateScan();
     }
 
+    /**
+     * Run analysis on a QR code once it has been scanned.
+     * @param requestCode The integer request code originally supplied to
+     *                    startActivityForResult(), allowing you to identify who this
+     *                    result came from.
+     * @param resultCode The integer result code returned by the child activity
+     *                   through its setResult().
+     * @param data An Intent, which can return result data to the caller
+     *               (various data can be attached to Intent "extras").
+     *
+     */
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
