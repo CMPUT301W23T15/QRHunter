@@ -114,10 +114,6 @@ public class QRCode implements Serializable {
      * @return the generated name.
      */
     public String NameGenerator() {
-        List<String> colors = Arrays.asList("Red", "Blue", "Green", "Yellow", "Purple", "Orange",
-                "Pink", "Gray", "Brown", "Black", "White", "Navy", "Teal", "Magenta", "Cyan",
-                "Lavender", "Olive", "Maroon", "Turquoise", "Beige", "Indigo", "Slate", "Silver",
-                "Gold", "Bronze", "Lilac", "Burgundy", "Amethyst", "Coral", "Crimson");
 
         List<String> adjectives = Arrays.asList("Amicable", "Aromatic", "Affluent", "Authentic",
                 "Amusing", "Amazing", "Beautiful", "Bold", "Basic", "Brilliant", "Brave", "Cosy",
@@ -256,15 +252,18 @@ public class QRCode implements Serializable {
                 "Glastrier", "Spectrier", "Calyrex", "Wyrdeer", "Kleavor", "Ursaluna", "Basculegion",
                 "Sneasler", "Overqwil", "Enamorus");
 
-        int index1 = (int) (Long.parseLong(hash.substring(0, 8), 16) % adjectives.size());
-        int index2 = (int) (Long.parseLong(hash.substring(8, 16), 16) % pokemons.size());
-        int index3 = (int) (Long.parseLong(hash.substring(16, 24), 16) % colors.size());
+        List<String> levels = Arrays.asList("N", "S", "R", "L");
 
-        String adjective = adjectives.get(index1);
-        String pokemon = pokemons.get(index2);
-        String color = colors.get(index3);
+        int index1 = (int) (Long.parseLong(hash.substring(0, 8), 16) % levels.size());
+        int index2 = (int) (Long.parseLong(hash.substring(8, 16), 16) % adjectives.size());
+        int index3 = (int) (Long.parseLong(hash.substring(16, 24), 16) % pokemons.size());
 
-        String qrName = String.format("%s-%s-%s", adjective,color, pokemon);
+        String unique = levels.get(index1);
+        String adjective = adjectives.get(index2);
+        String pokemon = pokemons.get(index3);
+
+
+        String qrName = unique + "-" + adjective + "-" + pokemon;
         return qrName;
 
         /*
