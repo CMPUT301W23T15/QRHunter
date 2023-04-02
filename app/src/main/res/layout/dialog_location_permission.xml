@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/title_phone_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="QR Hunter would like \nto access your location"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+
+
+
+    <TextView
+        android:id="@+id/title_email_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/jetbrainsmono"
+        android:layout_gravity="center"
+        android:text="Click yes to tag \ncurrent location"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_decline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No"
+        android:textColor="@color/black"
+        android:layout_gravity="center"
+        android:textSize="16sp"
+        android:padding="8dp"
+        android:backgroundTint="@color/primary_3rd"
+        app:cornerRadius="15dp"
+        app:strokeWidth="2dp"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_yes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:text="Yes"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:layout_gravity="center"
+        android:backgroundTint="@color/primary_2nd"
+        app:cornerRadius="15dp"
+        app:strokeWidth="2dp" />
+
+</LinearLayout>

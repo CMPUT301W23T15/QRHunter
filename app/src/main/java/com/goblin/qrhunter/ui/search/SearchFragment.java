@@ -166,7 +166,7 @@ public class SearchFragment extends Fragment implements MenuProvider{
     }
 
     /**
-     * STells the app to start getting data from database on start of the fragment.
+     * Tells the app to start getting data from database on start of the fragment.
      */
     @Override public void onStart() {
         viewModel = new ViewModelProvider(this).get(SearchViewModel.class);
