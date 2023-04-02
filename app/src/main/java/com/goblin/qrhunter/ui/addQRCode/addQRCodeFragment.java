@@ -18,6 +18,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.bumptech.glide.Glide;
 import com.goblin.qrhunter.MainActivity;
 import com.goblin.qrhunter.R;
 
@@ -61,6 +62,14 @@ public class addQRCodeFragment extends Fragment {
             qrCode_hash = getArguments().getString("qrCode_hash");
         }
         View root = binding.getRoot();
+
+        String hash = qrCode_hash;
+        ImageView avatarImageView = binding.qrRepresentaion;
+
+        Glide.with(this)
+                .load("https://api.dicebear.com/6.x/bottts-neutral/png?seed=" + hash)
+                .placeholder(R.drawable.baseline_qr_code_50)
+                .into(avatarImageView);
 
 
         // 1. Bind the qr information with layout
