@@ -61,8 +61,12 @@ public class addQRCodeFragment extends Fragment {
     private addQRCodeViewModel viewModel;
     String TAG = "addQRCodeFragment";
 
+    private ActivityResultLauncher<String[]> locationPermissionLauncher;
+    private static final int REQUEST_LOCATION_PERMISSION = 1;
+
 
     String qrCode_hash;
+
     public static addQRCodeFragment newInstance(String qrCode_hash) {
         addQRCodeFragment fragment = new addQRCodeFragment();
         Bundle args = new Bundle();
@@ -130,8 +134,63 @@ public class addQRCodeFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // Add the code to handle the "Yes" button click here
+                        Log.d(TAG, "made it here: yes click");
+
+                        // Check if the location permission is granted
+                        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
+                                == PackageManager.PERMISSION_GRANTED) {
+                            // Get the user's current location
+                            FusedLocationProviderClient fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
+                            fusedLocationProviderClient.getLastLocation().addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
+                                @Override
+                                public void onSuccess(Location location) {
+                                    if (location != null) {
+                                        double latitude = location.getLatitude();
+                                        double longitude = location.getLongitude();
+                                        Log.d(TAG, "got long lat: line 183");
+                                        Log.d(TAG, "lat:"+ latitude);
+                                        Log.d(TAG, "long:"+ longitude);
+
+                                        // Do something with the user's current location here
+                                    } else {
+                                        Log.d(TAG, "made it to no location");
+                                        // If the location is null, request the user's current location again
+                                        LocationRequest locationRequest = LocationRequest.create();
+                                        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+                                        locationRequest.setInterval(10000); // Update location every 10 seconds
+
+                                        LocationCallback locationCallback = new LocationCallback() {
+                                            @Override
+                                            public void onLocationResult(LocationResult locationResult) {
+                                                super.onLocationResult(locationResult);
+                                                if (locationResult != null) {
+                                                    Log.d(TAG, "location result isnt null");
+                                                    Location location = locationResult.getLastLocation();
+                                                    double latitude = location.getLatitude();
+                                                    double longitude = location.getLongitude();
+                                                    Log.d(TAG, "got long lat: line 183");
+                                                    Log.d(TAG, "lat:"+ latitude);
+                                                    Log.d(TAG, "long:"+ longitude);
+                                                    // Do something with the user's current location here
+                                                } else {
+                                                    // Handle the case where the location is still null
+                                                    Log.d(TAG, "still null ");
+                                                }
+                                            }
+                                        };
+//                                        no clue if we need this line, not having this line might cause issues tho
+//                                        not sure
+                                        fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, null);
+                                    }
+                                }
+                            });
+                        } else {
+                            // Permission is not granted, request for the permission
+                            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION_PERMISSION);
+                        }
                     }
                 });
+
 
                 // Add the "No" button
                 builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
