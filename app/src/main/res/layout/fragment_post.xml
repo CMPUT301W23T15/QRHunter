@@ -111,7 +111,8 @@
                 android:layout_height="55dp"
                 android:background="@drawable/object_border"
                 android:fontFamily="@font/jetbrainsmono"
-                android:hint="Add comment"
+                android:hint="Add Comment"
+                android:maxLength="19"
                 android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
