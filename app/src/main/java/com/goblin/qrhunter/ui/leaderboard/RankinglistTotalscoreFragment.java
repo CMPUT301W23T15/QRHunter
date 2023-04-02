@@ -83,7 +83,7 @@ public class RankinglistTotalscoreFragment extends Fragment {
 
         // Set up list view
         ranklist_view = binding.getRoot().findViewById(R.id.listView_totalscore);
-        textView_current_rank=binding.getRoot().findViewById(R.id.user_current_score_rank);
+        //textView_current_rank=binding.getRoot().findViewById(R.id.user_current_score_rank);
 
 
         //  Create a list of players

@@ -164,7 +164,7 @@ public class commentRecyclerAdapter extends RecyclerView.Adapter<commentRecycler
             mWhoCommentedView.setText(usr.getDisplayName());
              */
 
-            mCommentNameView.setText(comment.getText());
+            mCommentNameView.setText(comment.getText()); // Concatenate comment.getUsername() if it ends up working.
 //            FirebaseFirestore db = FirebaseFirestore.getInstance();
 //            DocumentReference docRef = db.collection("players").document(whoCommented);
 //            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
