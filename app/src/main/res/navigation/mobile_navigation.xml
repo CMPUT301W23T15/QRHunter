@@ -59,7 +59,7 @@
     <fragment
         android:id="@+id/leaderboardFragment"
         android:name="com.goblin.qrhunter.ui.leaderboard.LeaderboardFragment"
-        android:label="fragment_leaderboard"
+        android:label="Leaderboards"
         tools:layout="@layout/fragment_leaderboard" >
         <action
             android:id="@+id/action_leaderboardFragment_to_navigation_home"
@@ -74,7 +74,7 @@
     <fragment
         android:id="@+id/mapFragment"
         android:name="com.goblin.qrhunter.ui.map.MapFragment"
-        android:label="fragment_map"
+        android:label="Map"
         tools:layout="@layout/fragment_map" >
         <action
             android:id="@+id/action_mapFragment_to_navigation_home"
@@ -83,12 +83,12 @@
     <fragment
         android:id="@+id/takephotoFragment"
         android:name="com.goblin.qrhunter.ui.takephoto.TakePhotoFragment"
-        android:label="fragment_takephoto"
+        android:label="Take Photo"
         tools:layout="@layout/fragment_takephoto" />
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.goblin.qrhunter.ui.profile.ProfileFragment"
-        android:label="fragment_profile"
+        android:label="My Profile"
         tools:layout="@layout/fragment_user_profile" >
         <action
             android:id="@+id/action_profileFragment_to_debugFragment"
@@ -102,7 +102,7 @@
     <fragment
         android:id="@+id/rankingListTotalscoreFragment"
         android:name="com.goblin.qrhunter.ui.leaderboard.RankinglistTotalscoreFragment"
-        android:label="fragment_rankinglistTotalscore"
+        android:label="Rankings by Total Score"
         tools:layout="@layout/fragment_rankbytotalscore" >
 
     </fragment>
@@ -110,7 +110,7 @@
     <fragment
         android:id="@+id/rankingListTotalAmountFragment"
         android:name="com.goblin.qrhunter.ui.leaderboard.RankingListTotalAmountFragment"
-        android:label="fragment_rankinglistTotalAmount"
+        android:label="Rankings by Total Amount"
         tools:layout="@layout/fragment_rankbytotalamount" >
 
     </fragment>
@@ -118,7 +118,7 @@
     <fragment
         android:id="@+id/otherProfileFragment"
         android:name="com.goblin.qrhunter.ui.profile.OtherProfileFragment"
-        android:label="fragment_other_profile"
+        android:label="Searched Profile"
         tools:layout="@layout/fragment_other_profile">
         <argument
             android:name="playerId"
@@ -139,7 +139,7 @@
     <fragment
         android:id="@+id/postFragment"
         android:name="com.goblin.qrhunter.ui.post.PostFragment"
-        android:label="fragment_post"
+        android:label="QR Code's Post"
         tools:layout="@layout/fragment_post" />
     <action
         android:id="@+id/action_global_postFragment"
@@ -147,7 +147,7 @@
     <fragment
         android:id="@+id/alsoFragment"
         android:name="com.goblin.qrhunter.ui.also.AlsoFragment"
-        android:label="fragment_also"
+        android:label="Also Scanned By"
         tools:layout="@layout/fragment_also" />
     <fragment
         android:id="@+id/scanFragment"
