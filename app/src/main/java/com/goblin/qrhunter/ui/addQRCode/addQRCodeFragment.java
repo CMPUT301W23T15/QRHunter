@@ -170,6 +170,10 @@ public class addQRCodeFragment extends Fragment {
                                         Log.d(TAG, "lat:"+ latitude);
                                         Log.d(TAG, "long:"+ longitude);
 
+                                        String latitudeView = String.valueOf(latitude);
+                                        String longitudeView = String.valueOf(longitude);
+                                        binding.textViewQRlocation.setText(latitudeView+","+longitudeView);
+
                                         // Do something with the user's current location here
                                     } else {
                                         Log.d(TAG, "made it to no location");
@@ -190,6 +194,11 @@ public class addQRCodeFragment extends Fragment {
                                                     Log.d(TAG, "got long lat: line 183");
                                                     Log.d(TAG, "lat:"+ latitude);
                                                     Log.d(TAG, "long:"+ longitude);
+
+                                                    String latitudeView = String.valueOf(latitude);
+                                                    String longitudeView = String.valueOf(longitude);
+                                                    binding.textViewQRlocation.setText(latitudeView+","+longitudeView);
+
                                                     // Do something with the user's current location here
                                                 } else {
                                                     // Handle the case where the location is still null
@@ -199,7 +208,7 @@ public class addQRCodeFragment extends Fragment {
                                         };
 //                                        no clue if we need this line, not having this line might cause issues tho
 //                                        not sure
-                                        fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, null);
+//                                        fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, null);
                                     }
                                 }
                             });
@@ -207,7 +216,10 @@ public class addQRCodeFragment extends Fragment {
                             // Permission is not granted, request for the permission
                             ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION_PERMISSION);
                         }
+
+
                     }
+
                 });
 
 
