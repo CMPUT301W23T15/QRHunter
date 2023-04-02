@@ -118,6 +118,34 @@ public class addQRCodeFragment extends Fragment {
             }
         });
 
+//        Tag location button
+        binding.buttonLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("Permission");
+                builder.setMessage("Let app use your location?");
+
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Add the code to handle the "Yes" button click here
+                    }
+                });
+
+                // Add the "No" button
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Add the code to handle the "No" button click here
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
+
         // Get the current user (what account to add QR code to).
         binding.buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
