@@ -1,16 +1,19 @@
 package com.goblin.qrhunter.ui.listutil;
 
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.goblin.qrhunter.Comment;
 import com.goblin.qrhunter.Player;
 import com.goblin.qrhunter.R;
@@ -131,6 +134,7 @@ public class commentRecyclerAdapter extends RecyclerView.Adapter<commentRecycler
        private final String TAG = "commentViewHolder";
        private final TextView mCommentNameView;
        //private final TextView mWhoCommentedView;
+       private final ImageView mProfileImageView;
 
         /**
          * Constructs a new instance of commentViewHolder with the given view as the item view.
@@ -141,6 +145,7 @@ public class commentRecyclerAdapter extends RecyclerView.Adapter<commentRecycler
             super(itemView);
             mCommentNameView = itemView.findViewById(R.id.user_comment);
             //mWhoCommentedView = itemView.findViewById(R.id.who_commented);
+            mProfileImageView = itemView.findViewById(R.id.player_icon_image);
         }
 
         /**
@@ -149,6 +154,11 @@ public class commentRecyclerAdapter extends RecyclerView.Adapter<commentRecycler
          * @param comment the comment object to bind
          */
         public void bind(Comment comment, String whoCommented) {
+            String encodedPlayerID = Uri.encode(whoCommented);
+            Glide.with(itemView.getContext())
+                    .load("https://api.dicebear.com/6.x/avataaars/png?seed=" + encodedPlayerID)
+                    .placeholder(R.drawable.ic_profile_24)
+                    .into(mProfileImageView);
             /* Once the username can be set to a display name. Uncomment below delete the line: "mWhoCommentedView.setText(whoCommented);"
             FirebaseUser usr = FirebaseAuth.getInstance().getCurrentUser();
             mWhoCommentedView.setText(usr.getDisplayName());
