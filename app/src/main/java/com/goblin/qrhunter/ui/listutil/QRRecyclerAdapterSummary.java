@@ -8,9 +8,7 @@ package com.goblin.qrhunter.ui.listutil;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,9 +18,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,13 +26,9 @@ import com.goblin.qrhunter.Post;
 import com.goblin.qrhunter.R;
 import com.goblin.qrhunter.data.PostRepository;
 import com.goblin.qrhunter.ui.post.PostFragment;
-import com.goblin.qrhunter.ui.summary.SummaryFragment;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class QRRecyclerAdapterSummary extends RecyclerView.Adapter<QRRecyclerAdapterSummary.QRViewHolder> {
 
@@ -150,7 +141,7 @@ public class QRRecyclerAdapterSummary extends RecyclerView.Adapter<QRRecyclerAda
 
             mTitle = itemView.findViewById(R.id.qr_name);
             mPoints = itemView.findViewById(R.id.qr_points);
-            avatarImageView = itemView.findViewById(R.id.qr_list_item_icon);
+            avatarImageView = itemView.findViewById(R.id.qr_representaion);
         }
 
         /**

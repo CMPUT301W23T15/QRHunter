@@ -20,10 +20,15 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.goblin.qrhunter.MainActivity;
 import com.goblin.qrhunter.QRCode;
 import com.goblin.qrhunter.R;
+import com.goblin.qrhunter.ui.addQRCode.addQRCodeFragment;
 import com.goblin.qrhunter.ui.home.HomeFragment;
 import com.goblin.qrhunter.ui.takephoto.TakePhotoActivity;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -58,52 +63,60 @@ public class ScanActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        //Log.d(TAG, "before " );
-        if (intentResult.getContents() != null) {
+        if (intentResult != null && intentResult.getContents() != null) {
+            // Hash the content into score
+            String qrCode_hash=intentResult.getContents();
+            QRCode qrCode = new QRCode(qrCode_hash);
+            int qrscore = qrCode.getScore();
             AlertDialog.Builder builder = new AlertDialog.Builder(ScanActivity.this);
             builder.setTitle("Your QR code is worth:");
-            /*
-            Hash the content into score
-            TODO: Save it to database
-             */
-            QRCode qrCode = new QRCode(intentResult.getContents());
-            int qrscore = qrCode.getScore();
-            String qrname = qrCode.NameGenerator();
-            Log.d(TAG, "QR code score: " + qrscore);
             builder.setMessage(String.valueOf(qrscore));
-
-
-
-
             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     dialogInterface.dismiss();
 
-                    // create an alert dialog with two buttons
-                    AlertDialog.Builder builder2 = new AlertDialog.Builder(ScanActivity.this);
-                    builder2.setMessage("Do you want to take a photo?")
-                            .setCancelable(false)
-                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    // open the TakePhotoActivity
-                                    Intent intent = new Intent(ScanActivity.this, TakePhotoActivity.class);
-                                    startActivity(intent);
-                                }
-                            })
-                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                                //QR hashed value is saved to database
+                    //create an alert dialog with two buttons
+//                    AlertDialog.Builder builder2 = new AlertDialog.Builder(ScanActivity.this);
+//
+//                    builder2.setMessage("Do you want to take a photo?")
+//                            .setCancelable(false)
+//                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+//                                public void onClick(DialogInterface dialog, int id) {
+//                                    // open the TakePhotoActivity
+//                                    Intent intent = new Intent(ScanActivity.this, TakePhotoActivity.class);
+//                                    startActivity(intent);
+//                                }
+//                            })
+//                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
+//                                //QR hashed value is saved to database
+//
+//                                public void onClick(DialogInterface dialog, int id) {
+//                                    // navigate to another activity
+//                                    Intent intent = new Intent(ScanActivity.this, MainActivity.class);
+//                                    startActivity(intent);
+//                                }
+//                            });
+//                    builder2.show();
 
-                                public void onClick(DialogInterface dialog, int id) {
-                                    // navigate to another activity
-                                    Intent intent = new Intent(ScanActivity.this, MainActivity.class);
-                                    startActivity(intent);
-                                }
-                            });
-                    builder2.show();
+                    // Create a bundle to pass data to the new fragment
+                    Bundle bundle = new Bundle();
+                    bundle.putString("qrCode_hash", qrCode_hash);
+                    addQRCodeFragment addQRCodeFragment = new addQRCodeFragment();
+                    addQRCodeFragment.setArguments(bundle);
+
+                    // Get the NavController and navigate to the AddQRFragment
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.add(R.id.scan_container, addQRCodeFragment);
+                    fragmentTransaction.commit();
                 }
             });
             builder.show();
+
+
+
+
         } else {
             Toast.makeText(getApplicationContext(),
                             "OOPs...no QR code was scanned", Toast.LENGTH_SHORT)
@@ -113,7 +126,9 @@ public class ScanActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
+
     }
+
 }
 
 

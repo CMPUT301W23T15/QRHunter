@@ -1,4 +1,4 @@
-package com.goblin.qrhunter.ui.takephoto;
+package com.goblin.qrhunter.ui.addQRCode;
 
 import androidx.lifecycle.ViewModel;
 

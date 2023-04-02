@@ -96,7 +96,7 @@ public class PostRepository extends BaseRepository<Post> {
         }
 
         DocumentReference postRef;
-        if (post.getId() == null && post.getId().isEmpty()) {
+        if (post.getId() == null || post.getId().isEmpty()) {
             postRef = getCollectionRef().document();
             String id = postRef.getId();
             post.setId(id);

@@ -20,6 +20,7 @@
             android:id="@+id/action_navigation_home_to_scanFragment"
             app:destination="@id/scanFragment" />
 
+
     </fragment>
 
     <fragment
@@ -27,6 +28,17 @@
         android:name="com.goblin.qrhunter.ui.summary.SummaryFragment"
         android:label="Summary"
         tools:layout="@layout/fragment_summary" />
+
+    <fragment
+        android:id="@+id/navigation_add_QRCode"
+        android:name="com.goblin.qrhunter.ui.addQRCode.addQRCodeFragment"
+        android:label="Summary"
+        tools:layout="@layout/fragment_add_qr_code" >
+    <action
+        android:id="@+id/action_add_QRCode_to_navigation_home"
+        app:destination="@id/navigation_home" />
+
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_search"
