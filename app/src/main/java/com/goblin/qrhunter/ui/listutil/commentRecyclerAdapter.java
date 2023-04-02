@@ -57,6 +57,7 @@ public class commentRecyclerAdapter extends RecyclerView.Adapter<commentRecycler
         }
     }
 
+
     /**
      * Called when RecyclerView needs a new ViewHolder of the given type to represent an item.
      *
@@ -81,9 +82,12 @@ public class commentRecyclerAdapter extends RecyclerView.Adapter<commentRecycler
     public void onBindViewHolder(commentViewHolder holder, int position) {
         Comment comment = mComments.get(position);
         String playerID = comment.getPlayerId();
-        FirebaseUser usr = FirebaseAuth.getInstance().getCurrentUser();
-        playerID = usr.getUid();
-        holder.bind(comment, playerID); // Binds the comment, and the user ID of the commenter to that post.
+        holder.bind(comment, comment.getPlayerId()); // Binds the comment, and the user ID of the commenter to that post.
+
+//        FirebaseUser usr = FirebaseAuth.getInstance().getCurrentUser();
+//        playerID = usr.getUid();
+//        holder.bind(comment, playerID);
+
         // Check if the current player ID actually left that comment.
         // If so, they get access to a pop-up menu that can delete the comment.
         if (playerID.equals(comment.getPlayerId())){
@@ -136,6 +140,45 @@ public class commentRecyclerAdapter extends RecyclerView.Adapter<commentRecycler
        //private final TextView mWhoCommentedView;
        private final ImageView mProfileImageView;
 
+       private static FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        /**
+         * Fetches the username of the player with the given ID and passes it to the provided listener.
+         * @param playerId the ID of the player whose username needs to be fetched
+         * @param listener the listener that will receive the fetched username
+         */
+       private void fetchUsername(String playerId, final OnUsernameFetchedListener listener) {
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            DocumentReference docRef = db.collection("players").document(playerId);
+            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+                            String username = document.getString("username");
+                            listener.onUsernameFetched(username);
+                        } else {
+                            Log.d(TAG, "No such document");
+                        }
+                    } else {
+                        Log.d(TAG, "get failed with ", task.getException());
+                    }
+                }
+            });
+        }
+
+        /**
+         * Interface for listening to the fetching of a username.
+         */
+        interface OnUsernameFetchedListener {
+            /**
+             * Called when the username is fetched successfully.
+             * @param username the username of the player
+             */
+            void onUsernameFetched(String username);
+        }
+
         /**
          * Constructs a new instance of commentViewHolder with the given view as the item view.
          *
@@ -154,11 +197,18 @@ public class commentRecyclerAdapter extends RecyclerView.Adapter<commentRecycler
          * @param comment the comment object to bind
          */
         public void bind(Comment comment, String whoCommented) {
-            String encodedPlayerID = Uri.encode(whoCommented);
-            Glide.with(itemView.getContext())
-                    .load("https://api.dicebear.com/6.x/avataaars/png?seed=" + encodedPlayerID)
-                    .placeholder(R.drawable.ic_profile_24)
-                    .into(mProfileImageView);
+
+            fetchUsername(whoCommented, new OnUsernameFetchedListener() {
+                @Override
+                public void onUsernameFetched(String username) {
+                    String encodedUsername = Uri.encode(username);
+                    Glide.with(itemView.getContext())
+                            .load("https://api.dicebear.com/6.x/avataaars/png?seed=" + encodedUsername)
+                            .placeholder(R.drawable.ic_profile_24)
+                            .into(mProfileImageView);
+                }
+            });
+
             /* Once the username can be set to a display name. Uncomment below delete the line: "mWhoCommentedView.setText(whoCommented);"
             FirebaseUser usr = FirebaseAuth.getInstance().getCurrentUser();
             mWhoCommentedView.setText(usr.getDisplayName());
