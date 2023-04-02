@@ -33,11 +33,21 @@ import com.goblin.qrhunter.databinding.FragmentRankbytotalscoreBinding;
 import com.goblin.qrhunter.databinding.FragmentSearchBinding;
 import com.goblin.qrhunter.domain.GetPlayersScoreUseCase;
 import com.goblin.qrhunter.ui.search.SearchViewModel;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -50,13 +60,14 @@ import android.util.Log;
 
 public class RankinglistTotalscoreFragment extends Fragment {
 
-   // private GetPlayersScoreUseCase getPlayersScoreUseCase;
-   private static final String TAG = "RankinglistTotalFrag";
+    // private GetPlayersScoreUseCase getPlayersScoreUseCase;
+    private static final String TAG = "RankinglistTotalFrag";
 
     private ListView ranklist_view;
     private RankinglistTotalViewModel viewModel;
     NavController navController;
     private FragmentRankbytotalscoreBinding binding;
+    private TextView textView_current_rank;
 
 
     @Override
@@ -68,10 +79,11 @@ public class RankinglistTotalscoreFragment extends Fragment {
         // Fragment Set Up
         binding = FragmentRankbytotalscoreBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        Log.d(TAG, "scores");
+        //Log.d(TAG, "scores");
 
         // Set up list view
         ranklist_view = binding.getRoot().findViewById(R.id.listView_totalscore);
+        textView_current_rank=binding.getRoot().findViewById(R.id.user_current_score_rank);
 
 
         //  Create a list of players
@@ -85,7 +97,6 @@ public class RankinglistTotalscoreFragment extends Fragment {
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
                         String playerName = document.getString("player.username");
-//                        Log.d("Firebase", "Player name: " + playerName);
                         int totalScore = document.getLong("totalScore").intValue();
 
                         //if the user has no QR code
@@ -93,39 +104,71 @@ public class RankinglistTotalscoreFragment extends Fragment {
                         Player player = new Player(playerName, totalScore);
                         players.add(player);
                     }
-
-                    // Once all the data is fetched, you can update the player scores in your ViewModel
+                    // Set the rank for each player
+                    int rank = 1;
                     for (Player player : players) {
-                        viewModel.updatePlayerScore(player.getUsername(), player.getTotalScore());
+                        player.setRank(rank);
+                        rank++;
                     }
-                })
-                .addOnFailureListener(e -> {
-                    Log.e(TAG, "Error fetching player scores", e);
+                    // Sort the list based on the total score
+                    Collections.sort(players, new Comparator<Player>() {
+                        @Override
+                        public int compare(Player p1, Player p2) {
+                            return Integer.compare(p2.getTotalScore(), p1.getTotalScore());
+                        }
+                    });
+                    // Update the UI with the sorted list of players including their rank
+                    List<Map<String, String>> data = new ArrayList<>();
+                    for (int i = 0; i < players.size(); i++) {
+                        Player player = players.get(i);
+                        Map<String, String> map = new HashMap<>();
+                        map.put("rank", String.valueOf(player.getRank()));
+                        map.put("name", player.getUsername());
+                        map.put("score", String.valueOf(player.getTotalScore()));
+                        data.add(map);
+                    }
+                    PlayerAdapter adapter = new PlayerAdapter(requireContext(), players);
+                    ranklist_view.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();
+                    // Get the current rank of the current user
+//                    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+//                    if (currentUser != null) {
+//                        String uid = currentUser.getUid();
+//
+//                        CollectionReference playerRef = db.collection("players");
+//                        playerRef.document(uid).get().addOnCompleteListener(task -> {
+//                            if (task.isSuccessful()) {
+//                                DocumentSnapshot document = task.getResult();
+//                                if (document.exists()) {
+//                                    Player currentPlayer = document.toObject(Player.class);
+//                                    int currentRank = currentPlayer.getRank();
+////                                    textView_current_rank.setText(String.valueOf(currentRank));
+//                                    Log.d(TAG, "Current player's rank: " + currentRank);
+//                                } else {
+//                                    Log.d(TAG, "No such document");
+//                                }
+//                            } else {
+//                                Log.d(TAG, "get failed with ", task.getException());
+//                            }
+//                        });
+//                    }
+
+
+
                 });
-        //Set the rank for players
-        int rank = 1;
-        for (int i = 0; i < players.size(); i++) {
-            Player player = players.get(i);
-            if (i > 0 && player.getTotalScore() < players.get(i - 1).getTotalScore()) {
-                rank++;
-            }
-            player.setRank(rank);
-        }
 
-        //Update the UI with the sorted list of players including their rank
-        Collections.sort(players, new Comparator<Player>() {
-            @Override
-            public int compare(Player p1, Player p2) {
-                return Integer.compare(p2.getTotalScore(), p1.getTotalScore());
-            }
-        });
-        for (int i = 0; i < players.size(); i++) {
-            players.get(i).setRank(i + 1);
-        }
 
-        PlayerAdapter adapter = new PlayerAdapter(requireContext(), players);
-        ranklist_view.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+
+
+
+
+
+        // Set changes
+
+//        PlayerAdapter adapter = new PlayerAdapter(requireContext(), players);
+//        ranklist_view.setAdapter(adapter);
+//        adapter.notifyDataSetChanged();
+
 
 
 
@@ -150,9 +193,30 @@ public class RankinglistTotalscoreFragment extends Fragment {
                 for (int i = 0; i < playerList.size(); i++) {
                     playerList.get(i).setRank(i + 1);
                 }
+                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                String uid = currentUser.getUid();
+
+                DatabaseReference playerRef = FirebaseDatabase.getInstance().getReference("players").child(uid);
+                playerRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        Player currentPlayer = dataSnapshot.getValue(Player.class);
+                        if (currentPlayer != null) {
+                            int currentRank = currentPlayer.getRank();
+                            textView_current_rank.setText(String.valueOf(currentRank));
+                            Log.d(TAG, "Current player's rank: " + currentRank);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        Log.e(TAG, "Failed to retrieve player data", databaseError.toException());
+                    }
+                });
                 PlayerAdapter adapter = new PlayerAdapter(getActivity(), playerList);
                 ranklist_view.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
+
             }
         });
 
