@@ -61,8 +61,13 @@ public class addQRCodeFragment extends Fragment {
     private addQRCodeViewModel viewModel;
     String TAG = "addQRCodeFragment";
 
-
     String qrCode_hash;
+
+    /**
+     * Takes in the qr code that was scanned in by the scanner, and sends it to be hashed / generate a post from it.
+     * @param qrCode_hash
+     * @return Returns the fragment view.
+     */
     public static addQRCodeFragment newInstance(String qrCode_hash) {
         addQRCodeFragment fragment = new addQRCodeFragment();
         Bundle args = new Bundle();
@@ -71,7 +76,18 @@ public class addQRCodeFragment extends Fragment {
         return fragment;
     }
 
-
+    /**
+     * This fragment allows the user to add the QR code they scanned into the database -> Reflects in their summary page too.
+     * @param inflater The LayoutInflater object that can be used to inflate
+     * any views in the fragment,
+     * @param container If non-null, this is the parent view that the fragment's
+     * UI should be attached to.  The fragment should not add the view itself,
+     * but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     *
+     * @return
+     */
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate layout for fragment.
         binding = FragmentAddQrCodeBinding.inflate(inflater, container, false);

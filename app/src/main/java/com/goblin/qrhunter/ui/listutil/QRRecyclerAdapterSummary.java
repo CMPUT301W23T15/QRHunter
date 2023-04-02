@@ -69,6 +69,8 @@ public class QRRecyclerAdapterSummary extends RecyclerView.Adapter<QRRecyclerAda
 
     /**
      * Called by RecyclerView to display the data at the specified position.
+     * The single difference between this adapter, and "QRRecyclerAdapter" is that this adapter gets
+     * access to the "delete" function. Where user can long-press to delete their QR code.
      *
      * @param holder   the ViewHolder which should be updated
      * @param position the position of the item within the adapter's data set

@@ -24,7 +24,6 @@ public class ScanViewModel extends ViewModel {
     private PostRepository postDB;
     private CollectionReference playerCollection;
 
-
     public ScanViewModel() {
         postDB = new PostRepository();
         post = new Post();
@@ -35,6 +34,10 @@ public class ScanViewModel extends ViewModel {
 
     }
 
+    /**
+     * Sets the QR code that was scanned in.
+     * @param qr
+     */
     public void setQRCode(String qr) {
         if(qr != null && !qr.isEmpty()) {
             qrcode = new QRCode(qr);
@@ -44,6 +47,11 @@ public class ScanViewModel extends ViewModel {
             post.setCode(null);
         }
     }
+
+    /**
+     *
+     * @return reference to the collection of players.
+     */
     public CollectionReference getPlayerCollection() {
         return playerCollection;
     }

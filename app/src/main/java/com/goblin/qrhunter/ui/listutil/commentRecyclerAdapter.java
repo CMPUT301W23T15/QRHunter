@@ -84,10 +84,6 @@ public class commentRecyclerAdapter extends RecyclerView.Adapter<commentRecycler
         String playerID = comment.getPlayerId();
         holder.bind(comment, comment.getPlayerId()); // Binds the comment, and the user ID of the commenter to that post.
 
-//        FirebaseUser usr = FirebaseAuth.getInstance().getCurrentUser();
-//        playerID = usr.getUid();
-//        holder.bind(comment, playerID);
-
         // Check if the current player ID actually left that comment.
         // If so, they get access to a pop-up menu that can delete the comment.
         if (playerID.equals(comment.getPlayerId())){

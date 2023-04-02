@@ -20,7 +20,11 @@ public class PostViewModel extends ViewModel {
         commentDB = new CommentRepository();
     }
 
-
+    /**
+     * Getter to retrieve a list of comments.
+     * @param postId
+     * @return Livedata list of comments.
+     */
     public LiveData<List<Comment>> getComments(String postId) {
         return commentDB.getByPost(postId);
     }
