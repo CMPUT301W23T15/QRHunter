@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -88,6 +89,17 @@ public class addQRCodeFragment extends Fragment {
 
 
         // 2. Add the qr information to current user
+
+        // Cancel button
+        binding.buttonCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                startActivity(intent);
+                Toast.makeText(getContext(), "QR code not added.", Toast.LENGTH_SHORT).show();
+
+            }
+        });
 
         // Get the current user (what account to add QR code to).
         binding.buttonAdd.setOnClickListener(new View.OnClickListener() {
