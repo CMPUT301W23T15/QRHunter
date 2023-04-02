@@ -117,8 +117,8 @@ public class QRRecyclerAdapter extends RecyclerView.Adapter<QRRecyclerAdapter.QR
          * @param post the Post object to bind
          */
         public void bind(Post post) {
-            mTitle.setText(post.getName()); // mTitle is the name of the post.
-            Log.d(TAG, "bind: " + post.getName());
+            mTitle.setText(post.getCode().NameGenerator()); // mTitle is the name of the post.
+            Log.d(TAG, "bind: " + post.getCode().NameGenerator());
             mPoints.setText(String.valueOf(post.getCode().getScore()));
 
             String hash = post.getCode().getHash();
