@@ -141,8 +141,8 @@ public class addQRCodeFragment extends Fragment {
                             Log.d(TAG, "Post added successfully");
 
                             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                            builder.setTitle("added");
-                            builder.setMessage("Score " + post.getCode().getScore() + " has been added");
+                            builder.setTitle("QR code successfully added");
+                            builder.setMessage("Name: " + qrName + '\n' + "Score: " + post.getCode().getScore());
                             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                 // navigate back to homepage
                                 public void onClick(DialogInterface dialog, int id) {
