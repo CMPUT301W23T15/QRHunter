@@ -150,11 +150,11 @@ public class QRRecyclerAdapterSummary extends RecyclerView.Adapter<QRRecyclerAda
          * @param post the Post object to bind
          */
         public void bind(Post post) {
-            mTitle.setText(post.getName()); // mTitle is the name of the post.
-            Log.d(TAG, "bind: " + post.getName());
+            mTitle.setText(post.getCode().NameGenerator()); // mTitle is the name of the post.
+            Log.d(TAG, "bind: " + post.getCode().NameGenerator());
             mPoints.setText(String.valueOf(post.getCode().getScore()));
-
-            String hash = post.getCode().getHash();
+            String hash = post.getCode().getHash(); // This is fixed.
+            Log.d(TAG, "Summary generated name: " + post.getCode().NameGenerator());
             Glide.with(itemView)
                     .load("https://api.dicebear.com/6.x/bottts-neutral/png?seed=" + hash)
                     .placeholder(R.drawable.baseline_qr_code_50)

@@ -64,7 +64,11 @@ public class addQRCodeFragment extends Fragment {
         }
         View root = binding.getRoot();
 
-        String hash = qrCode_hash;
+        // Make a new QR code
+        QRCode qrCode = new QRCode(qrCode_hash);
+        String qrName = qrCode.NameGenerator();
+        String hash = qrCode.getHash();
+        Log.d(TAG, "add Qr code: " + hash);
         ImageView avatarImageView = binding.qrRepresentaion;
 
         Glide.with(this)
@@ -76,8 +80,7 @@ public class addQRCodeFragment extends Fragment {
         // 1. Bind the qr information with layout
         TextView textView_QR_name = binding.textViewQRname;
         ImageView imageView_QR_representation = binding.qrRepresentaion;
-        QRCode qrCode = new QRCode(qrCode_hash);
-        String qrName = qrCode.NameGenerator();
+
         // Bind the name here...
         textView_QR_name.setText(qrName);
 
@@ -109,10 +112,11 @@ public class addQRCodeFragment extends Fragment {
 
                 if (currentUser != null) {
                     String userId = currentUser.getUid();
-                    Post post = new Post();
+                    Post post = new Post(); // This is making an entirely new post object.
                     // Add the qrCode into the post
                     post.setCode(qrCode);
                     post.setPlayerId(userId);
+                    post.setName(qrName);
 
                     // Add the geolocation into the post...
 

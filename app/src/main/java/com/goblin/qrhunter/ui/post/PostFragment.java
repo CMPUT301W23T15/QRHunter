@@ -65,7 +65,7 @@ public class PostFragment extends Fragment {
 
         commentDB = new CommentRepository();
 
-        binding.postNameView.setText("Name: " + post.getName());
+        binding.postNameView.setText("Name: " + post.getCode().NameGenerator());
         // TODO: add location
         binding.postLocationView.setText("Location: ");
 
