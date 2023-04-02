@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.goblin.qrhunter.R;
+import com.goblin.qrhunter.Score;
 import com.goblin.qrhunter.databinding.FragmentHomeBinding;
 import com.goblin.qrhunter.databinding.FragmentLeaderboardBinding;
 import com.goblin.qrhunter.ui.home.HomeViewModel;
@@ -26,6 +27,7 @@ import com.goblin.qrhunter.ui.home.HomeViewModel;
 public class LeaderboardFragment extends Fragment {
     private LeaderboardViewModel mViewModel;
     private FragmentLeaderboardBinding binding;
+
 
     /**
      * Creates a new instance of the LeaderboardFragment.
@@ -47,8 +49,27 @@ public class LeaderboardFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        // Inflate the layout for this fragment using the FragmentHomeBinding
+        // Create a new instance of HomeViewModel
         mViewModel = new ViewModelProvider(this).get(LeaderboardViewModel.class);
         binding = FragmentLeaderboardBinding.inflate(inflater, container, false);
+        View root = binding.getRoot();
+
+
+        // Set up for highest scoring QR code
+
+        binding.textViewHighestScore.setText("My Highest Scoring QR Code: 0");
+        mViewModel.getScore().observe(getViewLifecycleOwner(), score -> {
+                    if (score == null) {
+                        score = new Score();
+                    }
+                    binding.textViewHighestScore.setText("My Highest Scoring QR Code: " + score.getHighestScore());
+
+                });
+
+        // TODO: Set up for current approx ranking...
+
+
         NavController navController = Navigation.findNavController(container);
 
         binding.buttonRankByTotalScore.setOnClickListener(new View.OnClickListener() {
