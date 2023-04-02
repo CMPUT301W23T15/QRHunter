@@ -13,6 +13,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ *
+ */
 public class RankingListTotalViewModel extends ViewModel {
     private final MutableLiveData<String> mText;
     private CollectionReference playerCollection;
@@ -27,6 +30,9 @@ public class RankingListTotalViewModel extends ViewModel {
 
     private MutableLiveData<Map<String, Integer>> playerScores;
 
+    /**
+     * Constructs a new RankingListTotalViewModel and initializes the LiveData
+     */
     public RankingListTotalViewModel() {
         mText = new MutableLiveData<>();
         PlayerRepository playerRepository = new PlayerRepository();
@@ -35,10 +41,19 @@ public class RankingListTotalViewModel extends ViewModel {
         playerScores.setValue(new HashMap<>());
     }
 
+    /**
+     * Returns a LiveData object that holds the mapping from player username to score
+     * @return LiveData Map of strings and integers
+     */
     public LiveData<Map<String, Integer>> getPlayerScores() {
         return playerScores;
     }
 
+    /**
+     * Updates the player score with the passed in score
+     * @param playerName specified player
+     * @param score new score
+     */
     public void updatePlayerScore(String playerName, int score) {
         Map<String, Integer> scores = playerScores.getValue();
         scores.put(playerName, score);
