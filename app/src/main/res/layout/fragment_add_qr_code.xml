@@ -161,34 +161,41 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button_add"
-            android:layout_width="130dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="60dp"
+            android:layout_marginStart="20dp"
             android:backgroundTint="@color/primary_2nd"
             android:text="Done"
             app:cornerRadius="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.967"
-            app:layout_constraintStart_toEndOf="@id/button_cancel"
-            app:layout_constraintVertical_bias="0.447"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@id/button_location"
             app:strokeWidth="2dp" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button_cancel"
-            android:layout_width="130dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
-            android:layout_marginTop="72dp"
-            android:layout_marginEnd="15dp"
             android:backgroundTint="@color/primary_1st"
             android:text="Cancel"
             android:textColor="@color/black"
             app:cornerRadius="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintVertical_bias="0.0"
+            app:strokeWidth="2dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_location"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:backgroundTint="@color/complementary_lilac"
+            android:textColor="@color/black"
+            android:text="Tag Location"
+            app:cornerRadius="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/button_cancel"
             app:strokeWidth="2dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
