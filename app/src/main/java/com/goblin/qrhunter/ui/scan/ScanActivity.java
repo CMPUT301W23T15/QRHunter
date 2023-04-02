@@ -75,44 +75,48 @@ public class ScanActivity extends AppCompatActivity {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     dialogInterface.dismiss();
-
-                    //create an alert dialog with two buttons
-//                    AlertDialog.Builder builder2 = new AlertDialog.Builder(ScanActivity.this);
-//
-//                    builder2.setMessage("Do you want to take a photo?")
-//                            .setCancelable(false)
-//                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-//                                public void onClick(DialogInterface dialog, int id) {
-//                                    // open the TakePhotoActivity
-//                                    Intent intent = new Intent(ScanActivity.this, TakePhotoActivity.class);
-//                                    startActivity(intent);
-//                                }
-//                            })
-//                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
-//                                //QR hashed value is saved to database
-//
-//                                public void onClick(DialogInterface dialog, int id) {
-//                                    // navigate to another activity
-//                                    Intent intent = new Intent(ScanActivity.this, MainActivity.class);
-//                                    startActivity(intent);
-//                                }
-//                            });
-//                    builder2.show();
-
-                    // Create a bundle to pass data to the new fragment
-                    Bundle bundle = new Bundle();
-                    bundle.putString("qrCode_hash", qrCode_hash);
-                    addQRCodeFragment addQRCodeFragment = new addQRCodeFragment();
-                    addQRCodeFragment.setArguments(bundle);
-
-                    // Get the NavController and navigate to the AddQRFragment
-                    FragmentManager fragmentManager = getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.add(R.id.scan_container, addQRCodeFragment);
-                    fragmentTransaction.commit();
                 }
             });
+
+
+
+
+            // create an alert dialog with two buttons
+            AlertDialog.Builder builder2 = new AlertDialog.Builder(ScanActivity.this);
+
+            builder2.setMessage("Do you want to take a photo?")
+                    .setCancelable(false)
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // open the TakePhotoActivity
+                            Intent intent = new Intent(ScanActivity.this, TakePhotoActivity.class);
+                            intent.putExtra("qrCode_hash", qrCode_hash);
+                            startActivity(intent);
+                            finish();
+                        }
+                    })
+                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        //QR hashed value is saved to database
+
+                        public void onClick(DialogInterface dialog, int id) {
+                            // Create a bundle to pass data to the new fragment
+                            Bundle bundle = new Bundle();
+                            bundle.putString("qrCode_hash", qrCode_hash);
+                            addQRCodeFragment addQRCodeFragment1 = new addQRCodeFragment();
+                            addQRCodeFragment1.setArguments(bundle);
+                            // Get the NavController and navigate to the AddQRFragment
+                            FragmentManager fragmentManager = getSupportFragmentManager();
+                            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                            fragmentTransaction.add(R.id.scan_container, addQRCodeFragment1);
+                            fragmentTransaction.commit();
+                        }
+                    });
+
+            builder2.show();
             builder.show();
+
+
+
 
 
 

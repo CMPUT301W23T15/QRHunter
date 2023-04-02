@@ -21,8 +21,11 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.goblin.qrhunter.R;
+import com.goblin.qrhunter.ui.addQRCode.addQRCodeFragment;
 
 public class TakePhotoActivity extends AppCompatActivity {
 
@@ -40,6 +43,9 @@ public class TakePhotoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_takephoto);
+        Intent intent = getIntent();
+        String qrCode_hash = intent.getStringExtra("qrCode_hash");
+
 
         // By ID we can get each component which id is assigned in XML file get Buttons and imageview.
         camera_open_id = findViewById(R.id.camera_button);
@@ -72,10 +78,16 @@ public class TakePhotoActivity extends AppCompatActivity {
                     BitmapDrawable bitmapDrawable = (BitmapDrawable) click_image_id.getDrawable();
                     Bitmap bitmap = bitmapDrawable.getBitmap();
                     // TODO: Do something with the bitmap, such as saving it to a file or uploading it to a server
+                    Bundle bundle = new Bundle();
+                    bundle.putString("qrCode_hash", qrCode_hash);
+                    addQRCodeFragment addQRCodeFragment1 = new addQRCodeFragment();
+                    addQRCodeFragment1.setArguments(bundle);
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.add(R.id.takePhoto_container, addQRCodeFragment1);
+                    fragmentTransaction.commit();
 
-                    camera_open_id.setVisibility(View.INVISIBLE);
-                    // Set the retake_button visibility to VISIBLE
-                    retake_id.setVisibility(View.VISIBLE);
+
                 }
             }
         });
