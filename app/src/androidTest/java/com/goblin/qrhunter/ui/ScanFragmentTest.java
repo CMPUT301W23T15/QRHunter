@@ -49,22 +49,38 @@ public class ScanFragmentTest {
     }
 
     @Test
-    public void ScannerOpenTest(){
+    /**
+     * this test is just to show that the camera does open up, but there is no way for robotium to test
+     * camera, therefore this is all we will test
+     */
+    public void CameraOpenNotTakenTest() {
         solo.assertCurrentActivity("wrong activity", MainActivity.class);
         solo.clickOnView(solo.getView(R.id.scan_button));
         solo.assertCurrentActivity("Wrong", ScanActivity.class);
-        solo.sleep(2000);
-        solo.goBack();
+//        10 seconds to scan a qr code for test
+        solo.sleep(1000 * 10);
+        if (solo.waitForText("Your QR code is worth:")) {
+            solo.clickOnButton("OK");
+            solo.sleep(2000);
+            solo.waitForText("Do you want to take a photo");
+            solo.clickOnButton("Yes");
+            solo.clickOnView(solo.getView(R.id.retake_button));
+            solo.sleep(2000);
+            solo.goBack();
+            solo.goBack();
+        } else {
+            solo.goBack();
+            solo.goBack();
+        }
     }
 
     /**
      * Scanner flow test to scan a qr code and take picture
      * You will have 10 seconds to scan a qr code, or app will exit
      * and pass either way showing a toast for nothing scanned.
-     * TODO: find a way for camera to take picture, and proceed with the flow
      */
     @Test
-    public void ScannerFlowTest(){
+    public void ScannerFlowNoCameraTest(){
         solo.assertCurrentActivity("wrong activity", MainActivity.class);
         solo.clickOnView(solo.getView(R.id.scan_button));
         solo.assertCurrentActivity("Wrong", ScanActivity.class);
@@ -74,17 +90,40 @@ public class ScanFragmentTest {
             solo.clickOnButton("OK");
             solo.sleep(2000);
             solo.waitForText("Do you want to take a photo");
-            solo.clickOnButton("Yes");
+            solo.clickOnButton("No");
             solo.sleep(1000);
-            solo.clickOnView(solo.getView(R.id.camera_button));
+            solo.clickOnView(solo.getView(R.id.button_location));
+            solo.clickOnButton("Yes");
             solo.sleep(2000);
-            solo.assertCurrentActivity("should be in photo", TakePhotoActivity.class);
-//            find way to click on take photo!!!!!
 
+            solo.clickOnView(solo.getView(R.id.button_remove_location));
+            solo.sleep(1000);
+            solo.clickOnButton("YES");
+            solo.sleep(1000);
+
+
+            solo.clickOnView(solo.getView(R.id.button_location));
+            solo.sleep(1000);
+            solo.clickOnButton("Yes");
+            solo.sleep(2000);
+            solo.clickOnView(solo.getView(R.id.button_add));
+            solo.clickOnButton("OK");
+            solo.sleep(2000);
         }
         else solo.goBack();
     }
 
-
-
+    @Test
+    public void CheckSummaryPostAddedTest(){
+        solo.assertCurrentActivity("wrong activity", MainActivity.class);
+        solo.clickOnView(solo.getView(R.id.navigation_summary));
+        solo.sleep(1000);
+//        idk what this view is, click on it and then go back
+        solo.clickOnText("QR ID:");
+        solo.sleep(3000);
+        solo.clickOnText("also scanned by");
+        solo.sleep(1000);
+        solo.goBack();
+        solo.goBack();
+    }
 }
