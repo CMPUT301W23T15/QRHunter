@@ -38,6 +38,13 @@ public class TakePhotoActivity extends AppCompatActivity {
     Button confirm_id;
     Button retake_id;
 
+    /**
+     * Sets up the view to take a photo.
+     * @param savedInstanceState If the activity is being re-initialized after
+     *     previously being shut down then this Bundle contains the data it most
+     *     recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.</i></b>
+     *
+     */
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,7 +111,10 @@ public class TakePhotoActivity extends AppCompatActivity {
         });
 
     }
-    // Check if camera permission is granted, if not, request permission
+
+    /**
+     * Checks if camera permission is granted, if not, request.
+     */
     private void checkCameraPermission() {
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA_PERMISSION);
@@ -112,12 +122,25 @@ public class TakePhotoActivity extends AppCompatActivity {
             openCamera();
         }
     }
-    // Open the camera for capture the image
+
+    /**
+     * Opens the camera to take a photo.
+     */
     private void openCamera() {
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(cameraIntent, pic_id);
     }
-    // Handle the permission request result
+
+    /**
+     * Handles the permission result request.
+     * @param requestCode The request code passed in {@link #requestPermissions(
+     * android.app.Activity, String[], int)}
+     * @param permissions The requested permissions. Never null.
+     * @param grantResults The grant results for the corresponding permissions
+     *     which is either {@link android.content.pm.PackageManager#PERMISSION_GRANTED}
+     *     or {@link android.content.pm.PackageManager#PERMISSION_DENIED}. Never null.
+     *
+     */
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);

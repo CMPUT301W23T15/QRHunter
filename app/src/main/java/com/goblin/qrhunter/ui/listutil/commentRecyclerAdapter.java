@@ -84,10 +84,6 @@ public class commentRecyclerAdapter extends RecyclerView.Adapter<commentRecycler
         String playerID = comment.getPlayerId();
         holder.bind(comment, comment.getPlayerId()); // Binds the comment, and the user ID of the commenter to that post.
 
-//        FirebaseUser usr = FirebaseAuth.getInstance().getCurrentUser();
-//        playerID = usr.getUid();
-//        holder.bind(comment, playerID);
-
         // Check if the current player ID actually left that comment.
         // If so, they get access to a pop-up menu that can delete the comment.
         if (playerID.equals(comment.getPlayerId())){
@@ -137,7 +133,7 @@ public class commentRecyclerAdapter extends RecyclerView.Adapter<commentRecycler
 
        private final String TAG = "commentViewHolder";
        private final TextView mCommentNameView;
-       //private final TextView mWhoCommentedView;
+       private final TextView mCommenterView;
        private final ImageView mProfileImageView;
 
        private static FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -187,12 +183,13 @@ public class commentRecyclerAdapter extends RecyclerView.Adapter<commentRecycler
         public commentViewHolder(View itemView) {
             super(itemView);
             mCommentNameView = itemView.findViewById(R.id.user_comment);
-            //mWhoCommentedView = itemView.findViewById(R.id.who_commented);
+            mCommenterView = itemView.findViewById(R.id.commenter);
             mProfileImageView = itemView.findViewById(R.id.player_icon_image);
         }
 
         /**
          * Binds the given comment object to the views in the commentViewHolder.
+         * Sets the username + profile picture of a given comment.
          *
          * @param comment the comment object to bind
          */
@@ -206,6 +203,10 @@ public class commentRecyclerAdapter extends RecyclerView.Adapter<commentRecycler
                             .load("https://api.dicebear.com/6.x/avataaars/png?seed=" + encodedUsername)
                             .placeholder(R.drawable.ic_profile_24)
                             .into(mProfileImageView);
+
+                    // Set username
+                    mCommenterView.setText(username + ":");
+
                 }
             });
 

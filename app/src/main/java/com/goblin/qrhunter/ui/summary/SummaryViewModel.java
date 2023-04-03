@@ -46,6 +46,10 @@ public class SummaryViewModel extends ViewModel {
 
     }
 
+    /**
+     * Gets the current user who has the QR codes in the summary page.
+     * @return The current user.
+     */
     private String getUserId() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         // if user is not logged in they will be kicked back to the welcome screen.
