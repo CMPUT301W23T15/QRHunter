@@ -100,9 +100,9 @@ public class ProfileFragment extends Fragment {
         });
 
 
-        binding.debugButton.setOnClickListener(v -> {
-            navController.navigate(R.id.action_profileFragment_to_debugFragment);
-        });
+//        binding.debugButton.setOnClickListener(v -> {
+//            navController.navigate(R.id.action_profileFragment_to_debugFragment);
+//        });
         return binding.getRoot();
     }
 
