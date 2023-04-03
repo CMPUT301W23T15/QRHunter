@@ -195,11 +195,29 @@ public class addQRCodeFragment extends Fragment {
                                         binding.buttonRemoveLocation.setOnClickListener(new View.OnClickListener() {
                                             @Override
                                             public void onClick(View v) {
-                                                // Resets coordinates.
-                                                post.setLng(0.0);
-                                                post.setLat(0.0);
-                                                binding.textViewQRlocation.setText("No Location Tagged");
-                                                binding.buttonRemoveLocation.setVisibility(View.INVISIBLE);
+                                                // Show "are u sure" dialog
+                                                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                                                builder.setTitle("Remove Tagged Location");
+                                                builder.setMessage("Are you sure?");
+                                                builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                                                    // navigate back to homepage
+                                                    public void onClick(DialogInterface dialog, int id) {
+// Resets coordinate
+                                                        post.setLng(0.0);
+                                                        post.setLat(0.0);
+                                                        binding.textViewQRlocation.setText("No Location Tagged");
+                                                        binding.buttonRemoveLocation.setVisibility(View.INVISIBLE);
+                                                    }
+                                                });
+                                                builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialog, int which) {
+                                                        ; // Doesn't need to do anything.
+                                                    }
+                                                });
+                                                AlertDialog alert = builder.create();
+                                                alert.show();
+
                                             }
                                         });
 
