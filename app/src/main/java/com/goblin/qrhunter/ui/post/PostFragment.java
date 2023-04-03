@@ -80,7 +80,12 @@ public class PostFragment extends Fragment {
 
         binding.postNameView.setText("Name: " + post.getCode().NameGenerator());
         // TODO: add location
-        binding.postLocationView.setText("Location: ");
+        if (post.getLng() != 0.0 && post.getLat() != 0.0){
+            binding.postLocationView.setText("Location: " + post.getLat() +"," + post.getLng());
+        }
+        else{
+            binding.postLocationView.setText("No Set Location");
+        }
 
         String hash = post.getCode().getHash();
         ImageView avatarImageView = binding.postCodeImg;
