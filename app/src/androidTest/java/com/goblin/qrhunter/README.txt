@@ -13,4 +13,14 @@ if when run the folder, and leaderBoardFragmentTest fails due to binding issue,
 just run the folder again because this is an emulator problem.
 If having random issues, please run MainActivity (not the test) once and then run the tests.
 
-- Alvin wu
+Start the user off with zero posts, for realistic purpopses. if user has posts when run the tests, please delete
+them and run the tests.
+
+Also, please run through main and play around with some of the permissions needed for the app so testing goes
+smoothly. else, issues may arise where they need permission for (eg. camera) that robotium did not handle
+
+Non Testable
+- there is no way for robotium to be able to access the emulators camera to take picture, so we tested
+- up to the point where it can open camera flawlessly
+
+- Alvin wu, email aswu@ualberta.ca for further questions

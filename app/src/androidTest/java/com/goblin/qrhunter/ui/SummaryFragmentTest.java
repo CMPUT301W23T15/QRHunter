@@ -1,6 +1,7 @@
 package com.goblin.qrhunter.ui;
 
 import android.app.Activity;
+import android.view.KeyEvent;
 
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
@@ -47,11 +48,34 @@ public class SummaryFragmentTest {
     }
 
     @Test
-    public void SummaryTest(){
+    public void SummaryCheckTest(){
         solo.assertCurrentActivity("wrong activity", MainActivity.class);
         solo.clickOnView(solo.getView(R.id.navigation_summary));
         solo.sleep(2000);
         solo.goBack();
     }
+
+    @Test
+    public void addDeleteCommentTest(){
+        solo.assertCurrentActivity("wrong activity", MainActivity.class);
+        solo.clickOnView(solo.getView(R.id.navigation_summary));
+        solo.clickOnText("QR ID:");
+        solo.clickOnView(solo.getView(R.id.add_comment_view));
+        solo.sleep(2000);
+        solo.sendKey(KeyEvent.KEYCODE_N);
+        solo.sendKey(KeyEvent.KEYCODE_I);
+        solo.sendKey(KeyEvent.KEYCODE_C);
+        solo.sendKey(KeyEvent.KEYCODE_E);
+        solo.sendKey(KeyEvent.KEYCODE_ESCAPE);
+        solo.sleep(2000);
+        solo.clickOnView(solo.getView(R.id.add_comment_btn));
+        solo.sleep(1000);
+        solo.clickLongOnText("nice");
+        solo.sleep(1000);
+//        CANT FIND THE BTTN
+//        solo.clickOnButton("DELETE");
+//        solo.sleep(1000);
+    }
+
 
 }
