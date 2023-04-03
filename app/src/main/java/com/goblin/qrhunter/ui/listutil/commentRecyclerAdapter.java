@@ -37,7 +37,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-
+/**
+ * Custom adapter which is used to display comments
+ */
 public class commentRecyclerAdapter extends RecyclerView.Adapter<commentRecyclerAdapter.commentViewHolder> {
 
     List<Comment> mComments = new ArrayList<>();

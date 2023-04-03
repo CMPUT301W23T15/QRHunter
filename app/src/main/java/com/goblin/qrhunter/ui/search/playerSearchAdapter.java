@@ -22,6 +22,9 @@ import com.goblin.qrhunter.ui.profile.OtherProfileFragment;
 
 import java.util.List;
 
+/**
+ * A custom adapter for displaying search results of player objects
+ */
 public class playerSearchAdapter extends FirestoreRecyclerAdapter<Player, playerSearchAdapter.playerViewholder> {
     public playerSearchAdapter(@NonNull FirestoreRecyclerOptions<Player> options){
         super(options);
