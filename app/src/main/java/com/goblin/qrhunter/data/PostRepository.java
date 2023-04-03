@@ -191,6 +191,14 @@ public class PostRepository extends BaseRepository<Post> {
 
     }
 
+    /**
+     * Retrieves nearby posts within the specified radius from the given latitude and longitude.
+     *
+     * @param lat the latitude of the center location
+     * @param lng the longitude of the center location
+     * @param radiusInM the radius in meters around the center location to search for nearby posts
+     * @return a LiveData containing a list of Post objects within the specified radius
+     */
     public LiveData<List<Post>> getNearBy(double lat, double lng, double radiusInM) {
 
         Log.d(TAG, "getNearBy: started call");

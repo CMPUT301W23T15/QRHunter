@@ -302,6 +302,13 @@ public class QRCode implements Serializable {
     }
 
 
+    /**
+     * Checks if this QRCode is equal to another object.
+     *
+     * @param obj The object to compare with this QRCode.
+     *
+     * @return True if the QRCode hash is the same as the other QRCode's hash, false otherwise.
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {

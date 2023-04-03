@@ -42,6 +42,10 @@ public class FirebaseLiveData<T extends Entity> extends LiveData<List<T>> {
         startListening();
     }
 
+    /**
+     * Called when the LiveData becomes active.
+     * If there is no active listener, it starts the snapshot listener to receive updates.
+     */
     @Override
     protected void onActive() {
         super.onActive();
@@ -50,6 +54,10 @@ public class FirebaseLiveData<T extends Entity> extends LiveData<List<T>> {
         }
     }
 
+    /**
+     * Starts listening for snapshot updates from the Firestore query.
+     * When updates are received, the LiveData's value is set to the new list of items.
+     */
     private void startListening() {
         listenerReg = query.addSnapshotListener((QuerySnapshot snapshot, FirebaseFirestoreException e)-> {
             if (e != null) {
@@ -71,10 +79,10 @@ public class FirebaseLiveData<T extends Entity> extends LiveData<List<T>> {
     }
 
 
-    /*
-        Called when the LiveData becomes inactive.
-        Removes the snapshot listener to prevent further updates to the LiveData.
-         */
+    /**
+     * Called when the LiveData becomes inactive.
+     * Removes the snapshot listener to prevent further updates to the LiveData.
+     */
     @Override
     protected void onInactive() {
         super.onInactive();
