@@ -3,6 +3,13 @@ IMPORTANT NOTES IN TESTING
 Should test firebase folder with: firebase emulators:start -> then run the firebase folder for tests
 (assuming firebase login is already in)
 
+FIREBASE:
+if firebase doesn't run / pass, it is not connected.
+in terminal in the firebase folder:
+- firebase user --add
+- use the key buttons (dpad) to stage our project
+- then, firebase emulators:start
+
 RUN THE UI FOLDER TESTS SEPERATELY WITHOUT FIREBASE -> as firebase might conflict with the robotium
 solo user with an actual firebase user, causing issues with the profile tests.
 
