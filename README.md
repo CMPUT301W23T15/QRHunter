@@ -15,6 +15,7 @@ QRHunter is a lightweight android mobile application, where users from across th
 * https://developer.android.com/guide/topics/resources/more-resources
 * https://developer.android.com/reference/androidx/core/view/MenuProvider
 * https://developer.android.com/training/data-storage/shared/media
+* https://www.dicebear.com
 
 
 
