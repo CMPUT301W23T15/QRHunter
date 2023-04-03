@@ -94,6 +94,13 @@ public class MainActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.action_bar_menu, menu);
         menu.findItem(R.id.profile_button).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            /**
+             * This method is triggered when the profile button in the action bar menu is clicked.
+             * It navigates to the profile fragment within the app's navigation hierarchy.
+             *
+             * @param item The menu item that was clicked.
+             * @return false to allow the normal menu processing to continue, true to consume it here.
+             */
             @Override
             public boolean onMenuItemClick(@NonNull MenuItem item) {
                 navController.navigate(R.id.action_navigate_to_profile);
@@ -134,6 +141,12 @@ public class MainActivity extends AppCompatActivity {
         }
 
         authListener = new FirebaseAuth.AuthStateListener() {
+            /**
+             * This method is called when the authentication state of the user changes.
+             * It checks if the current user is signed out, and if so, starts the WelcomeActivity.
+             *
+             * @param firebaseAuth The FirebaseAuth instance that this listener is attached to.
+             */
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();

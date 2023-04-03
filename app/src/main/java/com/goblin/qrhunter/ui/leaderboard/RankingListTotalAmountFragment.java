@@ -31,6 +31,9 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
+/**
+ *  Displays a list of players ranked by their total QR code amounts.
+ */
 public class RankingListTotalAmountFragment extends Fragment {
     private static final String TAG = "RankingListTotalAmountFragment";
     private ListView rankListView;
@@ -39,6 +42,20 @@ public class RankingListTotalAmountFragment extends Fragment {
     NavController navController;
     private FragmentRankbytotalamountBinding binding;
 
+    /**
+     * Sets up the view model, retrieves player data from Firestore.
+     * Sets up the list view, and updates the player rankings and scores.
+     *
+     * @param inflater The LayoutInflater object that can be used to inflate
+     * any views in the fragment,
+     * @param container If non-null, this is the parent view that the fragment's
+     * UI should be attached to.  The fragment should not add the view itself,
+     * but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     *
+     * @return The View for the fragment's UI, or null.
+     */
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         viewModel = new ViewModelProvider(this).get(RankinglistTotalViewModel.class);
@@ -86,6 +103,15 @@ public class RankingListTotalAmountFragment extends Fragment {
 
         // Update the UI with the sorted list of players including their rank
         Collections.sort(players, new Comparator<Player>() {
+            /**
+             * Compares two Player objects based on their total scores in descending order.
+             *
+             * @param p1 The first player object to be compared
+             * @param p2 The second player object to be compared
+             *
+             * @return A positive integer if p1's total score is less than p2's, zero if they're equal,
+             * or a negative integer if p1's total score is greater than p2's.
+             */
             @Override
             public int compare(Player p1, Player p2) {
                 return Integer.compare(p2.getTotalScore(), p1.getTotalScore());
@@ -101,6 +127,10 @@ public class RankingListTotalAmountFragment extends Fragment {
 
         // if ViewModel is updated, regenerate list of player and update adapter
         viewModel.getPlayerScores().observe(getViewLifecycleOwner(), new Observer<Map<String, Integer>>() {
+            /**
+             * Updates the UI with the new player list and their ranks based on the updated player amounts.
+             * @param playerAmounts A map of player usernames to their total QR code amounts.
+             */
             @Override
             public void onChanged(Map<String, Integer> playerAmounts) {
                 List<Player> playerList = new ArrayList<>();
@@ -111,6 +141,15 @@ public class RankingListTotalAmountFragment extends Fragment {
                     playerList.add(playerObject);
                 }
                 Collections.sort(playerList, new Comparator<Player>() {
+                    /**
+                     * Compares two Player objects based on their total scores in descending order.
+                     *
+                     * @param p1 The first player object to be compared
+                     * @param p2 The second player object to be compared
+                     *
+                     * @return A positive integer if p1's total score is less than p2's, zero if they're equal,
+                     * or a negative integer if p1's total score is greater than p2's.
+                     */
                     @Override
                     public int compare(Player p1, Player p2) {
                         return Integer.compare(p2.getTotalScore(), p1.getTotalScore()); // Sort in descending order

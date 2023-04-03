@@ -19,6 +19,9 @@ import com.goblin.qrhunter.ui.profile.OtherProfileFragment;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A RecyclerView adapter for displaying scores and associated players in a list
+ */
 public class AlsoRecyclerAdapter extends RecyclerView.Adapter<AlsoRecyclerAdapter.AlsoViewHolder> {
 
     List<Score> mScores = new ArrayList<>();

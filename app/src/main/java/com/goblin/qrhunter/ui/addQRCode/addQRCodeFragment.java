@@ -61,13 +61,20 @@ public class addQRCodeFragment extends Fragment {
     private addQRCodeViewModel viewModel;
     String TAG = "addQRCodeFragment";
 
+
+    private ActivityResultLauncher<String[]> locationPermissionLauncher;
+    private static final int REQUEST_LOCATION_PERMISSION = 1;
+
+
     String qrCode_hash;
+
 
     /**
      * Takes in the qr code that was scanned in by the scanner, and sends it to be hashed / generate a post from it.
      * @param qrCode_hash
      * @return Returns the fragment view.
      */
+
     public static addQRCodeFragment newInstance(String qrCode_hash) {
         addQRCodeFragment fragment = new addQRCodeFragment();
         Bundle args = new Bundle();
@@ -109,6 +116,19 @@ public class addQRCodeFragment extends Fragment {
         Log.d(TAG, "add Qr code: " + hash);
         ImageView avatarImageView = binding.qrRepresentaion;
 
+        // Immediately make a new post object (once the view inflates)
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        String userId = currentUser.getUid();
+        Post post = new Post();
+
+        // Add the qrCode into the post
+        post.setCode(qrCode);
+        post.setPlayerId(userId);
+        post.setName(qrName);
+
+        // By default, can't see "remove location" button
+        binding.buttonRemoveLocation.setVisibility(View.INVISIBLE);
+
         Glide.with(this)
                 .load("https://api.dicebear.com/6.x/bottts-neutral/png?seed=" + hash)
                 .placeholder(R.drawable.baseline_qr_code_50)
@@ -134,22 +154,149 @@ public class addQRCodeFragment extends Fragment {
             }
         });
 
+//        Tag location button
+        binding.buttonLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("Permission");
+                builder.setMessage("Let app use your location?");
+
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Add the code to handle the "Yes" button click here
+                        Log.d(TAG, "made it here: yes click");
+
+                        // Check if the location permission is granted
+                        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
+                                == PackageManager.PERMISSION_GRANTED) {
+                            // Get the user's current location
+                            FusedLocationProviderClient fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
+                            fusedLocationProviderClient.getLastLocation().addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
+                                @Override
+                                public void onSuccess(Location location) {
+                                    if (location != null) {
+                                        double latitude = location.getLatitude();
+                                        double longitude = location.getLongitude();
+                                        Log.d(TAG, "got long lat: line 183");
+                                        Log.d(TAG, "lat:"+ latitude);
+                                        Log.d(TAG, "long:"+ longitude);
+                                        // Sets the post's latitude & longitude (this is the MAIN way).
+                                        post.setLat(latitude);
+                                        post.setLng(longitude);
+                                        Log.d(TAG, "post's lat: " + post.getLat() + ", post's long: " + post.getLng());
+                                        String latitudeView = String.valueOf(latitude);
+                                        String longitudeView = String.valueOf(longitude);
+                                        binding.textViewQRlocation.setText(latitudeView+","+longitudeView);
+
+                                        // If the coordinates get added. Show the button to remove them.
+                                        binding.buttonRemoveLocation.setVisibility(View.VISIBLE);
+                                        binding.buttonRemoveLocation.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                // Show "are u sure" dialog
+                                                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                                                builder.setTitle("Remove Tagged Location");
+                                                builder.setMessage("Are you sure?");
+                                                builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                                                    // navigate back to homepage
+                                                    public void onClick(DialogInterface dialog, int id) {
+// Resets coordinate
+                                                        post.setLng(0.0);
+                                                        post.setLat(0.0);
+                                                        binding.textViewQRlocation.setText("No Location Tagged");
+                                                        binding.buttonRemoveLocation.setVisibility(View.INVISIBLE);
+                                                    }
+                                                });
+                                                builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialog, int which) {
+                                                        ; // Doesn't need to do anything.
+                                                    }
+                                                });
+                                                AlertDialog alert = builder.create();
+                                                alert.show();
+
+                                            }
+                                        });
+
+                                        // Do something with the user's current location here
+                                    } else {
+                                        Log.d(TAG, "made it to no location");
+                                        // If the location is null, request the user's current location again
+                                        LocationRequest locationRequest = LocationRequest.create();
+                                        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+                                        locationRequest.setInterval(10000); // Update location every 10 seconds
+
+                                        LocationCallback locationCallback = new LocationCallback() {
+                                            @Override
+                                            public void onLocationResult(LocationResult locationResult) {
+                                                super.onLocationResult(locationResult);
+                                                if (locationResult != null) {
+                                                    Log.d(TAG, "location result isnt null");
+                                                    Location location = locationResult.getLastLocation();
+                                                    double latitude = location.getLatitude();
+                                                    double longitude = location.getLongitude();
+                                                    Log.d(TAG, "got long lat: line 183");
+                                                    Log.d(TAG, "lat:"+ latitude);
+                                                    Log.d(TAG, "long:"+ longitude);
+
+                                                    // Sets the post's latitude & longitude (this is the secondary way).
+                                                    post.setLat(latitude);
+                                                    post.setLng(longitude);
+                                                    Log.d(TAG, "post's lat: " + post.getLat() + ", post's long: " + post.getLng());
+                                                    String latitudeView = String.valueOf(latitude);
+                                                    String longitudeView = String.valueOf(longitude);
+                                                    binding.textViewQRlocation.setText(latitudeView+","+longitudeView);
+
+                                                    // Do something with the user's current location here
+                                                } else {
+                                                    // Handle the case where the location is still null
+                                                    Log.d(TAG, "still null ");
+                                                }
+                                            }
+                                        };
+//                                        no clue if we need this line, not having this line might cause issues tho
+//                                        fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, null);
+
+//                                        not sure
+                                        fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, null);
+
+                                    }
+                                }
+                            });
+                        } else {
+                            // Permission is not granted, request for the permission
+                            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION_PERMISSION);
+                            Log.d(TAG, "Permission to get location can not be accessed for w/e reason. ");
+                        }
+
+
+
+                    }
+
+                });
+
+
+                // Add the "No" button
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Add the code to handle the "No" button click here
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
+
         // Get the current user (what account to add QR code to).
         binding.buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-
                 if (currentUser != null) {
-                    String userId = currentUser.getUid();
-                    Post post = new Post(); // This is making an entirely new post object.
-                    // Add the qrCode into the post
-                    post.setCode(qrCode);
-                    post.setPlayerId(userId);
-                    post.setName(qrName);
-
-                    // Add the geolocation into the post...
-
                     // Add the post into the firebase
                     PostRepository postRepo = new PostRepository();
                     postRepo.add(post).addOnCompleteListener(task -> {

@@ -50,7 +50,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
 
-
+/**
+ * The MapFragment class is responsible for displaying a Google Map with markers indicating nearby posts.
+ * The user's location is obtained using the FusedLocationProviderClient.
+ * If the user grants location permissions, the map will center around their location.
+ */
 public class MapFragment extends Fragment /*implements OnMapReadyCallback*/ {
 
     private String TAG = "MapFragment";
@@ -145,10 +149,12 @@ public class MapFragment extends Fragment /*implements OnMapReadyCallback*/ {
 
 
 
+
     private void handleTask(@NonNull GoogleMap map, @NonNull Task<Location> task) {
         String name = "Me";
         LatLng loc = new LatLng(53.545883, -113.490112);
         if(task.isSuccessful() && task.getResult() != null) {
+
             loc = new LatLng(task.getResult().getLatitude(), task.getResult().getLongitude());
             name = "YEG";
         } else {
@@ -183,7 +189,19 @@ public class MapFragment extends Fragment /*implements OnMapReadyCallback*/ {
                 });
     }
 
-
+    /**
+     * Creates and returns the view hierarchy associated with the fragment.
+     *
+     * @param inflater The LayoutInflater object that can be used to inflate
+     * any views in the fragment,
+     * @param container If non-null, this is the parent view that the fragment's
+     * UI should be attached to.  The fragment should not add the view itself,
+     * but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     *
+     * @return the view for the fragment's UI, or null.
+     */
     @SuppressLint("MissingPermission")
     @Nullable
     @Override
@@ -199,6 +217,14 @@ public class MapFragment extends Fragment /*implements OnMapReadyCallback*/ {
         return binding.getRoot();
     }
 
+    /**
+     * Called immediately after onCreateView has returned. This method can be used to access views
+     * in the hierarchy.
+     *
+     * @param view The View returned by {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
