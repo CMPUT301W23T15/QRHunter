@@ -11,17 +11,25 @@ import com.goblin.qrhunter.data.PostRepository;
 
 import java.util.List;
 
+/**
+ * This class is responsible for holding and processing data for the map screen.
+ * It provides access to nearby posts to display on the map.
+ */
 public class PostViewModel extends ViewModel {
     // TODO: Implement the ViewModel
 
     private Post post;
     private CommentRepository commentDB;
+
+    /**
+     * Constructs a new MapViewModel
+     */
     public PostViewModel() {
         commentDB = new CommentRepository();
     }
 
     /**
-     * Getter to retrieve a list of comments.
+     * Getter to retrieve a list of comments based on userId
      * @param postId
      * @return Livedata list of comments.
      */

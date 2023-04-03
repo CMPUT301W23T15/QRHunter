@@ -11,7 +11,8 @@ import com.goblin.qrhunter.data.PlayerRepository;
 import com.google.firebase.firestore.CollectionReference;
 
 /**
- * SearchViewModel stub
+ * The SearchViewModel class is responsible for managing
+ * and providing data related to the search screen of the application.
  */
 public class SearchViewModel extends ViewModel {
 
@@ -20,7 +21,8 @@ public class SearchViewModel extends ViewModel {
 
 
     /**
-     * Stub constructor
+     * Constructs a new instance of SearchViewModel and gets a reference to the Firebase players
+     * collection
      */
     public SearchViewModel() {
         mText = new MutableLiveData<>();
@@ -30,9 +32,6 @@ public class SearchViewModel extends ViewModel {
 
     }
 
-    /**
-     * SearchViewModel stub method for usage example
-     */
     public LiveData<String> getText() {
         return mText;
     }
