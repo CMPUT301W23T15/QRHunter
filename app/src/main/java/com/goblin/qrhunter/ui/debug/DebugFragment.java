@@ -25,16 +25,37 @@ import com.google.android.gms.tasks.Task;
 
 import com.goblin.qrhunter.R;
 
+/**
+ * A Fragment for the Debug screen, which provides UI to generate random and fixed posts.
+ */
 public class DebugFragment extends Fragment {
 
     private DebugViewModel mViewModel;
     private FragmentDebugBinding binding;
 
 
+    /**
+     * Creates a new instance of DebugFragment.
+     *
+     * @return a new instance of DebugFragment
+     */
     public static DebugFragment newInstance() {
         return new DebugFragment();
     }
 
+    /**
+     * Sets up the DebugFragment view, initializes the ViewModel, and handles button clicks.
+     *
+     * @param inflater The LayoutInflater object that can be used to inflate
+     * any views in the fragment,
+     * @param container If non-null, this is the parent view that the fragment's
+     * UI should be attached to.  The fragment should not add the view itself,
+     * but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     *
+     * @return The View for the fragment's UI, or null.
+     */
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {

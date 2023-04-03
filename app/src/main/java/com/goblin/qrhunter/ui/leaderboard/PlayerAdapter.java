@@ -16,37 +16,81 @@ import com.goblin.qrhunter.R;
 
 import java.util.List;
 
+/**
+ * A custom adapter for displaying player data in a leaderboard view.
+ */
 public class PlayerAdapter extends BaseAdapter {
     private Context context;
     private List<Player> playerList;
     private String mode = "score";
 
+    /**
+     * Constructor for creating a new PlayerAdapter object.
+     *
+     * @param context The context in which the adapter is being used.
+     * @param playerList The list of players to be displayed in the leaderboard.
+     */
     public PlayerAdapter(Context context, List<Player> playerList) {
         this.context = context;
         this.playerList = playerList;
     }
 
+    /**
+     * Constructor for creating a new PlayerAdapter object with a specified mode.
+     *
+     * @param context The context in which the adapter is being used.
+     * @param playerList The list of players to be displayed in the leaderboard.
+     * @param mode The mode of the leaderboard i.e. score or amount
+     */
     public PlayerAdapter(Context context, List<Player> playerList, String mode) {
         this.context = context;
         this.playerList = playerList;
         this.mode = mode;
     }
 
+    /**
+     * Returns the number of players in the leaderboard.
+     *
+     * @return the number of players in the leaderboard.
+     */
     @Override
     public int getCount() {
         return playerList.size();
     }
 
+    /**
+     * Returns the player at the specified position in the leaderboard.
+     *
+     * @param position The position of the player in the leaderboard.
+     *
+     * @return the player at the specified position in the leaderboard.
+     */
     @Override
     public Player getItem(int position) {
         return playerList.get(position);
     }
 
+    /**
+     * Returns the ID of the player at the specified position in the leaderboard.
+     *
+     * @param position position The position of the player in the leaderboard.
+     *
+     * @return the ID of the player at the specified position in the leaderboard.
+     */
     @Override
     public long getItemId(int position) {
         return position;
     }
 
+    /**
+     * Returns the view for the player at the specified position in the leaderboard.
+     *
+     * @param position position The position of the player in the leaderboard.
+     * @param convertView convertView The old view to reuse, if possible.
+     * @param parent The parent view that the new view will be attached to.
+     *
+     * @return the view for the player at the specified position in the leaderboard.
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         Player player = playerList.get(position);
