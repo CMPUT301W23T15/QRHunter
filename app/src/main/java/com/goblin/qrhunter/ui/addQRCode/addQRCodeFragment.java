@@ -259,7 +259,7 @@ public class addQRCodeFragment extends Fragment {
                                         };
 //                                        no clue if we need this line, not having this line might cause issues tho
 //                                        not sure
-//                                        fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, null);
+                                        fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, null);
                                     }
                                 }
                             });
