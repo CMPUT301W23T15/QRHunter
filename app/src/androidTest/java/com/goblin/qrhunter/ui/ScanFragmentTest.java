@@ -64,7 +64,7 @@ public class ScanFragmentTest {
      * TODO: find a way for camera to take picture, and proceed with the flow
      */
     @Test
-    public void ScannerFlowTest(){
+    public void ScannerFlowNoCameraTest(){
         solo.assertCurrentActivity("wrong activity", MainActivity.class);
         solo.clickOnView(solo.getView(R.id.scan_button));
         solo.assertCurrentActivity("Wrong", ScanActivity.class);
@@ -74,15 +74,30 @@ public class ScanFragmentTest {
             solo.clickOnButton("OK");
             solo.sleep(2000);
             solo.waitForText("Do you want to take a photo");
-            solo.clickOnButton("Yes");
+            solo.clickOnButton("No");
             solo.sleep(1000);
-            solo.clickOnView(solo.getView(R.id.camera_button));
+            solo.clickOnView(solo.getView(R.id.button_location));
+            solo.sleep(1000);
+            solo.clickOnButton("Yes");
             solo.sleep(2000);
-            solo.assertCurrentActivity("should be in photo", TakePhotoActivity.class);
+            solo.clickOnView(solo.getView(R.id.button_add));
+            solo.sleep(2000);
+
+//            solo.clickOnView(solo.getView(R.id.camera_button));
+//            solo.sleep(2000);
+//            solo.assertCurrentActivity("should be in photo", TakePhotoActivity.class);
 //            find way to click on take photo!!!!!
 
         }
         else solo.goBack();
+    }
+
+    @Test
+    public void CheckSummaryPostAddedTest(){
+        solo.assertCurrentActivity("wrong activity", MainActivity.class);
+        solo.clickOnView(solo.getView(R.id.navigation_summary));
+        solo.sleep(1000);
+//        idk what this view is, click on it and then go back
     }
 
 

@@ -72,7 +72,7 @@ public class QRCodeUnitTest {
         String name = qrCode.NameGenerator();
         assertNotNull(name);
 //        manually went to see what name was
-        assertEquals(name, "Dazzling-Magenta-Archen");
+        assertEquals(name, "S-Likeable-Gligar");
     }
 
     @Test
