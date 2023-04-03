@@ -19,6 +19,8 @@ import com.goblin.qrhunter.Score;
 import com.goblin.qrhunter.databinding.FragmentHomeBinding;
 import com.goblin.qrhunter.databinding.FragmentLeaderboardBinding;
 import com.goblin.qrhunter.ui.home.HomeViewModel;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -67,7 +69,26 @@ public class LeaderboardFragment extends Fragment {
 
                 });
 
-        // TODO: Set up for current approx ranking...
+        binding.titleRanking.setText("My Approximate Ranking: 0");
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference scoresRef = db.collection("scores");
+        mViewModel.getScore().observe(getViewLifecycleOwner(), score -> {
+            if (score == null) {
+                score = new Score();
+            }
+            int highestScore = score.getHighestScore();
+
+            // Query the scores collection to get the count of players with a higher score
+            scoresRef.whereGreaterThan("highestScore", highestScore)
+                    .get()
+                    .addOnSuccessListener(queryDocumentSnapshots -> {
+                        int higherScoreCount = queryDocumentSnapshots.size();
+                        int approximateRank = higherScoreCount + 1;
+                        binding.titleRanking.setText("My Approximate Ranking: " + approximateRank);
+                    });
+
+        });
+
 
 
         NavController navController = Navigation.findNavController(container);
