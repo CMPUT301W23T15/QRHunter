@@ -33,7 +33,7 @@ public class EditProfileDialogFragment extends DialogFragment {
     private Player mPlayer;
 
     /**
-     * Creates a new instance of the EditProfileDialogFragment.
+     * Creates a new instance of the EditProfileDialogFragment based on the player
      *
      * @return The new instance of EditProfileDialogFragment.
      */

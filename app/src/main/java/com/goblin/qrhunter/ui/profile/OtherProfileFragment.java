@@ -46,6 +46,10 @@ public class OtherProfileFragment extends Fragment {
 
     private Player selectedPlayer;
 
+    /**
+     * Creates new instance of OtherProfileFragment
+     * @return OtherProfileFragment
+     */
     public static OtherProfileFragment newInstance() {
         return new OtherProfileFragment();
     }
