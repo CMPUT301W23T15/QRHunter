@@ -119,7 +119,7 @@ public class ScanFragmentTest {
         solo.clickOnView(solo.getView(R.id.navigation_summary));
         solo.sleep(1000);
 //        idk what this view is, click on it and then go back
-
+        solo.clickOnText("QR ID:");
         solo.sleep(3000);
         solo.clickOnText("also scanned by");
         solo.sleep(1000);
