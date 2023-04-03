@@ -57,6 +57,11 @@ public class FirebaseLiveEntity<T extends Entity> extends LiveData<T> {
         }
     }
 
+    /**
+     * Starts listening for snapshot updates from the Firestore document reference.
+     * When an update is received, the LiveData's value is set to the new item.
+     * If an error occurs while listening, it logs the error message.
+     */
     private void startListening() {
         listenerReg = docRef.addSnapshotListener((doc, error) -> {
             if (error != null) {

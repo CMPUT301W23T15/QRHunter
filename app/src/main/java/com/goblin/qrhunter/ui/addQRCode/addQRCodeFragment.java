@@ -126,6 +126,9 @@ public class addQRCodeFragment extends Fragment {
         post.setPlayerId(userId);
         post.setName(qrName);
 
+        // By default, can't see "remove location" button
+        binding.buttonRemoveLocation.setVisibility(View.INVISIBLE);
+
         Glide.with(this)
                 .load("https://api.dicebear.com/6.x/bottts-neutral/png?seed=" + hash)
                 .placeholder(R.drawable.baseline_qr_code_50)
@@ -179,10 +182,44 @@ public class addQRCodeFragment extends Fragment {
                                         Log.d(TAG, "got long lat: line 183");
                                         Log.d(TAG, "lat:"+ latitude);
                                         Log.d(TAG, "long:"+ longitude);
-
+                                        // Sets the post's latitude & longitude (this is the MAIN way).
+                                        post.setLat(latitude);
+                                        post.setLng(longitude);
+                                        Log.d(TAG, "post's lat: " + post.getLat() + ", post's long: " + post.getLng());
                                         String latitudeView = String.valueOf(latitude);
                                         String longitudeView = String.valueOf(longitude);
                                         binding.textViewQRlocation.setText(latitudeView+","+longitudeView);
+
+                                        // If the coordinates get added. Show the button to remove them.
+                                        binding.buttonRemoveLocation.setVisibility(View.VISIBLE);
+                                        binding.buttonRemoveLocation.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                // Show "are u sure" dialog
+                                                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                                                builder.setTitle("Remove Tagged Location");
+                                                builder.setMessage("Are you sure?");
+                                                builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                                                    // navigate back to homepage
+                                                    public void onClick(DialogInterface dialog, int id) {
+// Resets coordinate
+                                                        post.setLng(0.0);
+                                                        post.setLat(0.0);
+                                                        binding.textViewQRlocation.setText("No Location Tagged");
+                                                        binding.buttonRemoveLocation.setVisibility(View.INVISIBLE);
+                                                    }
+                                                });
+                                                builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialog, int which) {
+                                                        ; // Doesn't need to do anything.
+                                                    }
+                                                });
+                                                AlertDialog alert = builder.create();
+                                                alert.show();
+
+                                            }
+                                        });
 
                                         // Do something with the user's current location here
                                     } else {
@@ -205,9 +242,10 @@ public class addQRCodeFragment extends Fragment {
                                                     Log.d(TAG, "lat:"+ latitude);
                                                     Log.d(TAG, "long:"+ longitude);
 
-                                                    // Sets the post's latitude & longitude.
+                                                    // Sets the post's latitude & longitude (this is the secondary way).
                                                     post.setLat(latitude);
                                                     post.setLng(longitude);
+                                                    Log.d(TAG, "post's lat: " + post.getLat() + ", post's long: " + post.getLng());
                                                     String latitudeView = String.valueOf(latitude);
                                                     String longitudeView = String.valueOf(longitude);
                                                     binding.textViewQRlocation.setText(latitudeView+","+longitudeView);
@@ -230,6 +268,7 @@ public class addQRCodeFragment extends Fragment {
                             ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION_PERMISSION);
                             Log.d(TAG, "Permission to get location can not be accessed for w/e reason. ");
                         }
+
 
 
                     }

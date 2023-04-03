@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/takePhoto_container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:backgroundTint="@color/screen_background_color">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -21,6 +22,8 @@
             android:fontFamily="@font/jetbrainsmono"
             android:text="Take Pic"
             android:textColor="@color/black"
+            app:cornerRadius="15dp"
+            app:strokeWidth="2dp"
             app:layout_constraintBottom_toTopOf="@+id/click_image"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
@@ -30,11 +33,11 @@
             android:id="@+id/click_image"
             android:layout_width="350dp"
             android:layout_height="450dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="70dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginTop="100dp"
+            android:background="@drawable/object_border"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/retake_button"
@@ -47,6 +50,8 @@
             android:text="Retake"
             android:textColor="@color/black"
             android:visibility="invisible"
+            app:cornerRadius="15dp"
+            app:strokeWidth="2dp"
             app:layout_constraintBottom_toTopOf="@+id/click_image"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
@@ -58,7 +63,10 @@
             android:layout_marginStart="125dp"
             android:fontFamily="@font/jetbrainsmono"
             android:text="Confirm"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/primary_2nd"
+            app:cornerRadius="15dp"
+            app:strokeWidth="2dp"
             app:layout_constraintBottom_toTopOf="@+id/click_image"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/camera_button"
@@ -70,6 +78,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="PHOTO OF OBJECT/LOCATION"
+            android:textSize="24dp"
+            android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

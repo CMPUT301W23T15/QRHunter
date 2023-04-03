@@ -62,6 +62,11 @@ public class HomeViewModel extends ViewModel {
     }
 
 
+    /**
+     * Returns a LiveData object containing the score of the current user.
+     *
+     * @return A LiveData object containing the score of the current user.
+     */
     public LiveData<Score> getScore() {
         return scoreLiveData;
     }

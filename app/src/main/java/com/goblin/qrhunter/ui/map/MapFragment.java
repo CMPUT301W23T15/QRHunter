@@ -34,7 +34,11 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.Task;
 
-
+/**
+ * The MapFragment class is responsible for displaying a Google Map with markers indicating nearby posts.
+ * The user's location is obtained using the FusedLocationProviderClient.
+ * If the user grants location permissions, the map will center around their location.
+ */
 public class MapFragment extends Fragment /*implements OnMapReadyCallback*/ {
 
     private String TAG = "MapFragment";
@@ -76,7 +80,13 @@ public class MapFragment extends Fragment /*implements OnMapReadyCallback*/ {
         }
     };
 
-
+    /**
+     * Adds markers to the Google Map object indicating nearby posts.
+     * If the user has granted location permissions, the user's location will be used as the center of the map.
+     *
+     * @param googleMap The Google Map object to add the markers to.
+     * @param task he task containing the user's location.
+     */
     public void handlePlot(GoogleMap googleMap, Task<Location> task) {
         LatLng loc = new LatLng(53.5461, -113.4937);
         String title = "Edmonton";
@@ -110,7 +120,19 @@ public class MapFragment extends Fragment /*implements OnMapReadyCallback*/ {
                 });
     }
 
-
+    /**
+     * Creates and returns the view hierarchy associated with the fragment.
+     *
+     * @param inflater The LayoutInflater object that can be used to inflate
+     * any views in the fragment,
+     * @param container If non-null, this is the parent view that the fragment's
+     * UI should be attached to.  The fragment should not add the view itself,
+     * but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     *
+     * @return the view for the fragment's UI, or null.
+     */
     @SuppressLint("MissingPermission")
     @Nullable
     @Override
@@ -142,6 +164,14 @@ public class MapFragment extends Fragment /*implements OnMapReadyCallback*/ {
         return binding.getRoot();
     }
 
+    /**
+     * Called immediately after onCreateView has returned. This method can be used to access views
+     * in the hierarchy.
+     *
+     * @param view The View returned by {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);

@@ -58,6 +58,12 @@ import java.util.Map;
 import android.util.Log;
 
 
+/**
+ * A Fragment subclass for displaying the leaderboard of players based on their total score.
+ * This fragment retrieves the player scores ordered by the total score in descending order
+ * and updates the player scores in the ViewModel. It displays a list of players with their
+ * ranks and scores sorted by total score in descending order.
+ */
 public class RankinglistTotalscoreFragment extends Fragment {
 
     // private GetPlayersScoreUseCase getPlayersScoreUseCase;
@@ -70,6 +76,22 @@ public class RankinglistTotalscoreFragment extends Fragment {
     private TextView textView_current_rank;
 
 
+    /**
+     * Creates the view for the fragment and initializes the ViewModel, NavController,
+     * and data binding. Retrieves the player scores ordered by the total score in descending order
+     * and updates the player scores in the ViewModel. It displays a list of players with their
+     * ranks and scores sorted by total score in descending order.
+     *
+     * @param inflater The LayoutInflater object that can be used to inflate
+     * any views in the fragment,
+     * @param container If non-null, this is the parent view that the fragment's
+     * UI should be attached to.  The fragment should not add the view itself,
+     * but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     *
+     * @return The inflated view for the fragment
+     */
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         viewModel = new ViewModelProvider(this).get(RankinglistTotalViewModel.class);
@@ -112,6 +134,15 @@ public class RankinglistTotalscoreFragment extends Fragment {
                     }
                     // Sort the list based on the total score
                     Collections.sort(players, new Comparator<Player>() {
+                        /**
+                         * Compares two Player objects based on their total scores in descending order.
+                         *
+                         * @param p1 The first player object to be compared
+                         * @param p2 The second player object to be compared
+                         *
+                         * @return A positive integer if p1's total score is less than p2's, zero if they're equal,
+                         * or a negative integer if p1's total score is greater than p2's.
+                         */
                         @Override
                         public int compare(Player p1, Player p2) {
                             return Integer.compare(p2.getTotalScore(), p1.getTotalScore());
@@ -175,6 +206,11 @@ public class RankinglistTotalscoreFragment extends Fragment {
         // if scores are updated in ViewModel
         // re-generate the list of players and update the ListView adapter
         viewModel.getPlayerScores().observe(getViewLifecycleOwner(), new Observer<Map<String, Integer>>() {
+            /**
+             * Called when the data is changed.
+             *
+             * @param playerScores  The new data
+             */
             @Override
             public void onChanged(Map<String, Integer> playerScores) {
                 List<Player> playerList = new ArrayList<>();
@@ -185,6 +221,15 @@ public class RankinglistTotalscoreFragment extends Fragment {
                     playerList.add(playerObject);
                 }
                 Collections.sort(playerList, new Comparator<Player>() {
+                    /**
+                     * Compares two Player objects based on their total scores in descending order.
+                     *
+                     * @param p1 The first player object to be compared
+                     * @param p2 The second player object to be compared
+                     *
+                     * @return A positive integer if p1's total score is less than p2's, zero if they're equal,
+                     * or a negative integer if p1's total score is greater than p2's.
+                     */
                     @Override
                     public int compare(Player p1, Player p2) {
                         return Integer.compare(p2.getTotalScore(), p1.getTotalScore()); // Sort in descending order
@@ -198,6 +243,12 @@ public class RankinglistTotalscoreFragment extends Fragment {
 
                 DatabaseReference playerRef = FirebaseDatabase.getInstance().getReference("players").child(uid);
                 playerRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    /**
+                     * This method will be called with a snapshot of the data at this location.
+                     * It will also be called each time that data changes
+                     *
+                     * @param dataSnapshot The current data at the location
+                     */
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         Player currentPlayer = dataSnapshot.getValue(Player.class);
@@ -208,6 +259,12 @@ public class RankinglistTotalscoreFragment extends Fragment {
                         }
                     }
 
+                    /**
+                     * This method will be triggered in the event that this listener either failed at
+                     * the server, or is removed as a result of the security and Firebase rules.
+                     *
+                     * @param databaseError A description of the error that occurred
+                     */
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
                         Log.e(TAG, "Failed to retrieve player data", databaseError.toException());

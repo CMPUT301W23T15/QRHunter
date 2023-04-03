@@ -49,6 +49,13 @@ public class Player implements Entity, Serializable {
         setUsername(username);
         setContactInfo(contactInfo);
     }
+
+    /**
+     * Constructs a new player object with the given username, and total score.
+     *
+     * @param username The username of the player
+     * @param totalScore The total score of the player
+     */
     public Player(String username, int totalScore) {
 
         setUsername(username);
@@ -148,7 +155,7 @@ public class Player implements Entity, Serializable {
 
     /**
      * Gets the phone number of player.
-     * @return
+     * @return phone
      */
     public String getPhone() {return phone;}
 
@@ -167,6 +174,7 @@ public class Player implements Entity, Serializable {
     public void setProfileURI(String profilePicURL) {
         this.profileURI = profilePicURL;
     }
+
     /**
      * Returns the total score of the player.
      * @return The total score of the player.
@@ -174,6 +182,7 @@ public class Player implements Entity, Serializable {
     public int getTotalScore() {
         return totalScore;
     }
+
 
     public void setTotalScore(int totalScore1){this.totalScore=totalScore1;}
     /**
@@ -202,6 +211,10 @@ public class Player implements Entity, Serializable {
         return newPlayer;
     }
 
+    /**
+     * Gets the rank of a player
+     * @return the rank of a player
+     */
     public int getRank() {
         return rank;
     }

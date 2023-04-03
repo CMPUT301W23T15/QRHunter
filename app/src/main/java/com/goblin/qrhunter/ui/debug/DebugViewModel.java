@@ -16,16 +16,31 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.ArrayList;
 import java.util.UUID;
 
+/**
+ * ViewModel class for the Debug screen.
+ * Provides functionality for generating random and fixed posts.
+ */
 public class DebugViewModel extends ViewModel {
     // TODO: Implement the ViewModel
     private String TAG = "DebugViewModel";
 
     private PostRepository postDB;
 
+    /**
+     * Constructor for DebugViewModel.
+     * Initializes the PostRepository instance.
+     */
     public DebugViewModel() {
         postDB = new PostRepository();
     }
 
+    /**
+     * Generates a random Post with a random QRCode and location,
+     * and adds it to the PostRepository.
+     *
+     * @return A Task representing the asynchronous operation of adding the post else
+     * a cancelled task if no user is logged in
+     */
     public Task<Void> generatePost() {
         FirebaseUser usr = FirebaseAuth.getInstance().getCurrentUser();
         if(usr == null) {
@@ -46,6 +61,13 @@ public class DebugViewModel extends ViewModel {
          return postDB.add(p1);
     }
 
+    /**
+     * Generates a fixed Post with a fixed QRCode string "hello",
+     * and adds it to the PostRepository.
+     *
+     * @return A Task representing the asynchronous operation of adding the post else
+     * a cancelled task if no user is logged in
+     */
     public Task<Void> generateFixedPost() {
         FirebaseUser usr = FirebaseAuth.getInstance().getCurrentUser();
         if(usr == null) {
