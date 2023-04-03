@@ -27,6 +27,9 @@ import com.goblin.qrhunter.ui.post.PostFragment;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Custom Adapter for displaying a list of QR codes
+ */
 public class QRRecyclerAdapter extends RecyclerView.Adapter<QRRecyclerAdapter.QRViewHolder> {
 
     List<Post> mPosts = new ArrayList<>();
