@@ -19,9 +19,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * implementation of the GetPlayersScoreUseCase class,
- *  responsible for calculating the scores of all players based on their
- * posts and returning a MediatorLiveData object that can be observed by UI components.
+ * implementation of the GetPlayersScoreUseCase class, responsible for calculating
+ * the scores of all players based on their posts and returning a MediatorLiveData
+ * object that can be observed by UI components.
  */
 public class GetPlayersScoreUseCase {
     private PostRepository postDB;
@@ -75,6 +75,14 @@ public class GetPlayersScoreUseCase {
         return playerScores;
     }
 
+    /**
+     * Returns a MediatorLiveData object that wraps an Integer representing the score of a player with the given ID.
+     * The score will be updated whenever the playerScores LiveData changes.
+     *
+     * @param playerId The ID of the player whose score is to be retrieved.
+     *
+     * @return A MediatorLiveData object containing the player's score.
+     */
     public MediatorLiveData<Integer> getById(@NonNull String playerId) {
         return new MediatorLiveData<>() {{
             addSource(playerScores, stringIntegerMap -> {
