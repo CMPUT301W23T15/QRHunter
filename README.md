@@ -19,12 +19,27 @@ QRHunter is a lightweight android mobile application, where users from across th
 * See visual representation, and custom-generated names for your QR codes.
 * And many more!
 
-### Resources Used
+### Resources Used (Reference)
 * https://developer.android.com/topic/architecture?continue=https%3A%2F%2Fdeveloper.android.com%2Fcourses%2Fpathways%2Fandroid-architecture%23article-https%3A%2F%2Fdeveloper.android.com%2Ftopic%2Farchitecture
 * https://developer.android.com/guide/topics/resources/more-resources
 * https://developer.android.com/reference/androidx/core/view/MenuProvider
 * https://developer.android.com/training/data-storage/shared/media
 * https://www.dicebear.com
+
+
+* Android studio documentation:https://developer.android.com/docs/
+
+* Stackoverflow
+
+* Scanner & Camera: https://github.com/journeyapps/zxing-android-embedded
+
+* Search UI elements: https://mvnrepository.com/artifact/com.google.android.material/material?repo=google
+
+* Glide: https://github.com/bumptech/glide
+
+* Unit test: https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
+
+
 
 
 
