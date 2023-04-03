@@ -116,6 +116,16 @@ public class addQRCodeFragment extends Fragment {
         Log.d(TAG, "add Qr code: " + hash);
         ImageView avatarImageView = binding.qrRepresentaion;
 
+        // Immediately make a new post object (once the view inflates)
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        String userId = currentUser.getUid();
+        Post post = new Post();
+
+        // Add the qrCode into the post
+        post.setCode(qrCode);
+        post.setPlayerId(userId);
+        post.setName(qrName);
+
         Glide.with(this)
                 .load("https://api.dicebear.com/6.x/bottts-neutral/png?seed=" + hash)
                 .placeholder(R.drawable.baseline_qr_code_50)
@@ -195,6 +205,9 @@ public class addQRCodeFragment extends Fragment {
                                                     Log.d(TAG, "lat:"+ latitude);
                                                     Log.d(TAG, "long:"+ longitude);
 
+                                                    // Sets the post's latitude & longitude.
+                                                    post.setLat(latitude);
+                                                    post.setLng(longitude);
                                                     String latitudeView = String.valueOf(latitude);
                                                     String longitudeView = String.valueOf(longitude);
                                                     binding.textViewQRlocation.setText(latitudeView+","+longitudeView);
@@ -215,6 +228,7 @@ public class addQRCodeFragment extends Fragment {
                         } else {
                             // Permission is not granted, request for the permission
                             ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION_PERMISSION);
+                            Log.d(TAG, "Permission to get location can not be accessed for w/e reason. ");
                         }
 
 
@@ -240,18 +254,7 @@ public class addQRCodeFragment extends Fragment {
         binding.buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-
                 if (currentUser != null) {
-                    String userId = currentUser.getUid();
-                    Post post = new Post(); // This is making an entirely new post object.
-                    // Add the qrCode into the post
-                    post.setCode(qrCode);
-                    post.setPlayerId(userId);
-                    post.setName(qrName);
-
-                    // Add the geolocation into the post...
-
                     // Add the post into the firebase
                     PostRepository postRepo = new PostRepository();
                     postRepo.add(post).addOnCompleteListener(task -> {
