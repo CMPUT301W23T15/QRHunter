@@ -2,6 +2,15 @@
 ### Description
 QRHunter is a lightweight android mobile application, where users from across the world can compete in a geo-catching like format. Scanning QR codes is associated with obtaining points, and players can see where they rank amongst other players. With intuitive and engaging UI/UX, users of all demographics can easily jump into the app and get started collecting QR codes. Released: 04/03/2022.
 
+
+### Get Started
+* Our build on github will say the build will fail, and this is because you don't have an API key!
+* To enter your API Key:
+* 1. enter local.properties
+* 2. enter the following line:
+* MAPS_API_KEY = yourgeneratedcode
+* 3. Have fun with the app!
+
 ### Notable Features
 * Search for other players.
 * Easily change the color theme of the appto match one's aesthetic choosing.
