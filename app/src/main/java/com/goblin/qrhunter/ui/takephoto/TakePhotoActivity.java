@@ -7,12 +7,18 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -26,6 +32,12 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.goblin.qrhunter.R;
 import com.goblin.qrhunter.ui.addQRCode.addQRCodeFragment;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 
 public class TakePhotoActivity extends AppCompatActivity {
 
@@ -72,10 +84,14 @@ public class TakePhotoActivity extends AppCompatActivity {
         confirm_id.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onConfirmClick(view);
+                try {
+                    onConfirmClick(view);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
 
-            private void onConfirmClick(View view) {
+            private void onConfirmClick(View view) throws IOException {
                 if (click_image_id.getDrawable() == null) {
                     Toast.makeText(getApplicationContext(), "Take a picture first", Toast.LENGTH_SHORT).show();
                 }
@@ -84,7 +100,64 @@ public class TakePhotoActivity extends AppCompatActivity {
                     // Get the image from the ImageView
                     BitmapDrawable bitmapDrawable = (BitmapDrawable) click_image_id.getDrawable();
                     Bitmap bitmap = bitmapDrawable.getBitmap();
+
                     // TODO: Do something with the bitmap, such as saving it to a file or uploading it to a server
+                    // Define the file path and name where you want to save the image
+                    // Get the directory to save the image in
+
+                    // Create a new file object with the file path and name
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                        // Use MediaStore API to save the image
+                        ContentValues values = new ContentValues();
+                        values.put(MediaStore.Images.Media.DISPLAY_NAME, "image.png");
+                        values.put(MediaStore.Images.Media.MIME_TYPE, "image/png");
+                        values.put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_PICTURES);
+
+                        Uri uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+                        OutputStream outputStream = getContentResolver().openOutputStream(uri);
+
+                        bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
+
+                        outputStream.flush();
+                        outputStream.close();
+
+                        // Show a message to the user that the image has been saved
+                        Context context = getApplicationContext();
+                        CharSequence text = "Image saved successfully";
+                        int duration = Toast.LENGTH_SHORT;
+
+                        Toast toast = Toast.makeText(context, text, duration);
+                        toast.show();
+                    } else {
+                        // Use the old way to save the image to external storage
+                        String directory = Environment.getExternalStorageDirectory().toString();
+                        File file = new File(directory, "image.png");
+
+                        try {
+                            if (!file.getParentFile().exists()) {
+                                file.getParentFile().mkdirs();
+                            }
+
+                            FileOutputStream outputStream = new FileOutputStream(file);
+
+                            bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
+
+                            outputStream.flush();
+                            outputStream.close();
+
+                            // Show a message to the user that the image has been saved
+                            Context context = getApplicationContext();
+                            CharSequence text = "Image saved successfully";
+                            int duration = Toast.LENGTH_SHORT;
+
+                            Toast toast = Toast.makeText(context, text, duration);
+                            toast.show();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+
                     Bundle bundle = new Bundle();
                     bundle.putString("qrCode_hash", qrCode_hash);
                     addQRCodeFragment addQRCodeFragment1 = new addQRCodeFragment();
@@ -133,7 +206,7 @@ public class TakePhotoActivity extends AppCompatActivity {
 
     /**
      * Handles the permission result request.
-     * @param requestCode The request code passed in {@link #requestPermissions(
+     * @param requestCode The request code passed in {@link #(
      * android.app.Activity, String[], int)}
      * @param permissions The requested permissions. Never null.
      * @param grantResults The grant results for the corresponding permissions
