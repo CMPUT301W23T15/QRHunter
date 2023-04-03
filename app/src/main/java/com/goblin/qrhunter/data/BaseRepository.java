@@ -48,6 +48,12 @@ public abstract class BaseRepository<T extends Entity> {
     private final CollectionReference collectionRef;
     private final Class<T> type;
 
+    /**
+     * Construct a new instance of the BaseRepository class
+     *
+     * @param collectionPath The path to the collection in Firestore that this repository will interact with.
+     * @param type The type of the model class that this repository will interact with.
+     */
     protected BaseRepository(String collectionPath, Class<T> type) {
         this.db = FirebaseFirestore.getInstance();
         this.collectionRef = db.collection(collectionPath);
