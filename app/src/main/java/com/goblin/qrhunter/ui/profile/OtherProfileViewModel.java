@@ -63,16 +63,14 @@ z     */
         }
     }
 
-    /**
-     * Returns a LiveData object that holds a list of posts for the player.
-     *
-     * @return LiveData object that holds a list of posts for the player.
-     */
     public LiveData<List<Post>> getPlayerPosts() {
         return playerPosts;
     }
 
-
+    /**
+     * Adds passed in list of player posts to the LiveData post list
+     * @param posts list of posts from the player
+     */
     private void observer(List<Post> posts) {
         if (posts != null) {
             Log.d(TAG, "observer: adding posts");

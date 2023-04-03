@@ -39,6 +39,11 @@ public class PostFragment extends Fragment {
     private FragmentPostBinding binding;
     private CommentRepository commentDB;
 
+    /**
+     * Creates new instance of PostFragment based on a Post
+     * @param post
+     * @return
+     */
     public static PostFragment newInstance(Post post) {
         PostFragment fragment = new PostFragment();
         fragment.post = post;
