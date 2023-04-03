@@ -105,7 +105,7 @@ public class MapFragment extends Fragment /*implements OnMapReadyCallback*/ {
                             if (post != null) {
                                 Log.d(TAG, "onMapReady: trying to add marker");
                                 LatLng mark = new LatLng(post.getLat(), post.getLng());
-                                Marker mk1 = googleMap.addMarker(new MarkerOptions().position(mark).title(post.getName()));
+                                Marker mk1 = googleMap.addMarker(new MarkerOptions().position(mark).title(post.getCode().NameGenerator()));
                                 if (mk1 == null) {
                                     Log.d(TAG, "onMapReady: failed to add marker, returned null");
 
