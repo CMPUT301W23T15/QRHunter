@@ -179,7 +179,10 @@ public class addQRCodeFragment extends Fragment {
                                         Log.d(TAG, "got long lat: line 183");
                                         Log.d(TAG, "lat:"+ latitude);
                                         Log.d(TAG, "long:"+ longitude);
-
+                                        // Sets the post's latitude & longitude.
+                                        post.setLat(latitude);
+                                        post.setLng(longitude);
+                                        Log.d(TAG, "post's lat: " + post.getLat() + ", post's long: " + post.getLng());
                                         String latitudeView = String.valueOf(latitude);
                                         String longitudeView = String.valueOf(longitude);
                                         binding.textViewQRlocation.setText(latitudeView+","+longitudeView);
@@ -208,6 +211,7 @@ public class addQRCodeFragment extends Fragment {
                                                     // Sets the post's latitude & longitude.
                                                     post.setLat(latitude);
                                                     post.setLng(longitude);
+                                                    Log.d(TAG, "post's lat: " + post.getLat() + ", post's long: " + post.getLng());
                                                     String latitudeView = String.valueOf(latitude);
                                                     String longitudeView = String.valueOf(longitude);
                                                     binding.textViewQRlocation.setText(latitudeView+","+longitudeView);
