@@ -115,7 +115,8 @@ public class RankinglistTotalscoreFragment extends Fragment {
 
         // Retrieves the player scores ordered by the total score in descending order
         // and updates the player scores in the ViewModel
-        scoresRef.orderBy("totalScore", Query.Direction.DESCENDING).get()
+        scoresRef.orderBy("totalScore", Query.Direction.DESCENDING)
+                .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
                         String playerName = document.getString("player.username");
@@ -161,47 +162,7 @@ public class RankinglistTotalscoreFragment extends Fragment {
                     PlayerAdapter adapter = new PlayerAdapter(requireContext(), players);
                     ranklist_view.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
-                    // Get the current rank of the current user
-//                    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-//                    if (currentUser != null) {
-//                        String uid = currentUser.getUid();
-//
-//                        CollectionReference playerRef = db.collection("players");
-//                        playerRef.document(uid).get().addOnCompleteListener(task -> {
-//                            if (task.isSuccessful()) {
-//                                DocumentSnapshot document = task.getResult();
-//                                if (document.exists()) {
-//                                    Player currentPlayer = document.toObject(Player.class);
-//                                    int currentRank = currentPlayer.getRank();
-////                                    textView_current_rank.setText(String.valueOf(currentRank));
-//                                    Log.d(TAG, "Current player's rank: " + currentRank);
-//                                } else {
-//                                    Log.d(TAG, "No such document");
-//                                }
-//                            } else {
-//                                Log.d(TAG, "get failed with ", task.getException());
-//                            }
-//                        });
-//                    }
-
-
-
                 });
-
-
-
-
-
-
-
-        // Set changes
-
-//        PlayerAdapter adapter = new PlayerAdapter(requireContext(), players);
-//        ranklist_view.setAdapter(adapter);
-//        adapter.notifyDataSetChanged();
-
-
-
 
         // if scores are updated in ViewModel
         // re-generate the list of players and update the ListView adapter
