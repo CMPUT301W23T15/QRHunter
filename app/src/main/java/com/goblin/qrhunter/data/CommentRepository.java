@@ -46,6 +46,12 @@ public class CommentRepository extends BaseRepository<Comment> {
         super("comments", Comment.class);
     }
 
+    /**
+     * Returns a LiveData object that observes the list of comments for a specific post from Firestore database.
+     *
+     * @param postId The id of the post for which the comments are requested.
+     * @return The LiveData object that contains the list of comments for the specified post.
+     */
     public LiveData<List<Comment>> getByPost(String postId) {
         return new FirebaseLiveData<>(getCollectionRef().whereEqualTo("postId", postId), Comment.class);
     }

@@ -94,25 +94,49 @@ public class Post implements Entity, Serializable {
         return map;
     }
 
+    /**
+     * Retrieves the latitude value of the object.
+     *
+     * @return The latitude as a double value.
+     */
     public double getLat() {
         return lat;
     }
 
+    /**
+     * Sets the latitude value of the object and updates the geohash.
+     *
+     * @param lat The latitude value as a double.
+     */
     public void setLat(double lat) {
         this.lat = lat;
         getGeoHash();
     }
 
+    /**
+     * Retrieves the longitude value of the object.
+     *
+     * @return The longitude as a double value.
+     */
     public double getLng() {
         return lng;
     }
 
+    /**
+     * Sets the longitude value of the object and updates the geohash.
+     *
+     * @param lng The longitude value as a double.
+     */
     public void setLng(double lng) {
         this.lng = lng;
         getGeoHash();
     }
 
-
+    /**
+     * Retrieves the geohash value of the object based on its latitude and longitude.
+     *
+     * @return The geohash as a string.
+     */
     public String getGeoHash() {
         geohash = GeoFireUtils.getGeoHashForLocation(new GeoLocation(getLat(), getLng()));
         return geohash;
@@ -191,6 +215,11 @@ public class Post implements Entity, Serializable {
         this.playerId = playerId;
     }
 
+    /**
+     * Retrieves the post key based on the player ID and the code's hash.
+     *
+     * @return The post key as a string.
+     */
     public String getPostKey() {
         return playerId+code.getHash();
     }
