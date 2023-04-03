@@ -16,7 +16,8 @@ import com.google.firebase.firestore.CollectionReference;
 
 
 /**
- * Stub of ScanViewModel
+ * The ScanViewModel class is responsible for managing
+ * and providing data related to the scan screen of the application.
  */
 public class ScanViewModel extends ViewModel {
     private Post post;
@@ -35,8 +36,8 @@ public class ScanViewModel extends ViewModel {
     }
 
     /**
-     * Sets the QR code that was scanned in.
-     * @param qr
+     * Sets the QR code that was scanned in and defaults to null if conditions not met
+     * @param qr must be not null and not empty
      */
     public void setQRCode(String qr) {
         if(qr != null && !qr.isEmpty()) {
@@ -48,10 +49,6 @@ public class ScanViewModel extends ViewModel {
         }
     }
 
-    /**
-     *
-     * @return reference to the collection of players.
-     */
     public CollectionReference getPlayerCollection() {
         return playerCollection;
     }
