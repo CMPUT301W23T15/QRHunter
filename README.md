@@ -8,10 +8,9 @@ QRHunter is a lightweight android mobile application, where users from across th
 ### Get Started
 * Our build on github will say the build will fail, and this is because you don't have an API key!
 * To enter your API Key:
-1. in local.properties
-2. Enter the following line:
+* In local.properties, Enter the following line:
 * MAPS_API_KEY = yourgeneratedcode
-3. Have fun with the app!
+* Have fun with the app!
 
 ### Notable Features
 * Search for other players.
