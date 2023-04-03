@@ -14,6 +14,6 @@ QRHunter is a lightweight android mobile application, where users from across th
 * Nathan Wong 
 * Alvin Wu
 * Gemmary Chang
-* Soundara Rajan
+* Sarvesh Soundara Rajan
 * Rahul Abraham
 * Zachary Nathoo
