@@ -72,9 +72,9 @@ public class SummaryFragmentTest {
         solo.sleep(1000);
         solo.clickLongOnText("nice");
         solo.sleep(1000);
-//        CANT FIND THE BTTN
-//        solo.clickOnButton("DELETE");
-//        solo.sleep(1000);
+        solo.clickOnMenuItem("Delete");
+        solo.sleep(1000);
+        solo.goBack();
     }
 
 
