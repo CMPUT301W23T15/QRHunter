@@ -36,7 +36,6 @@ QRHunter is a lightweight android mobile application, where users from across th
 * Visual Representation: https://www.dicebear.com
 
 * Unit test: https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
-* https://developer.android.com/topic/architecture?continue=https%3A%2F%2Fdeveloper.android.com%2Fcourses%2Fpathways%2Fandroid-architecture%23article-
 * https://developer.android.com/topic/architecture
 * https://developer.android.com/guide/topics/resources/more-resources
 * https://developer.android.com/reference/androidx/core/view/MenuProvider
