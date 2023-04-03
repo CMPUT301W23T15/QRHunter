@@ -133,7 +133,7 @@ public class commentRecyclerAdapter extends RecyclerView.Adapter<commentRecycler
 
        private final String TAG = "commentViewHolder";
        private final TextView mCommentNameView;
-       //private final TextView mWhoCommentedView;
+       private final TextView mCommenterView;
        private final ImageView mProfileImageView;
 
        private static FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -183,12 +183,13 @@ public class commentRecyclerAdapter extends RecyclerView.Adapter<commentRecycler
         public commentViewHolder(View itemView) {
             super(itemView);
             mCommentNameView = itemView.findViewById(R.id.user_comment);
-            //mWhoCommentedView = itemView.findViewById(R.id.who_commented);
+            mCommenterView = itemView.findViewById(R.id.commenter);
             mProfileImageView = itemView.findViewById(R.id.player_icon_image);
         }
 
         /**
          * Binds the given comment object to the views in the commentViewHolder.
+         * Sets the username + profile picture of a given comment.
          *
          * @param comment the comment object to bind
          */
@@ -202,6 +203,10 @@ public class commentRecyclerAdapter extends RecyclerView.Adapter<commentRecycler
                             .load("https://api.dicebear.com/6.x/avataaars/png?seed=" + encodedUsername)
                             .placeholder(R.drawable.ic_profile_24)
                             .into(mProfileImageView);
+
+                    // Set username
+                    mCommenterView.setText(username + ":");
+
                 }
             });
 
