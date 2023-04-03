@@ -6,8 +6,9 @@ Should test firebase folder with: firebase emulators:start -> then run the fireb
 FIREBASE:
 if firebase doesn't run / pass, it is not connected.
 in terminal in the firebase folder:
-- firebase user --add
+- firebase use --add
 - use the key buttons (dpad) to stage our project
+- then , make a name for the staging alias
 - then, firebase emulators:start
 
 RUN THE UI FOLDER TESTS SEPERATELY WITHOUT FIREBASE -> as firebase might conflict with the robotium
