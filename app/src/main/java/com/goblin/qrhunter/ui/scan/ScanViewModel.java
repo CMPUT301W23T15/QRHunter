@@ -25,6 +25,10 @@ public class ScanViewModel extends ViewModel {
     private PostRepository postDB;
     private CollectionReference playerCollection;
 
+    /**
+     * Constructs a new instance of ScanViewModel and initializes a post with the playerId and gets
+     * a reference to the Firebase players collection
+     */
     public ScanViewModel() {
         postDB = new PostRepository();
         post = new Post();
