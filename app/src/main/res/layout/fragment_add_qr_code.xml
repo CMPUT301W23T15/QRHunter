@@ -152,6 +152,7 @@
         app:srcCompat="@drawable/baseline_qr_code_50" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/button_containers"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="45dp"
@@ -199,6 +200,21 @@
             app:strokeWidth="2dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_remove_location"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/complementary_lilac"
+        android:text="Remove Location"
+        android:textColor="@color/black"
+        app:cornerRadius="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_containers"
+        app:strokeWidth="2dp" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
