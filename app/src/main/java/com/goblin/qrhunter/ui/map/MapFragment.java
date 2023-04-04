@@ -130,9 +130,16 @@ public class MapFragment extends Fragment /*implements OnMapReadyCallback*/ {
                     ActivityCompat.checkSelfPermission(requireContext(),
                             Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
             ) {
-                locationClient.getCurrentLocation(Priority.PRIORITY_HIGH_ACCURACY, null).addOnCompleteListener(task -> {
-                    handleTask(map, task);
+                locationClient.getLastLocation().addOnCompleteListener(task -> {
+                   if(task.getResult() == null) {
+                       locationClient.getCurrentLocation(Priority.PRIORITY_HIGH_ACCURACY, null).addOnCompleteListener(currenttask -> {
+                           handleTask(map, currenttask);
+                       });
+                   } else {
+                       handleTask(map, task);
+                   }
                 });
+
             }  else {
                 Log.d(TAG, "onMapReady: permissions not granted");
                 locationPermissionLauncher.launch(new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
@@ -151,12 +158,12 @@ public class MapFragment extends Fragment /*implements OnMapReadyCallback*/ {
 
 
     private void handleTask(@NonNull GoogleMap map, @NonNull Task<Location> task) {
-        String name = "Me";
+        String name = "YEG";
         LatLng loc = new LatLng(53.545883, -113.490112);
         if(task.isSuccessful() && task.getResult() != null) {
 
             loc = new LatLng(task.getResult().getLatitude(), task.getResult().getLongitude());
-            name = "YEG";
+            name = "Me";
         } else {
             Log.d(TAG, "handleTask: non location from task");
         }
