@@ -39,9 +39,9 @@ public class HomeViewModel extends ViewModel {
     private int totalScore = 0;
     private int qrCount = 0;
 
-    private LiveData<Score> scoreLiveData;
+    private LiveData<Score> scoreLiveData = new MutableLiveData<>();
 
-    LiveData<List<Post>> postSource;
+    LiveData<List<Post>> postSource = new MutableLiveData<>();
 
     private List<Post> seedList = new ArrayList<>();
 
@@ -54,11 +54,8 @@ public class HomeViewModel extends ViewModel {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user!=null){
             postSource = postDB.getPostByPlayer(user.getUid());
-        }else{
-
-            postSource=new MutableLiveData<>(new ArrayList<>());
+            scoreLiveData = postDB.getScoreByPlayerId(user.getUid());
         }
-        scoreLiveData = postDB.getScoreByPlayerId(user.getUid());
     }
 
 

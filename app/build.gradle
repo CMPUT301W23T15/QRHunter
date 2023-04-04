@@ -4,6 +4,19 @@ plugins {
     id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 }
 
+def getProperty(String name) {
+    def apiKey = System.getenv(name);
+    if(apiKey == null) {
+        def props = new Properties()
+        def propFile = file('local.properties')
+        if (propFile.canRead()) {
+            props.load(new FileInputStream(propFile))
+            return props[name]
+        }
+        throw new FileNotFoundException('secrets.properties file not found.')
+    }
+}
+
 android {
     namespace 'com.goblin.qrhunter'
     compileSdk 33
@@ -45,6 +58,7 @@ android {
 }
 
 
+
 dependencies {
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.8.0'
@@ -77,6 +91,7 @@ dependencies {
     implementation  'com.google.android.gms:play-services-appindex:16.1.0'
     implementation 'com.google.android.gms:play-services-maps:18.1.0'
     implementation "com.google.android.gms:play-services-location:21.0.1"
+    implementation "com.google.android.libraries.places:places:3.0.0"
 
 
 
