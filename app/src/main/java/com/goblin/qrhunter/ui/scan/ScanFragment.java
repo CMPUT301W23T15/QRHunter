@@ -50,6 +50,10 @@ public class ScanFragment extends Fragment {
     private FragmentScanBinding binding;
     FirebaseFirestore db;
 
+    /**
+     * Creates new instance of ScanFragment
+     * @return ScanFragment
+     */
     public static ScanFragment newInstance() {
         return new ScanFragment();
     }
@@ -64,7 +68,7 @@ public class ScanFragment extends Fragment {
      * @param savedInstanceState If non-null, this fragment is being re-constructed
      * from a previous saved state as given here.
      *
-     * @return
+     * @return View
      */
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -106,6 +110,9 @@ public class ScanFragment extends Fragment {
         return binding.getRoot();
     }
 
+    /**
+     * Launches ScanActivity
+     */
     public void launchScanner() {
         if (vModel == null) {
             vModel = new ViewModelProvider(this).get(ScanViewModel.class);

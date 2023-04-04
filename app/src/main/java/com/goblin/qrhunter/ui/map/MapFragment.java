@@ -187,7 +187,13 @@ public class MapFragment extends Fragment /*implements OnMapReadyCallback*/ {
                         for (Post post : posts) {
                             if (post != null) {
                                 LatLng mark = new LatLng(post.getLat(), post.getLng());
-                                Marker mk1 = googleMap.addMarker(new MarkerOptions().position(mark).title(post.getName()));
+
+                                Marker mk1 = googleMap.addMarker(new MarkerOptions().position(mark).title(post.getCode().NameGenerator()));
+                                if (mk1 == null) {
+                                    Log.d(TAG, "onMapReady: failed to add marker, returned null");
+
+                                } else {
+                                    Log.d(TAG, "onMapReady: non null marker  name:" + mk1.getTitle());
 
                             }
 

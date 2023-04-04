@@ -55,7 +55,9 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
-
+/**
+ * Fragment for the addQRCode screen, handles geotagging and adding the QR code
+ */
 public class addQRCodeFragment extends Fragment {
     private FragmentAddQrCodeBinding binding;
     private addQRCodeViewModel viewModel;

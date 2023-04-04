@@ -39,6 +39,9 @@ import com.google.zxing.integration.android.IntentResult;
 //import com.google.android.gms.vision.barcode.Barcode;
 //import com.google.android.gms.vision.barcode.BarcodeDetector;
 
+/**
+ * Activity which handles scanning the QR Code
+ */
 public class ScanActivity extends AppCompatActivity {
 
     private static final String TAG = ScanActivity.class.getSimpleName();

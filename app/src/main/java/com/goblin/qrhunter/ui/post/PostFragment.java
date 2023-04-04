@@ -30,6 +30,9 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.util.zip.Inflater;
 
+/**
+ * Fragment which is responsible for displaying a post
+ */
 public class PostFragment extends Fragment {
 
     static public String POST_FRAGMENT_POST_KEY = "POST_FRAGMENT_POST_KEY";
@@ -39,6 +42,11 @@ public class PostFragment extends Fragment {
     private FragmentPostBinding binding;
     private CommentRepository commentDB;
 
+    /**
+     * Creates new instance of PostFragment based on a Post
+     * @param post
+     * @return
+     */
     public static PostFragment newInstance(Post post) {
         PostFragment fragment = new PostFragment();
         fragment.post = post;

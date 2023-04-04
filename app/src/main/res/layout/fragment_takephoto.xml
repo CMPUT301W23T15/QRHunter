@@ -31,6 +31,7 @@
         <!-- add ImageView to display the captured image -->
         <ImageView
             android:id="@+id/click_image"
+            android:padding="6dp"
             android:layout_width="350dp"
             android:layout_height="450dp"
             android:layout_marginTop="100dp"

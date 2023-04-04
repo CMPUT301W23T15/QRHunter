@@ -39,6 +39,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
+/**
+ * Activity which handles taking a photo
+ */
 public class TakePhotoActivity extends AppCompatActivity {
 
     // Define the pic id
