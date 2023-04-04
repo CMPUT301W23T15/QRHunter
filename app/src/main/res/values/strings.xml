@@ -15,5 +15,4 @@
     <string name="total_qr_codes_scanned_title">Total Scanned:</string>
     <string name="highest_scoring_title">Highest Scoring:</string>
     <string name="add_comment_btn">add a comment</string>
-    <string name="search_button_text">search</string>
 </resources>
