@@ -25,6 +25,7 @@ import com.goblin.qrhunter.R;
 import com.goblin.qrhunter.databinding.FragmentMapBinding;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.Priority;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -32,6 +33,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 /**
@@ -74,7 +76,13 @@ public class MapFragment extends Fragment /*implements OnMapReadyCallback*/ {
             }
             // Permission already granted, access the user's location
             fusedLocationClient.getLastLocation().addOnCompleteListener(task -> {
-                handlePlot(googleMap, task);
+                if(task.getResult() == null) {
+                    fusedLocationClient.getCurrentLocation(Priority.PRIORITY_HIGH_ACCURACY, null).addOnCompleteListener(task1 -> {
+                       handlePlot(googleMap, task1);
+                    });
+                } else {
+                    handlePlot(googleMap, task);
+                }
             });
 
         }
@@ -151,7 +159,7 @@ public class MapFragment extends Fragment /*implements OnMapReadyCallback*/ {
         locationPermissionLauncher = registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(), permissions -> {
             if (permissions.get(android.Manifest.permission.ACCESS_FINE_LOCATION) != null && permissions.get(android.Manifest.permission.ACCESS_FINE_LOCATION)) {
                 // Permission granted, access the user's location
-                fusedLocationClient.getLastLocation().addOnCompleteListener(task -> {
+                fusedLocationClient.getCurrentLocation(Priority.PRIORITY_HIGH_ACCURACY, null).addOnCompleteListener(task -> {
                     handlePlot(map, task);
                 });
             } else {
